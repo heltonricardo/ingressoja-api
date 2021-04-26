@@ -1,0 +1,20 @@
+Um comprador faz um ou muitos pedidos;
+Um pedido é feito por apenas um comprador;
+
+Um pedido contém um ou muitos ingressos;
+Um ingresso está contido em apenas um pedido;
+
+Uma categoria de ingresso possui nenhum ou muitos ingressos;
+Um ingresso é de somente uma categoria de ingresso;
+
+Uma área possui um ou mais ingressos;
+Cada ingresso pertence a somente uma área;
+
+Um evento possui uma ou mais áreas;
+Uma área pertence a somente um evento;
+
+Uma categoria de evento possui um ou mais eventos;
+Um evento é de somente uma categoria de evento;
+
+Uma vendedora possui um ou mais eventos;
+Um evento é pertencendo a uma única vendedora;
