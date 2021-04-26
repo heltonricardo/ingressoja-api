@@ -1,0 +1,2 @@
+O comprador deve ser uma pessoa física;
+A vendedora deve ser uam pessoa jurídica;
