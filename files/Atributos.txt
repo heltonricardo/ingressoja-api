@@ -1,0 +1,10 @@
+Pedido
+id
+data
+
+Comprador
+id
+nome
+cpf
+email
+

@@ -1,0 +1,32 @@
+Cadastrar Comprador
+Exibir Comprador
+Editar Comprador
+Excluir Comprador
+
+Efetuar Pedido
+Exibir Pedido
+
+Cadastrar Categoria de Ingresso
+Exibir Categoria de Ingresso
+Editar Categoria de Ingresso
+Excluir Categoria de Ingresso
+
+Cadastrar Area
+Exibir Area
+Editar Area
+Excluir Area
+
+Cadastrar Organizadora
+Exibir Organizadora
+Editar Organizadora
+Excluir Organizadora
+
+Cadastrar Categoria de Evento
+Exibir Categoria de Evento
+Editar Categoria de Evento
+Excluir Categoria de Evento
+
+Cadastrar Evento
+Exibir Evento
+Editar Evento
+Excluir Evento
