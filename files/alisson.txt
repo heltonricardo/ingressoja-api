@@ -1,3 +1,0 @@
-Requisitos Funcionais (Mínimo 30) e Não Funcionais (Mínimo 10);
-Casos de uso (Apenas o título - Mínimo 20);
-Definição dos casos de uso que serão desenvolvidos na disciplina PR1A5 (no mínimo 12 casos de uso).
