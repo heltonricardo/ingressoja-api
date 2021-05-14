@@ -1,4 +1,4 @@
-package io.github.heltonricardo.ingressoja.models;
+package io.github.heltonricardo.ingressoja.model.entities;
 
 public class Cliente {
 

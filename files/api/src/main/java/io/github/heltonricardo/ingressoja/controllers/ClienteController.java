@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.github.heltonricardo.ingressoja.models.Cliente;
+import io.github.heltonricardo.ingressoja.model.entities.Cliente;
 
 @RestController()
 @RequestMapping("/clientes")

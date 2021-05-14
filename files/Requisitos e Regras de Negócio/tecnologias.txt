@@ -1,0 +1,5 @@
+Frontend
+React/Next
+
+Backend
+Java: Springboot, JPA, Hibernate
