@@ -38,6 +38,11 @@ public class ProdutoController {
 	public Iterable<Produto> obterProdutos() {
 		return produtoRepository.findAll();
 	}
+	
+	@GetMapping("/pesquisa/{parteNome}")
+	public Iterable<Produto> obterProdutosPorNome(@PathVariable String parteNome) {
+		return produtoRepository.findByNomeContainingIgnoreCase(parteNome);
+	}
 
 	@GetMapping("/pagina/{numeroPagina}/{quantidade}")
 	public Iterable<Produto> obterProdutosPorPagina(
