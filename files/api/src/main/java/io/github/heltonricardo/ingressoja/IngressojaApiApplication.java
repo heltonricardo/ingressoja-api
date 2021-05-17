@@ -9,6 +9,4 @@ public class IngressojaApiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(IngressojaApiApplication.class, args);
 	}
-
 }
- 
