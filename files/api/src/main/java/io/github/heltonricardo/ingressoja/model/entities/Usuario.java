@@ -3,8 +3,8 @@ package io.github.heltonricardo.ingressoja.model.entities;
 import javax.persistence.Entity;
 
 @Entity
-public class CategoriaIngresso {
+public class Usuario {
 
-	private int id;
-	private String nome;
+	private Long id;
+	private String senha;
 }

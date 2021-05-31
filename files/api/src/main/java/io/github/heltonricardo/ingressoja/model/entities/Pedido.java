@@ -1,10 +1,12 @@
 package io.github.heltonricardo.ingressoja.model.entities;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 
 @Entity
-public class CategoriaIngresso {
+public class Pedido {
 
-	private int id;
-	private String nome;
+	private Long id;
+	private Date data;
 }
