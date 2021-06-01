@@ -1,7 +1,7 @@
 O comprador deve ser uma pessoa física;
 A vendedora deve ser uam pessoa jurídica;
 
-Um usuário pode ser do tipo administrador, comprador ou organizadora;
+Um usuário pode ser do tipo administrador, comprador, organizadora ou comum;
 
 Um comprador é referente a somente um usuário;
 
