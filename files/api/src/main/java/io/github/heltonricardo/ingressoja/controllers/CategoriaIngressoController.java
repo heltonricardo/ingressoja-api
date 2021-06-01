@@ -22,34 +22,34 @@ import io.github.heltonricardo.ingressoja.model.repositories.CategoriaIngressoRe
 public class CategoriaIngressoController {
 
 	@Autowired
-	private CategoriaIngressoRepository CategoriaIngressoRepository;
+	private CategoriaIngressoRepository categoriaIngressoRepository;
 
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.PUT })
 	public CategoriaIngresso salvarCategoriaIngresso(
 			@Valid CategoriaIngresso CategoriaIngresso) {
-		return CategoriaIngressoRepository.save(CategoriaIngresso);
+		return categoriaIngressoRepository.save(CategoriaIngresso);
 	}
 
 	@GetMapping("/{id}")
 	public Optional<CategoriaIngresso> obterCategoriaIngresso(
-			@PathVariable int id) {
-		return CategoriaIngressoRepository.findById(id);
+			@PathVariable Long id) {
+		return categoriaIngressoRepository.findById(id);
 	}
 
 	@GetMapping
 	public Iterable<CategoriaIngresso> obterCategoriaIngressos() {
-		return CategoriaIngressoRepository.findAll();
+		return categoriaIngressoRepository.findAll();
 	}
 
 	@GetMapping("/pagina/{numeroPagina}/{quantidade}")
 	public Iterable<CategoriaIngresso> obterCategoriaIngressosPorPagina(
 			@PathVariable int numeroPagina, @PathVariable int quantidade) {
 		Pageable pagina = PageRequest.of(numeroPagina, quantidade);
-		return CategoriaIngressoRepository.findAll(pagina);
+		return categoriaIngressoRepository.findAll(pagina);
 	}
 
 	@DeleteMapping("/{id}")
-	public void excluirCategoriaIngresso(@PathVariable int id) {
-		CategoriaIngressoRepository.deleteById(id);
+	public void excluirCategoriaIngresso(@PathVariable Long id) {
+		categoriaIngressoRepository.deleteById(id);
 	}
 }

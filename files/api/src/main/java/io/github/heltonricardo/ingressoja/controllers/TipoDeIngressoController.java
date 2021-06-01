@@ -14,42 +14,42 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.github.heltonricardo.ingressoja.model.entities.IngressoDisponivel;
-import io.github.heltonricardo.ingressoja.model.repositories.IngressoDisponivelRepository;
+import io.github.heltonricardo.ingressoja.model.entities.TipoDeIngresso;
+import io.github.heltonricardo.ingressoja.model.repositories.TipoDeIngressoRepository;
 
 @RestController
 @RequestMapping("/api/ingresso-disponivel")
-public class IngressoDisponivelController {
+public class TipoDeIngressoController {
 
 	@Autowired
-	private IngressoDisponivelRepository IngressoDisponivelRepository;
+	private TipoDeIngressoRepository ingressoDisponivelRepository;
 
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.PUT })
-	public IngressoDisponivel salvarIngressoDisponivel(
-			@Valid IngressoDisponivel IngressoDisponivel) {
-		return IngressoDisponivelRepository.save(IngressoDisponivel);
+	public TipoDeIngresso salvarIngressoDisponivel(
+			@Valid TipoDeIngresso IngressoDisponivel) {
+		return ingressoDisponivelRepository.save(IngressoDisponivel);
 	}
 
 	@GetMapping("/{id}")
-	public Optional<IngressoDisponivel> obterIngressoDisponivel(
-			@PathVariable int id) {
-		return IngressoDisponivelRepository.findById(id);
+	public Optional<TipoDeIngresso> obterIngressoDisponivel(
+			@PathVariable Long id) {
+		return ingressoDisponivelRepository.findById(id);
 	}
 
 	@GetMapping
-	public Iterable<IngressoDisponivel> obterIngressoDisponivels() {
-		return IngressoDisponivelRepository.findAll();
+	public Iterable<TipoDeIngresso> obterIngressoDisponivels() {
+		return ingressoDisponivelRepository.findAll();
 	}
 
 	@GetMapping("/pagina/{numeroPagina}/{quantidade}")
-	public Iterable<IngressoDisponivel> obterIngressoDisponivelsPorPagina(
+	public Iterable<TipoDeIngresso> obterIngressoDisponivelsPorPagina(
 			@PathVariable int numeroPagina, @PathVariable int quantidade) {
 		Pageable pagina = PageRequest.of(numeroPagina, quantidade);
-		return IngressoDisponivelRepository.findAll(pagina);
+		return ingressoDisponivelRepository.findAll(pagina);
 	}
 
 	@DeleteMapping("/{id}")
-	public void excluirIngressoDisponivel(@PathVariable int id) {
-		IngressoDisponivelRepository.deleteById(id);
+	public void excluirIngressoDisponivel(@PathVariable Long id) {
+		ingressoDisponivelRepository.deleteById(id);
 	}
 }
