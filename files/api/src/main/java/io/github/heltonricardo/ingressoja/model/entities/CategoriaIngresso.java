@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 public class CategoriaIngresso {
@@ -15,12 +16,14 @@ public class CategoriaIngresso {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@NotEmpty
 	private String nome;
 	
 	@OneToMany
 	private List<TipoDeIngresso> tiposDeIngresso;
 	
 	/**************************** GETTERS E SETTERS *****************************/
+	
 	public Long getId() {
 		return id;
 	}

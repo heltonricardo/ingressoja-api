@@ -2,6 +2,8 @@ package io.github.heltonricardo.ingressoja.controllers;
 
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -43,7 +45,7 @@ public class CategoriaIngressoController {
 
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.PUT })
 	public CategoriaIngresso salvarCategoriaIngresso(
-			@RequestBody CategoriaIngresso categoriaIngresso) {
+			@RequestBody @Valid CategoriaIngresso categoriaIngresso) {
 		categoriaIngressoRepository.save(categoriaIngresso);
 
 		return categoriaIngresso;
