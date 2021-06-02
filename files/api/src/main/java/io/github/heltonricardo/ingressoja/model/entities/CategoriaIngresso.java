@@ -18,7 +18,7 @@ public class CategoriaIngresso {
 	private String nome;
 	
 	@OneToMany
-	private List<TipoDeIngresso> ingressosDisponiveis;
+	private List<TipoDeIngresso> tiposDeIngresso;
 
 	public Long getId() {
 		return id;
@@ -36,12 +36,12 @@ public class CategoriaIngresso {
 		this.nome = nome;
 	}
 
-	public List<TipoDeIngresso> getIngressosDisponiveis() {
-		return ingressosDisponiveis;
+	public List<TipoDeIngresso> tiposDeIngresso() {
+		return tiposDeIngresso;
 	}
 
-	public void setIngressosDisponiveis(
-			List<TipoDeIngresso> ingressosDisponiveis) {
-		this.ingressosDisponiveis = ingressosDisponiveis;
+	public void setTiposDeIngresso(
+			List<TipoDeIngresso> tiposDeIngresso) {
+		this.tiposDeIngresso = tiposDeIngresso;
 	}
 }

@@ -18,38 +18,38 @@ import io.github.heltonricardo.ingressoja.model.entities.TipoDeIngresso;
 import io.github.heltonricardo.ingressoja.model.repositories.TipoDeIngressoRepository;
 
 @RestController
-@RequestMapping("/api/ingresso-disponivel")
+@RequestMapping("/api/tipo-de-ingresso")
 public class TipoDeIngressoController {
 
 	@Autowired
-	private TipoDeIngressoRepository ingressoDisponivelRepository;
+	private TipoDeIngressoRepository tipoDeIngressoRepository;
 
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.PUT })
-	public TipoDeIngresso salvarIngressoDisponivel(
-			@Valid TipoDeIngresso IngressoDisponivel) {
-		return ingressoDisponivelRepository.save(IngressoDisponivel);
+	public TipoDeIngresso tipoDeIngresso(
+			@Valid TipoDeIngresso tipoDeIngresso) {
+		return tipoDeIngressoRepository.save(tipoDeIngresso);
 	}
 
 	@GetMapping("/{id}")
-	public Optional<TipoDeIngresso> obterIngressoDisponivel(
+	public Optional<TipoDeIngresso> obterTipoDeIngresso(
 			@PathVariable Long id) {
-		return ingressoDisponivelRepository.findById(id);
+		return tipoDeIngressoRepository.findById(id);
 	}
 
 	@GetMapping
-	public Iterable<TipoDeIngresso> obterIngressoDisponivels() {
-		return ingressoDisponivelRepository.findAll();
+	public Iterable<TipoDeIngresso> obterTiposDeIngresso() {
+		return tipoDeIngressoRepository.findAll();
 	}
 
 	@GetMapping("/pagina/{numeroPagina}/{quantidade}")
-	public Iterable<TipoDeIngresso> obterIngressoDisponivelsPorPagina(
+	public Iterable<TipoDeIngresso> obterTipoDeIngressoPorPagina(
 			@PathVariable int numeroPagina, @PathVariable int quantidade) {
 		Pageable pagina = PageRequest.of(numeroPagina, quantidade);
-		return ingressoDisponivelRepository.findAll(pagina);
+		return tipoDeIngressoRepository.findAll(pagina);
 	}
 
 	@DeleteMapping("/{id}")
-	public void excluirIngressoDisponivel(@PathVariable Long id) {
-		ingressoDisponivelRepository.deleteById(id);
+	public void excluirTipoDeIngresso(@PathVariable Long id) {
+		tipoDeIngressoRepository.deleteById(id);
 	}
 }
