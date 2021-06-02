@@ -43,7 +43,12 @@ public class CategoriaIngressoController {
 	}
 
 	@DeleteMapping("/{id}")
-	public void excluirCategoriaIngresso(@PathVariable Long id) {
-		categoriaIngressoRepository.deleteById(id);
+	public Boolean excluirCategoriaIngresso(@PathVariable Long id) {
+		try {			
+			categoriaIngressoRepository.deleteById(id);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 }
