@@ -36,13 +36,6 @@ public class CategoriaIngressoController {
 		return categoriaIngressoRepository.findAll();
 	}
 
-	@GetMapping("/pagina/{numeroPagina}/{quantidade}")
-	public Iterable<CategoriaIngresso> obterCategoriaIngressosPorPagina(
-			@PathVariable int numeroPagina, @PathVariable int quantidade) {
-		Pageable pagina = PageRequest.of(numeroPagina, quantidade);
-		return categoriaIngressoRepository.findAll(pagina);
-	}
-
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.PUT })
 	public CategoriaIngresso salvarCategoriaIngresso(
 			@RequestBody @Valid CategoriaIngresso categoriaIngresso) {
