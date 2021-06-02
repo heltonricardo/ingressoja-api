@@ -19,7 +19,8 @@ public class CategoriaIngresso {
 	
 	@OneToMany
 	private List<TipoDeIngresso> tiposDeIngresso;
-
+	
+	/**************************** GETTERS E SETTERS *****************************/
 	public Long getId() {
 		return id;
 	}
@@ -36,12 +37,11 @@ public class CategoriaIngresso {
 		this.nome = nome;
 	}
 
-	public List<TipoDeIngresso> tiposDeIngresso() {
+	public List<TipoDeIngresso> getTiposDeIngresso() {
 		return tiposDeIngresso;
 	}
 
-	public void setTiposDeIngresso(
-			List<TipoDeIngresso> tiposDeIngresso) {
+	public void setTiposDeIngresso(List<TipoDeIngresso> tiposDeIngresso) {
 		this.tiposDeIngresso = tiposDeIngresso;
 	}
 }
