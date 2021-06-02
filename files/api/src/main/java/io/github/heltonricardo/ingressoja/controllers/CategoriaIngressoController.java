@@ -18,7 +18,7 @@ import io.github.heltonricardo.ingressoja.model.entities.CategoriaIngresso;
 import io.github.heltonricardo.ingressoja.model.repositories.CategoriaIngressoRepository;
 
 @RestController
-@RequestMapping("/api/CategoriaIngressos")
+@RequestMapping("/api/categoria-ingresso")
 public class CategoriaIngressoController {
 
 	@Autowired
@@ -26,8 +26,8 @@ public class CategoriaIngressoController {
 
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.PUT })
 	public CategoriaIngresso salvarCategoriaIngresso(
-			@Valid CategoriaIngresso CategoriaIngresso) {
-		return categoriaIngressoRepository.save(CategoriaIngresso);
+			@Valid CategoriaIngresso categoriaIngresso) {
+		return categoriaIngressoRepository.save(categoriaIngresso);
 	}
 
 	@GetMapping("/{id}")
