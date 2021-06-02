@@ -9,7 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 
-@Entity
+import lombok.Getter;
+import lombok.Setter;
+
+@Entity @Getter @Setter
 public class Usuario {
 
 	@Id
@@ -27,44 +30,4 @@ public class Usuario {
 	
 	@OneToMany
 	private List<Organizadora> organizadoras;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-
-	public List<Administrador> getAdministradores() {
-		return administradores;
-	}
-
-	public void setAdministradores(List<Administrador> administradores) {
-		this.administradores = administradores;
-	}
-
-	public List<Comprador> getCompradores() {
-		return compradores;
-	}
-
-	public void setCompradores(List<Comprador> compradores) {
-		this.compradores = compradores;
-	}
-
-	public List<Organizadora> getOrganizadoras() {
-		return organizadoras;
-	}
-
-	public void setOrganizadoras(List<Organizadora> organizadoras) {
-		this.organizadoras = organizadoras;
-	}
 }

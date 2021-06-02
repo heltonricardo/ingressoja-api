@@ -9,7 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 
-@Entity
+import lombok.Getter;
+import lombok.Setter;
+
+@Entity @Getter @Setter
 public class CategoriaIngresso {
 
 	@Id
@@ -21,30 +24,4 @@ public class CategoriaIngresso {
 	
 	@OneToMany
 	private List<TipoDeIngresso> tiposDeIngresso;
-	
-	/**************************** GETTERS E SETTERS *****************************/
-	
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public List<TipoDeIngresso> getTiposDeIngresso() {
-		return tiposDeIngresso;
-	}
-
-	public void setTiposDeIngresso(List<TipoDeIngresso> tiposDeIngresso) {
-		this.tiposDeIngresso = tiposDeIngresso;
-	}
 }

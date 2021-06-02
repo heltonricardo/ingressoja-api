@@ -9,7 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-@Entity
+import lombok.Getter;
+import lombok.Setter;
+
+@Entity @Getter @Setter
 public class Pedido {
 	
 	@Id
@@ -19,28 +22,4 @@ public class Pedido {
 	
 	@OneToMany
 	private List<ItemPedido> itensPedido;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Date getData() {
-		return data;
-	}
-
-	public void setData(Date data) {
-		this.data = data;
-	}
-
-	public List<ItemPedido> getItensPedido() {
-		return itensPedido;
-	}
-
-	public void setItensPedido(List<ItemPedido> itensPedido) {
-		this.itensPedido = itensPedido;
-	}
 }
