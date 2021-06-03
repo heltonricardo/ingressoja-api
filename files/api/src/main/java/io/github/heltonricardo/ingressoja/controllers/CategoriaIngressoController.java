@@ -35,11 +35,14 @@ public class CategoriaIngressoController {
 	}
 
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.PUT })
-	public CategoriaIngresso salvarCategoriaIngresso(
+	public Boolean salvarCategoriaIngresso(
 			@RequestBody @Valid CategoriaIngresso categoriaIngresso) {
-		categoriaIngressoRepository.save(categoriaIngresso);
-
-		return categoriaIngresso;
+		try {			
+			categoriaIngressoRepository.save(categoriaIngresso);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 	@DeleteMapping("/{id}")
