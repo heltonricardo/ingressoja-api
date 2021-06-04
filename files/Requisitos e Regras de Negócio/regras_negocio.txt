@@ -29,3 +29,5 @@ Uma organizadora possui um ou mais eventos;
 Um evento é pertencente a uma única organizadora;
 
 O sistema terá um único usuário administrador, já cadastrado na implantação do sistema;
+
+As contas administrativas não possuem conta vinculada. Há somente uma conta, para onde os valores das taxas vão. Essa conta é compartilhada com todos os administradores.
