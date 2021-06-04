@@ -8,10 +8,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity @Getter @Setter
+@Getter @Setter
+@Entity @Where(clause="ativo")
+@SQLDelete(sql = "UPDATE organizadora SET ativo = false WHERE id = ?")
 public class Organizadora {
 	
 	@Id
