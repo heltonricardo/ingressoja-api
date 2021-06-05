@@ -25,7 +25,7 @@ public class Comprador {
 	private String nome;
 	private String email;
 	private String cpf;
-	private Boolean ativo;
+	private Boolean ativo = true;
 	
 	@OneToMany
 	private List<Pedido> pedidos;
