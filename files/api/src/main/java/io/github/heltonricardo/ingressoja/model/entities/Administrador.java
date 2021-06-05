@@ -25,10 +25,7 @@ public class Administrador {
 	
 	private String nome;
 	private String email;
-	private String banco;
-	private String agencia;
-	private String conta;
-	private Boolean ativo;
+	private Boolean ativo = true;
 
 	@OneToMany
 	List<Saque> saques;
