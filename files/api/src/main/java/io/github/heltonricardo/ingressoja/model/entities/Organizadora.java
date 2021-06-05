@@ -26,11 +26,13 @@ public class Organizadora {
 	private String nomeFantasia;
 	private String razaoSocial;
 	private String cnpj;
-	private Double valorCarteira;
+	
 	private String banco;
 	private String agencia;
 	private String conta;
-	private Boolean ativo;
+	
+	private Double valorCarteira = 0.0;
+	private Boolean ativo = true;
 	
 	@OneToMany
 	private List<Saque> saques;
