@@ -3,31 +3,8 @@ A vendedora deve ser uam pessoa jurídica;
 
 Um usuário pode ser do tipo administrador, comprador, organizadora ou comum;
 
-Um comprador é referente a somente um usuário;
-
-Uma organizadora é referente a somente um usuário;
-
-Um comprador faz um ou muitos pedidos;
-Um pedido é feito por apenas um comprador;
-
-Um pedido contém um ou muitos ingressos;
-Um ingresso está contido em apenas um pedido;
-
-Um tipo de ingresso possui nenhum ou muitos ingressos;
-Um ingresso é de somente um tipo de ingresso;
-
-Uma área possui um ou mais ingressos;
-Cada ingresso pertence a somente uma área;
-
-Um evento possui uma ou mais áreas;
-Uma área pertence a somente um evento;
-
-Uma categoria de evento possui um ou mais eventos;
-Um evento é de somente uma categoria de evento;
-
-Uma organizadora possui um ou mais eventos;
-Um evento é pertencente a uma única organizadora;
-
 O sistema terá um único usuário administrador, já cadastrado na implantação do sistema;
 
 As contas administrativas não possuem conta vinculada. Há somente uma conta, para onde os valores das taxas vão. Essa conta é compartilhada com todos os administradores.
+
+O único método de pagamento aceito deverá ser o cartão de crédito, sempre em única parcela.
