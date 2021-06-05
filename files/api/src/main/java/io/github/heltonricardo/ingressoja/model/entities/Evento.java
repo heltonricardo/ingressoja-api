@@ -10,10 +10,15 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity  @Getter @Setter
+@Getter @Setter
+@Entity @Where(clause="ativo")
+@SQLDelete(sql = "UPDATE evento SET ativo = false WHERE id = ?")
 public class Evento {
 
 	@Id
@@ -22,6 +27,7 @@ public class Evento {
 	private String nome;
 	private String descricao;
 	private String imagemURL;
+	private Boolean ativo = true;
 	
 	private Date dataInicio;
 	private Date dataTerminio;
