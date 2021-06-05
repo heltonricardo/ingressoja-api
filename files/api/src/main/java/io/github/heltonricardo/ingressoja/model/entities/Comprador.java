@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.SQLDelete;
@@ -26,6 +27,9 @@ public class Comprador {
 	private String email;
 	private String cpf;
 	private Boolean ativo = true;
+	
+	@ManyToOne
+	private Usuario usuario;
 	
 	@OneToMany
 	private List<Pedido> pedidos;

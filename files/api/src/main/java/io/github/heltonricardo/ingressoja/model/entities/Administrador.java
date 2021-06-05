@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.SQLDelete;
@@ -26,6 +27,9 @@ public class Administrador {
 	private String nome;
 	private String email;
 	private Boolean ativo = true;
+	
+	@ManyToOne
+	private Usuario usuario;
 
 	@OneToMany
 	List<Saque> saques;
