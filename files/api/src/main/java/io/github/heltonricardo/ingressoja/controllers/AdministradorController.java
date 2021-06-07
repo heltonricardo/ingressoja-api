@@ -12,12 +12,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.github.heltonricardo.ingressoja.model.entities.Administrador;
+import io.github.heltonricardo.ingressoja.model.entities.Saque;
 import io.github.heltonricardo.ingressoja.model.repositories.AdministradorRepository;
 
 @RestController
@@ -59,6 +61,23 @@ public class AdministradorController {
 			Administrador adm = obterAdministradorPorId(id).get();
 			adm.setAtivo(false);
 			administradorRepository.save(adm);
+			return new ResponseEntity<>(HttpStatus.OK);
+		} catch (Exception e) {
+			System.out.println(e);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	@PostMapping("/{id}/saque")
+	public ResponseEntity<?> novoSaque(
+			@PathVariable Long id, @RequestBody @Valid Saque saque) {
+		try {
+			Administrador pesq = obterAdministradorPorId(id).get();
+			if (pesq == null) {
+				throw new Exception();
+			}
+			pesq.addSaque(saque);
+			administradorRepository.save(pesq);
 			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception e) {
 			System.out.println(e);

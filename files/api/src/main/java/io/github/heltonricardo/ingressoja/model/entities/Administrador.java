@@ -34,6 +34,10 @@ public class Administrador {
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Usuario usuario;
 
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	List<Saque> saques;
+	
+	public void addSaque(Saque saque) {
+		saques.add(saque);
+	}
 }

@@ -1,9 +1,10 @@
 O comprador deve ser uma pessoa física;
+
 A vendedora deve ser uam pessoa jurídica;
 
 Um usuário pode ser do tipo administrador, comprador, organizadora ou comum;
 
-O sistema terá um único usuário administrador, já cadastrado na implantação do sistema;
+O sistema deverá ter, ao menos, um único usuário administrador já cadastrado na implantação do sistema;
 
 As contas administrativas não possuem conta vinculada. Há somente uma conta, para onde os valores das taxas vão. Essa conta é compartilhada com todos os administradores.
 
