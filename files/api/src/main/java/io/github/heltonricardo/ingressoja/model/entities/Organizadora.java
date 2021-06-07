@@ -2,6 +2,7 @@ package io.github.heltonricardo.ingressoja.model.entities;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,17 +10,17 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter @Setter
-@Entity @Where(clause="ativo")
-@SQLDelete(sql = "UPDATE organizadora SET ativo = false WHERE id = ?")
+@Entity
+@Getter
+@Setter
+@Where(clause = "ativo")
 public class Organizadora {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -27,17 +28,17 @@ public class Organizadora {
 	private String nomeFantasia;
 	private String razaoSocial;
 	private String cnpj;
-	
+
 	private String banco;
 	private String agencia;
 	private String conta;
-	
+
 	private Double valorCarteira = 0.0;
 	private Boolean ativo = true;
-	
-	@ManyToOne
+
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Usuario usuario;
-	
+
 	@OneToMany
 	private List<Saque> saques;
 }

@@ -7,6 +7,8 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,31 +33,36 @@ public class OrganizadoraController {
 		return organizadoraRepository.findById(id);
 	}
 
-	@GetMapping
-	public Iterable<Organizadora> obterOrganizadora() {
-		return organizadoraRepository.findAll();
-	}
-
 	@GetMapping("/pagina/{numeroPagina}/{quantidade}")
 	public Iterable<Organizadora> obterOrganizadorasPorPagina(
 			@PathVariable int numeroPagina, @PathVariable int quantidade) {
+		quantidade = (quantidade > 10) ? 10 : quantidade;
 		Pageable pagina = PageRequest.of(numeroPagina, quantidade);
 		return organizadoraRepository.findAll(pagina);
 	}
 
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.PUT })
-	public void salvarOrganizadora(
+	public ResponseEntity<?> editarOrganizadora(
 			@RequestBody @Valid Organizadora organizadora) {
-		organizadoraRepository.save(organizadora);
+		try {
+			organizadoraRepository.save(organizadora);
+			return new ResponseEntity<>(HttpStatus.OK);
+		} catch (Exception e) {
+			System.out.println(e);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 	}
 
 	@DeleteMapping("/{id}")
-	public Boolean excluirOrganizadora(@PathVariable Long id) {
+	public ResponseEntity<?> excluirOrganizadora(@PathVariable Long id) {
 		try {
-			organizadoraRepository.deleteById(id);
-			return true;
+			Organizadora pesq = obterOrganizadoraPorId(id).get();
+			pesq.setAtivo(false);
+			organizadoraRepository.save(pesq);
+			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception e) {
-			return false;
+			System.out.println(e);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
 }
