@@ -7,6 +7,8 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,31 +33,36 @@ public class AdministradorController {
 		return administradorRepository.findById(id);
 	}
 
-	@GetMapping
-	public Iterable<Administrador> obterAdministradores() {
-		return administradorRepository.findAll();
-	}
-
 	@GetMapping("/pagina/{numeroPagina}/{quantidade}")
 	public Iterable<Administrador> obterAdministradoresPorPagina(
 			@PathVariable int numeroPagina, @PathVariable int quantidade) {
+		quantidade = (quantidade > 10) ? 10 : quantidade;
 		Pageable pagina = PageRequest.of(numeroPagina, quantidade);
 		return administradorRepository.findAll(pagina);
 	}
 
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.PUT })
-	public void salvarAdministrador(
+	public ResponseEntity<?> editarAdministrador(
 			@RequestBody @Valid Administrador administrador) {
-		administradorRepository.save(administrador);
+		try {
+			administradorRepository.save(administrador);
+			return new ResponseEntity<>(HttpStatus.OK);
+		} catch (Exception e) {
+			System.out.println(e);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 	}
 
 	@DeleteMapping("/{id}")
-	public Boolean excluirAdministrador(@PathVariable Long id) {
+	public ResponseEntity<?> excluirAdministrador(@PathVariable Long id) {
 		try {
-			administradorRepository.deleteById(id);
-			return true;
+			Administrador adm = obterAdministradorPorId(id).get();
+			adm.setAtivo(false);
+			administradorRepository.save(adm);
+			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception e) {
-			return false;
+			System.out.println(e);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
 }
