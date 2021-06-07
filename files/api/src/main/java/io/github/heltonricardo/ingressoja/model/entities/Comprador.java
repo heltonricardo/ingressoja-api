@@ -2,22 +2,24 @@ package io.github.heltonricardo.ingressoja.model.entities;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity @Where(clause="ativo")
-@SQLDelete(sql = "UPDATE comprador SET ativo = false WHERE id = ?")
-@Getter @Setter
+@Entity
+@Getter
+@Setter
+@Where(clause = "ativo")
 public class Comprador {
 	
 	@Id
@@ -28,7 +30,8 @@ public class Comprador {
 	private String cpf;
 	private Boolean ativo = true;
 	
-	@ManyToOne
+	@NotNull
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Usuario usuario;
 	
 	@OneToMany

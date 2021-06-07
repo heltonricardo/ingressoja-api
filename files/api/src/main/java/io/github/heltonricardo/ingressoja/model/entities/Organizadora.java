@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Where;
 
@@ -36,6 +37,7 @@ public class Organizadora {
 	private Double valorCarteira = 0.0;
 	private Boolean ativo = true;
 
+	@NotNull
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Usuario usuario;
 

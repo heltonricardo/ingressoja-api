@@ -7,6 +7,8 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,31 +33,36 @@ public class CompradorController {
 		return compradorRepository.findById(id);
 	}
 
-	@GetMapping
-	public Iterable<Comprador> obterCompradores() {
-		return compradorRepository.findAll();
-	}
-
 	@GetMapping("/pagina/{numeroPagina}/{quantidade}")
 	public Iterable<Comprador> obterCompradoresPorPagina(
 			@PathVariable int numeroPagina, @PathVariable int quantidade) {
+		quantidade = (quantidade > 10) ? 10 : quantidade;
 		Pageable pagina = PageRequest.of(numeroPagina, quantidade);
 		return compradorRepository.findAll(pagina);
 	}
 
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.PUT })
-	public void salvarComprador(
+	public ResponseEntity<?> editarComprador(
 			@RequestBody @Valid Comprador comprador) {
-		compradorRepository.save(comprador);
+		try {
+			compradorRepository.save(comprador);
+			return new ResponseEntity<>(HttpStatus.OK);
+		} catch (Exception e) {
+			System.out.println(e);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 	}
 
 	@DeleteMapping("/{id}")
-	public Boolean excluirComprador(@PathVariable Long id) {
+	public ResponseEntity<?> excluirComprador(@PathVariable Long id) {
 		try {
-			compradorRepository.deleteById(id);
-			return true;
+			Comprador pesq = obterCompradorPorId(id).get();
+			pesq.setAtivo(false);
+			compradorRepository.save(pesq);
+			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception e) {
-			return false;
+			System.out.println(e);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
 }
