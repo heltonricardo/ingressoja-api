@@ -41,6 +41,10 @@ public class Organizadora {
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Usuario usuario;
 
-	@OneToMany
-	private List<Saque> saques;
+	@OneToMany(cascade = CascadeType.ALL)
+	List<Saque> saques;
+
+	public void addSaque(Saque saque) {
+		saques.add(saque);
+	}
 }

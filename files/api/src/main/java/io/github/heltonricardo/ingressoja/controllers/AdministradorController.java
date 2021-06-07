@@ -58,19 +58,19 @@ public class AdministradorController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> excluirAdministrador(@PathVariable Long id) {
 		try {
-			Administrador adm = obterAdministradorPorId(id).get();
-			adm.setAtivo(false);
-			administradorRepository.save(adm);
+			Administrador pesq = obterAdministradorPorId(id).get();
+			pesq.setAtivo(false);
+			administradorRepository.save(pesq);
 			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception e) {
 			System.out.println(e);
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
+
 	@PostMapping("/{id}/saque")
-	public ResponseEntity<?> novoSaque(
-			@PathVariable Long id, @RequestBody @Valid Saque saque) {
+	public ResponseEntity<?> novoSaque(@PathVariable Long id,
+			@RequestBody @Valid Saque saque) {
 		try {
 			Administrador pesq = obterAdministradorPorId(id).get();
 			if (pesq == null) {
