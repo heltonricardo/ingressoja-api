@@ -49,7 +49,6 @@ public class OrganizadoraController {
 			organizadoraRepository.save(organizadora);
 			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception e) {
-			System.out.println(e);
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
@@ -62,7 +61,6 @@ public class OrganizadoraController {
 			organizadoraRepository.save(pesq);
 			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception e) {
-			System.out.println(e);
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
@@ -79,7 +77,6 @@ public class OrganizadoraController {
 			organizadoraRepository.save(pesq);
 			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception e) {
-			System.out.println(e);
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}

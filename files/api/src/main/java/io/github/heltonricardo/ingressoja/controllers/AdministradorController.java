@@ -50,7 +50,6 @@ public class AdministradorController {
 			administradorRepository.save(administrador);
 			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception e) {
-			System.out.println(e);
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
@@ -63,7 +62,6 @@ public class AdministradorController {
 			administradorRepository.save(pesq);
 			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception e) {
-			System.out.println(e);
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
@@ -80,7 +78,6 @@ public class AdministradorController {
 			administradorRepository.save(pesq);
 			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception e) {
-			System.out.println(e);
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
