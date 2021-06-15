@@ -31,11 +31,6 @@ public class EventoController {
 		return eventoRepository.findById(id);
 	}
 
-	@GetMapping
-	public Iterable<Evento> obterEventos() {
-		return eventoRepository.findAll();
-	}
-
 	@GetMapping("/pagina/{numeroPagina}/{quantidade}")
 	public Iterable<Evento> obterEventosPorPagina(
 			@PathVariable int numeroPagina, @PathVariable int quantidade) {
@@ -49,6 +44,7 @@ public class EventoController {
 		eventoRepository.save(Evento);
 	}
 
+	// TODO Retornar codigo http 
 	@DeleteMapping("/{id}")
 	public Boolean excluirEvento(@PathVariable Long id) {
 		try {

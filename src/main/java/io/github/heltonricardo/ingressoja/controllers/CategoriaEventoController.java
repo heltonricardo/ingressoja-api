@@ -5,18 +5,21 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.github.heltonricardo.ingressoja.model.entities.CategoriaEvento;
+import io.github.heltonricardo.ingressoja.model.entities.Evento;
 import io.github.heltonricardo.ingressoja.model.repositories.CategoriaEventoRepository;
+import io.github.heltonricardo.ingressoja.model.repositories.EventoRepository;
 
 @RestController
 @RequestMapping("categoria-evento")
@@ -24,6 +27,8 @@ public class CategoriaEventoController {
 
 	@Autowired
 	private CategoriaEventoRepository categoriaEventoRepository;
+	@Autowired
+	private EventoRepository eventoRepository;
 
 	@GetMapping("/{id}")
 	public Optional<CategoriaEvento> obterCategoriaEventoPorId(
@@ -36,13 +41,6 @@ public class CategoriaEventoController {
 		return categoriaEventoRepository.findAll();
 	}
 
-	@GetMapping("/pagina/{numeroPagina}/{quantidade}")
-	public Iterable<CategoriaEvento> obterCategoriaEventosPorPagina(
-			@PathVariable int numeroPagina, @PathVariable int quantidade) {
-		Pageable pagina = PageRequest.of(numeroPagina, quantidade);
-		return categoriaEventoRepository.findAll(pagina);
-	}
-
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.PUT })
 	public void salvarCategoriaEvento(
 			@RequestBody @Valid CategoriaEvento categoriaEvento) {
@@ -50,12 +48,31 @@ public class CategoriaEventoController {
 	}
 
 	@DeleteMapping("/{id}")
-	public Boolean excluirCategoriaEvento(@PathVariable Long id) {
+	public ResponseEntity<?> excluirCategoriaEvento(@PathVariable Long id) {
 		try {
-			categoriaEventoRepository.deleteById(id);
-			return true;
+			CategoriaEvento pesq = obterCategoriaEventoPorId(id).get();
+			pesq.setAtivo(false);
+			categoriaEventoRepository.save(pesq);
+			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception e) {
-			return false;
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+
+	@PutMapping("/{id}/cadastrar-evento/{idEvento}")
+	public ResponseEntity<?> cadastrarEvento(@PathVariable Long id,
+			@PathVariable Long idEvento) {
+		try {
+			CategoriaEvento categoria = obterCategoriaEventoPorId(id).get();
+			Evento evento = eventoRepository.findById(idEvento).get();
+			if (categoria == null || evento == null) {
+				throw new Exception();
+			}
+			categoria.addEvento(evento);
+			categoriaEventoRepository.save(categoria);
+			return new ResponseEntity<>(HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
 }
