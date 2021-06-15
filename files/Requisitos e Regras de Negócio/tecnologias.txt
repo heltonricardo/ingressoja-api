@@ -1,8 +1,0 @@
-Frontend
-React/Next
-
-O back-end será feito com:
-- Java: Linguagem;
-- Spring Boot: Framework baseado em inversão de controle e injeção de dependência;
-- JPA (Japa Persistence API): especificação que descreve como deve ser a implementação de ORM - Mapeamento Objeto-Relacional;
-- Hibernate: Framework para ORM que implementa JPA.
