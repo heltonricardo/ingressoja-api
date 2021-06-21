@@ -1,6 +1,6 @@
 package io.github.heltonricardo.ingressoja.model.entities;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,13 +10,14 @@ import javax.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity @Getter @Setter
+@Entity
+@Getter
+@Setter
 public class Saque {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String horario;
-	private Date data;
+	private LocalDateTime dataHora;
 	private Double valor;
 }

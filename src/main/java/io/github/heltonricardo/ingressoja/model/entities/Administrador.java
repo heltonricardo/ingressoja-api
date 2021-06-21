@@ -28,6 +28,7 @@ public class Administrador {
 
 	private String nome;
 	private String email;
+	private String cpf;
 	private Boolean ativo = true;
 
 	@NotNull

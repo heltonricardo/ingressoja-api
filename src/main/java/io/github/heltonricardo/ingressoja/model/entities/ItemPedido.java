@@ -15,9 +15,9 @@ public class ItemPedido {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String ingressante;
 	private String cpf;
 	private String email;
+	private String ingressante;
 	
 	@ManyToOne
 	private TipoDeIngresso tipoDeIngresso;

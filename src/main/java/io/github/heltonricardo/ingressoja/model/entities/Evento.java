@@ -1,6 +1,6 @@
 package io.github.heltonricardo.ingressoja.model.entities;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -27,12 +27,11 @@ public class Evento {
 	private String nome;
 	private String descricao;
 	private String imagemURL;
+	private Boolean online;
 	private Boolean ativo = true;
 	
-	private Date dataInicio;
-	private Date dataTerminio;
-	private String horarioInicio;  
-	private String horarioTermino;
+	private LocalDateTime inicio;
+	private LocalDateTime terminio;
 	
 	private String url;
 	private String logradouro;
