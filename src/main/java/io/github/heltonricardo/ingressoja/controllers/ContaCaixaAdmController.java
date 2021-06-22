@@ -23,14 +23,14 @@ public class ContaCaixaAdmController {
 	private ContaCaixaAdmRepository contaCaixaAdmRepository;
 
 	@GetMapping
-	public Optional<ContaCaixaAdm> obterContaCaixaAdmPorId() {
+	public Optional<ContaCaixaAdm> obterContaCaixaAdm() {
 		return contaCaixaAdmRepository.findById(1);
 	}
 
 	@PostMapping
 	public void obterContaCaixaAdm(
 			@RequestBody @Valid ContaCaixaAdm contaCaixaAdm) {
-		if (obterContaCaixaAdmPorId().isEmpty()) {
+		if (obterContaCaixaAdm().isEmpty()) {
 			contaCaixaAdmRepository.save(contaCaixaAdm);
 		}
 	}

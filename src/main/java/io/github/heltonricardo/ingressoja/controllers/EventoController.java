@@ -40,8 +40,8 @@ public class EventoController {
 
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.PUT })
 	public void salvarEvento(
-			@RequestBody @Valid Evento Evento) {
-		eventoRepository.save(Evento);
+			@RequestBody @Valid Evento evento) {
+		eventoRepository.save(evento);
 	}
 
 	// TODO Retornar codigo http 

@@ -22,29 +22,29 @@ import io.github.heltonricardo.ingressoja.model.repositories.PedidoRepository;
 public class PedidoController {
 
 	@Autowired
-	private PedidoRepository PedidoRepository;
+	private PedidoRepository pedidoRepository;
 
 	@GetMapping("/{id}")
 	public Optional<Pedido> obterPedidoPorId(
 			@PathVariable Long id) {
-		return PedidoRepository.findById(id);
+		return pedidoRepository.findById(id);
 	}
 
 	@GetMapping
 	public Iterable<Pedido> obterPedidos() {
-		return PedidoRepository.findAll();
+		return pedidoRepository.findAll();
 	}
 
 	@GetMapping("/pagina/{numeroPagina}/{quantidade}")
 	public Iterable<Pedido> obterPedidosPorPagina(
 			@PathVariable int numeroPagina, @PathVariable int quantidade) {
 		Pageable pagina = PageRequest.of(numeroPagina, quantidade);
-		return PedidoRepository.findAll(pagina);
+		return pedidoRepository.findAll(pagina);
 	}
 
 	@PostMapping
 	public void salvarPedido(
 			@RequestBody @Valid Pedido Pedido) {
-		PedidoRepository.save(Pedido);
+		pedidoRepository.save(Pedido);
 	}
 }

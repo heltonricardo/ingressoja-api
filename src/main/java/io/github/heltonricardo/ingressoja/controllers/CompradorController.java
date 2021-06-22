@@ -5,8 +5,6 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -32,15 +30,12 @@ public class CompradorController {
 			@PathVariable Long id) {
 		return compradorRepository.findById(id);
 	}
-
-	@GetMapping("/pagina/{numeroPagina}/{quantidade}")
-	public Iterable<Comprador> obterCompradoresPorPagina(
-			@PathVariable int numeroPagina, @PathVariable int quantidade) {
-		quantidade = (quantidade > 10) ? 10 : quantidade;
-		Pageable pagina = PageRequest.of(numeroPagina, quantidade);
-		return compradorRepository.findAll(pagina);
+	
+	@GetMapping
+	public Iterable<Comprador> obterCompradores() {
+		return compradorRepository.findAll();
 	}
-
+	
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.PUT })
 	public ResponseEntity<?> editarComprador(
 			@RequestBody @Valid Comprador comprador) {

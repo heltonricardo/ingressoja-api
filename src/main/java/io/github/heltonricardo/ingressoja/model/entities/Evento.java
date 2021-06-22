@@ -31,7 +31,7 @@ public class Evento {
 	private Boolean ativo = true;
 	
 	private LocalDateTime inicio;
-	private LocalDateTime terminio;
+	private LocalDateTime termino;
 	
 	private String url;
 	private String logradouro;
