@@ -6,4 +6,5 @@ import io.github.heltonricardo.ingressoja.model.entities.Comprador;
 
 public interface CompradorRepository
 		extends PagingAndSortingRepository<Comprador, Long> {
+	public Iterable<Comprador> findByCpf(String cpf);
 }

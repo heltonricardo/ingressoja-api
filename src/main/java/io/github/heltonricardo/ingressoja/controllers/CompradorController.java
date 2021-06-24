@@ -37,14 +37,20 @@ public class CompradorController {
 	}
 	
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.PUT })
-	public ResponseEntity<?> editarComprador(
+	public ResponseEntity<?> salvarComprador(
 			@RequestBody @Valid Comprador comprador) {
 		try {
+			String cpf = comprador.getCpf();
+			if (compradorRepository.findByCpf(cpf).iterator().hasNext()) {
+				return new ResponseEntity<>(HttpStatus.CONFLICT);
+			}
+			// TODO: VALIDAÇÕES
+			// return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
 			compradorRepository.save(comprador);
-			return new ResponseEntity<>(HttpStatus.OK);
+			return new ResponseEntity<>(HttpStatus.CREATED);
 		} catch (Exception e) {
 			System.out.println(e);
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
