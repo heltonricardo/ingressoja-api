@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.github.heltonricardo.ingressoja.model.entities.Administrador;
-import io.github.heltonricardo.ingressoja.model.entities.Saque;
-import io.github.heltonricardo.ingressoja.model.repositories.AdministradorRepository;
+import io.github.heltonricardo.ingressoja.models.entities.Administrador;
+import io.github.heltonricardo.ingressoja.models.entities.Saque;
+import io.github.heltonricardo.ingressoja.models.repositories.AdministradorRepository;
 
 @RestController
 @RequestMapping("administrador")

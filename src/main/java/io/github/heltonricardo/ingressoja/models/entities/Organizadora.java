@@ -1,4 +1,4 @@
-package io.github.heltonricardo.ingressoja.model.entities;
+package io.github.heltonricardo.ingressoja.models.entities;
 
 import java.util.List;
 
@@ -20,14 +20,21 @@ import lombok.Setter;
 @Getter
 @Setter
 @Where(clause = "ativo")
-public class Administrador {
+public class Organizadora {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
-	private String nome;
 	private String email;
+	private String nomeFantasia;
+	private String razaoSocial;
+	private String cnpj;
+
+	private String banco;
+	private String agencia;
+	private String conta;
+
+	private Double valorCarteira = 0.0;
 	private Boolean ativo = true;
 
 	@NotNull
@@ -36,7 +43,7 @@ public class Administrador {
 
 	@OneToMany(cascade = CascadeType.ALL)
 	List<Saque> saques;
-	
+
 	public void addSaque(Saque saque) {
 		saques.add(saque);
 	}

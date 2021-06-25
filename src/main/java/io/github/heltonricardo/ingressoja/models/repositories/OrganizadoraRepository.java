@@ -1,8 +1,8 @@
-package io.github.heltonricardo.ingressoja.model.repositories;
+package io.github.heltonricardo.ingressoja.models.repositories;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-import io.github.heltonricardo.ingressoja.model.entities.Organizadora;
+import io.github.heltonricardo.ingressoja.models.entities.Organizadora;
 
 public interface OrganizadoraRepository
 		extends PagingAndSortingRepository<Organizadora, Long> {

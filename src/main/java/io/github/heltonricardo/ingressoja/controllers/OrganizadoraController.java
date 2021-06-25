@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.github.heltonricardo.ingressoja.model.entities.Organizadora;
-import io.github.heltonricardo.ingressoja.model.entities.Saque;
-import io.github.heltonricardo.ingressoja.model.repositories.OrganizadoraRepository;
+import io.github.heltonricardo.ingressoja.models.entities.Organizadora;
+import io.github.heltonricardo.ingressoja.models.entities.Saque;
+import io.github.heltonricardo.ingressoja.models.repositories.OrganizadoraRepository;
 import io.github.heltonricardo.ingressoja.services.ValidacaoService;
 
 @RestController

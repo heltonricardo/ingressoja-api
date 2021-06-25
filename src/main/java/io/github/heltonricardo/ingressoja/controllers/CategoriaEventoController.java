@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.github.heltonricardo.ingressoja.model.entities.CategoriaEvento;
-import io.github.heltonricardo.ingressoja.model.entities.Evento;
-import io.github.heltonricardo.ingressoja.model.repositories.CategoriaEventoRepository;
-import io.github.heltonricardo.ingressoja.model.repositories.EventoRepository;
+import io.github.heltonricardo.ingressoja.models.entities.CategoriaEvento;
+import io.github.heltonricardo.ingressoja.models.entities.Evento;
+import io.github.heltonricardo.ingressoja.models.repositories.CategoriaEventoRepository;
+import io.github.heltonricardo.ingressoja.models.repositories.EventoRepository;
 
 @RestController
 @RequestMapping("categoria-evento")

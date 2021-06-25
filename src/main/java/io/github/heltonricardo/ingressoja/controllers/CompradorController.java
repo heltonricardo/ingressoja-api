@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.github.heltonricardo.ingressoja.model.entities.Comprador;
-import io.github.heltonricardo.ingressoja.model.repositories.CompradorRepository;
+import io.github.heltonricardo.ingressoja.models.entities.Comprador;
+import io.github.heltonricardo.ingressoja.models.repositories.CompradorRepository;
 import io.github.heltonricardo.ingressoja.services.ValidacaoService;
 
 @RestController

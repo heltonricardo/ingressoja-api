@@ -1,11 +1,10 @@
-package io.github.heltonricardo.ingressoja.model.entities;
+package io.github.heltonricardo.ingressoja.models.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import org.hibernate.annotations.Where;
+import javax.validation.constraints.NotBlank;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -13,16 +12,12 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Where(clause="ativo")
-public class TipoDeIngresso {
+public class Usuario {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	private String nome;
-	private Double valor;
-	private String descricao;
-	private Integer quantidade;
-	private Boolean ativo = true;
+
+	@NotBlank
+	private String senha;
 }

@@ -1,4 +1,4 @@
-package io.github.heltonricardo.ingressoja.model.entities;
+package io.github.heltonricardo.ingressoja.models.entities;
 
 import java.time.LocalDateTime;
 import java.util.List;

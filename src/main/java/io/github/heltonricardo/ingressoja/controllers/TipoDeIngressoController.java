@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.github.heltonricardo.ingressoja.model.entities.TipoDeIngresso;
-import io.github.heltonricardo.ingressoja.model.repositories.TipoDeIngressoRepository;
+import io.github.heltonricardo.ingressoja.models.entities.TipoDeIngresso;
+import io.github.heltonricardo.ingressoja.models.repositories.TipoDeIngressoRepository;
 
 @RestController
 @RequestMapping("tipo-de-ingresso")

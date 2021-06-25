@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.github.heltonricardo.ingressoja.model.entities.ContaCaixaAdm;
-import io.github.heltonricardo.ingressoja.model.repositories.ContaCaixaAdmRepository;
+import io.github.heltonricardo.ingressoja.models.entities.ContaCaixaAdm;
+import io.github.heltonricardo.ingressoja.models.repositories.ContaCaixaAdmRepository;
 
 @RestController
 @RequestMapping("conta-caixa-adm")

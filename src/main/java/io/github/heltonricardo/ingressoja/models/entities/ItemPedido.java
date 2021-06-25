@@ -1,4 +1,4 @@
-package io.github.heltonricardo.ingressoja.model.entities;
+package io.github.heltonricardo.ingressoja.models.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

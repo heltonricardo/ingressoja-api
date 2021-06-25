@@ -3,9 +3,9 @@ package io.github.heltonricardo.ingressoja.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import io.github.heltonricardo.ingressoja.model.repositories.AdministradorRepository;
-import io.github.heltonricardo.ingressoja.model.repositories.CompradorRepository;
-import io.github.heltonricardo.ingressoja.model.repositories.OrganizadoraRepository;
+import io.github.heltonricardo.ingressoja.models.repositories.AdministradorRepository;
+import io.github.heltonricardo.ingressoja.models.repositories.CompradorRepository;
+import io.github.heltonricardo.ingressoja.models.repositories.OrganizadoraRepository;
 
 @Service
 public class ValidacaoService {

@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.github.heltonricardo.ingressoja.model.entities.ItemPedido;
-import io.github.heltonricardo.ingressoja.model.repositories.ItemPedidoRepository;
+import io.github.heltonricardo.ingressoja.models.entities.ItemPedido;
+import io.github.heltonricardo.ingressoja.models.repositories.ItemPedidoRepository;
 
 @RestController
 @RequestMapping("item-pedido")
