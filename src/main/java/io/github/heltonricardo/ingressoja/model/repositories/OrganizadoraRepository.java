@@ -7,4 +7,5 @@ import io.github.heltonricardo.ingressoja.model.entities.Organizadora;
 public interface OrganizadoraRepository
 		extends PagingAndSortingRepository<Organizadora, Long> {
 	public Iterable<Organizadora> findByCnpj(String cpf);
+	public Iterable<Organizadora> findByEmail(String email);
 }

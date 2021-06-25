@@ -6,4 +6,5 @@ import io.github.heltonricardo.ingressoja.model.entities.Administrador;
 
 public interface AdministradorRepository
 		extends PagingAndSortingRepository<Administrador, Long> {
+	public Iterable<Administrador> findByEmail(String email);
 }

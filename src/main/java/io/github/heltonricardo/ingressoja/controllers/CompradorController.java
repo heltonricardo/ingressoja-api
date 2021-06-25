@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.github.heltonricardo.ingressoja.model.entities.Comprador;
 import io.github.heltonricardo.ingressoja.model.repositories.CompradorRepository;
+import io.github.heltonricardo.ingressoja.services.ValidacaoService;
 
 @RestController
 @RequestMapping("comprador")
@@ -24,24 +25,27 @@ public class CompradorController {
 
 	@Autowired
 	private CompradorRepository compradorRepository;
+	@Autowired
+	private ValidacaoService validacaoService;
 
 	@GetMapping("/{id}")
-	public Optional<Comprador> obterCompradorPorId(
-			@PathVariable Long id) {
+	public Optional<Comprador> obterCompradorPorId(@PathVariable Long id) {
 		return compradorRepository.findById(id);
 	}
-	
+
 	@GetMapping
 	public Iterable<Comprador> obterCompradores() {
 		return compradorRepository.findAll();
 	}
-	
+
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.PUT })
 	public ResponseEntity<?> salvarComprador(
 			@RequestBody @Valid Comprador comprador) {
 		try {
 			String cpf = comprador.getCpf();
-			if (compradorRepository.findByCpf(cpf).iterator().hasNext()) {
+			String email = comprador.getEmail();
+			if (compradorRepository.findByCpf(cpf).iterator().hasNext()
+					|| validacaoService.emailJaCadastrado(email)) {
 				return new ResponseEntity<>(HttpStatus.CONFLICT);
 			}
 			// TODO: VALIDAÇÕES

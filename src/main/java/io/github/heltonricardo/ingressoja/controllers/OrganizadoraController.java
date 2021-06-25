@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import io.github.heltonricardo.ingressoja.model.entities.Organizadora;
 import io.github.heltonricardo.ingressoja.model.entities.Saque;
 import io.github.heltonricardo.ingressoja.model.repositories.OrganizadoraRepository;
+import io.github.heltonricardo.ingressoja.services.ValidacaoService;
 
 @RestController
 @RequestMapping("organizadora")
@@ -26,6 +27,8 @@ public class OrganizadoraController {
 
 	@Autowired
 	private OrganizadoraRepository organizadoraRepository;
+	@Autowired
+	private ValidacaoService validacaoService;
 
 	@GetMapping("/{id}")
 	public Optional<Organizadora> obterOrganizadoraPorId(@PathVariable Long id) {
@@ -42,7 +45,9 @@ public class OrganizadoraController {
 			@RequestBody @Valid Organizadora organizadora) {
 		try {
 			String cnpj = organizadora.getCnpj();
-			if (organizadoraRepository.findByCnpj(cnpj).iterator().hasNext()) {
+			String email = organizadora.getEmail();
+			if (organizadoraRepository.findByCnpj(cnpj).iterator().hasNext()
+					|| validacaoService.emailJaCadastrado(email)) {
 				return new ResponseEntity<>(HttpStatus.CONFLICT);
 			}
 			// TODO: VALIDAÇÕES
