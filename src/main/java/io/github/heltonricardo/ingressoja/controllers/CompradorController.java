@@ -7,7 +7,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,8 +28,16 @@ public class CompradorController {
 	private ValidacaoService validacaoService;
 
 	@GetMapping("/{id}")
-	public Optional<Comprador> obterCompradorPorId(@PathVariable Long id) {
-		return compradorRepository.findById(id);
+	public ResponseEntity<?> obterCompradorPorId(@PathVariable Long id) {
+		Optional<Comprador> pesquisa = compradorRepository.findById(id);
+		
+		if (pesquisa.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+		}
+		
+		Comprador comprador = pesquisa.get();
+		comprador.getUsuario().setSenha("");
+		return ResponseEntity.status(HttpStatus.OK).body(comprador);
 	}
 
 	@GetMapping
@@ -58,16 +65,16 @@ public class CompradorController {
 		}
 	}
 
-	@DeleteMapping("/{id}")
-	public ResponseEntity<?> excluirComprador(@PathVariable Long id) {
-		try {
-			Comprador pesq = obterCompradorPorId(id).get();
-			pesq.setAtivo(false);
-			compradorRepository.save(pesq);
-			return new ResponseEntity<>(HttpStatus.OK);
-		} catch (Exception e) {
-			System.out.println(e);
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-	}
+//	@DeleteMapping("/{id}")
+//	public ResponseEntity<?> excluirComprador(@PathVariable Long id) {
+//		try {
+//			Comprador pesq = obterCompradorPorId(id).get();
+//			pesq.setAtivo(false);
+//			compradorRepository.save(pesq);
+//			return new ResponseEntity<>(HttpStatus.OK);
+//		} catch (Exception e) {
+//			System.out.println(e);
+//			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//		}
+//	}
 }
