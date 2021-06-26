@@ -24,15 +24,15 @@ public class Evento {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String nome;
-	private String descricao;
-	private String imagemURL;
-	private Boolean online;
-	private Boolean ativo = true;
 	
+	private String titulo;
+	private String imagemURL;
 	private LocalDateTime inicio;
 	private LocalDateTime termino;
-	
+	private String descricao;
+	private Boolean ativo = true;
+		
+	private Boolean online;
 	private String url;
 	private String logradouro;
 	private String numero;
