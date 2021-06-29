@@ -26,16 +26,20 @@ public class TipoDeIngressoController {
 
 	@Autowired
 	public TipoDeIngressoController(TipoDeIngressoService tipoDeIngressoService) {
+
 		this.tipoDeIngressoService = tipoDeIngressoService;
 	}
 
-	/******************************* OBTER TODAS ********************************/
+	/******************************* OBTER TODOS ********************************/
 
 	@GetMapping
-	public ResponseEntity<List<TipoDeIngressoDTOResp>> obterTodas() {
+	public ResponseEntity<List<TipoDeIngressoDTOResp>> obterTodos() {
+
 		List<TipoDeIngressoDTOResp> resp = new ArrayList<>();
+
 		tipoDeIngressoService.obterTodos()
 				.forEach(c -> resp.add(TipoDeIngressoDTOResp.paraDTO(c)));
+
 		return new ResponseEntity<>(resp, HttpStatus.OK);
 	}
 
@@ -61,7 +65,9 @@ public class TipoDeIngressoController {
 	@PostMapping
 	public ResponseEntity<TipoDeIngressoDTOResp> salvar(
 			@RequestBody TipoDeIngressoDTO dto) {
+
 		TipoDeIngresso resp = tipoDeIngressoService.salvar(dto.paraObjeto());
+
 		return new ResponseEntity<>(TipoDeIngressoDTOResp.paraDTO(resp),
 				HttpStatus.OK);
 	}

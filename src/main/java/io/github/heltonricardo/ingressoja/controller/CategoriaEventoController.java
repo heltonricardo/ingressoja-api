@@ -27,6 +27,7 @@ public class CategoriaEventoController {
 	@Autowired
 	public CategoriaEventoController(
 			CategoriaEventoService categoriaEventoService) {
+
 		this.categoriaEventoService = categoriaEventoService;
 	}
 
@@ -34,37 +35,41 @@ public class CategoriaEventoController {
 
 	@GetMapping
 	public ResponseEntity<List<CategoriaEventoDTOResp>> obterTodas() {
+
 		List<CategoriaEventoDTOResp> resp = new ArrayList<>();
+
 		categoriaEventoService.obterTodas()
 				.forEach(c -> resp.add(CategoriaEventoDTOResp.paraDTO(c)));
+
 		return new ResponseEntity<>(resp, HttpStatus.OK);
 	}
-	
+
 	/******************************* OBTER POR ID *******************************/
 
 	@GetMapping("/{id}")
 	public ResponseEntity<CategoriaEventoDTOResp> obterPorId(
 			@PathVariable Long id) {
-		
+
 		CategoriaEventoDTOResp resp;
-		
+
 		if (categoriaEventoService.obterPorId(id).isEmpty())
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-			
+
 		resp = CategoriaEventoDTOResp
-					.paraDTO(categoriaEventoService.obterPorId(id).get());
-		
+				.paraDTO(categoriaEventoService.obterPorId(id).get());
+
 		return new ResponseEntity<>(resp, HttpStatus.OK);
 	}
-	
+
 	/********************************** SALVAR **********************************/
 
 	@PostMapping
 	public ResponseEntity<CategoriaEventoDTOResp> salvar(
 			@RequestBody CategoriaEventoDTO dto) {
-		CategoriaEvento categoriaEvento = categoriaEventoService
-				.salvar(dto.paraObjeto());
-		return new ResponseEntity<>(CategoriaEventoDTOResp.paraDTO(categoriaEvento),
+
+		CategoriaEvento resp = categoriaEventoService.salvar(dto.paraObjeto());
+
+		return new ResponseEntity<>(CategoriaEventoDTOResp.paraDTO(resp),
 				HttpStatus.OK);
 	}
 }

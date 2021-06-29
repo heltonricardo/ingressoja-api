@@ -26,44 +26,48 @@ public class OrganizadoraController {
 
 	@Autowired
 	public OrganizadoraController(OrganizadoraService organizadoraService) {
+
 		this.organizadoraService = organizadoraService;
 	}
-	
+
 	/******************************* OBTER TODAS ********************************/
 
 	@GetMapping
 	public ResponseEntity<List<OrganizadoraDTOResp>> obterTodas() {
+
 		List<OrganizadoraDTOResp> resp = new ArrayList<>();
+
 		organizadoraService.obterTodas()
 				.forEach(c -> resp.add(OrganizadoraDTOResp.paraDTO(c)));
+
 		return new ResponseEntity<>(resp, HttpStatus.OK);
 	}
-	
+
 	/******************************* OBTER POR ID *******************************/
 
 	@GetMapping("/{id}")
-	public ResponseEntity<OrganizadoraDTOResp> obterPorId(
-			@PathVariable Long id) {
-		
+	public ResponseEntity<OrganizadoraDTOResp> obterPorId(@PathVariable Long id) {
+
 		OrganizadoraDTOResp resp;
-		
+
 		if (organizadoraService.obterPorId(id).isEmpty())
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-			
+
 		resp = OrganizadoraDTOResp
-					.paraDTO(organizadoraService.obterPorId(id).get());
-		
+				.paraDTO(organizadoraService.obterPorId(id).get());
+
 		return new ResponseEntity<>(resp, HttpStatus.OK);
 	}
-	
+
 	/********************************** SALVAR **********************************/
 
 	@PostMapping
 	public ResponseEntity<OrganizadoraDTOResp> salvar(
 			@RequestBody OrganizadoraDTO dto) {
-		Organizadora organizadora = organizadoraService
-				.salvar(dto.paraObjeto());
-		return new ResponseEntity<>(OrganizadoraDTOResp.paraDTO(organizadora),
+
+		Organizadora resp = organizadoraService.salvar(dto.paraObjeto());
+
+		return new ResponseEntity<>(OrganizadoraDTOResp.paraDTO(resp),
 				HttpStatus.OK);
 	}
 }
