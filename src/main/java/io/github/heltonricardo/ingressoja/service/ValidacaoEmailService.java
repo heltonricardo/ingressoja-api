@@ -8,7 +8,7 @@ import io.github.heltonricardo.ingressoja.repository.CompradorRepository;
 import io.github.heltonricardo.ingressoja.repository.OrganizadoraRepository;
 
 @Service
-public class ValidacaoService {
+public class ValidacaoEmailService {
 
 	@Autowired
 	private AdministradorRepository administradorRepository;

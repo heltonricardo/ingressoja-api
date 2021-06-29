@@ -22,4 +22,9 @@ public class Saque {
 	private Long id;
 	private LocalDateTime dataHora;
 	private Double valor;
+	
+	public Saque(LocalDateTime dataHora, Double valor) {
+		this.dataHora = dataHora;
+		this.valor = valor;
+	}	
 }

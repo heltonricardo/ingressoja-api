@@ -22,21 +22,21 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@Where(clause="ativo")
+@Where(clause = "ativo")
 @SQLDelete(sql = "UPDATE evento SET ativo = false WHERE id = ?")
 public class Evento {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	private String titulo;
 	private String imagemURL;
 	private LocalDateTime inicio;
 	private LocalDateTime termino;
 	private String descricao;
 	private Boolean ativo = true;
-		
+
 	private Boolean online;
 	private String url;
 	private String logradouro;
@@ -46,11 +46,31 @@ public class Evento {
 	private String estado;
 	private String pais;
 	private String cep;
-	
+
 	@ManyToOne
 	@NotNull
 	private Organizadora organizadora;
-	
+
 	@OneToMany
 	private List<TipoDeIngresso> tiposDeIngresso;
+
+	public Evento(String titulo, String imagemURL, LocalDateTime inicio,
+			LocalDateTime termino, String descricao, Boolean online, String url,
+			String logradouro, String numero, String bairro, String cidade,
+			String estado, String pais, String cep) {
+		this.titulo = titulo;
+		this.imagemURL = imagemURL;
+		this.inicio = inicio;
+		this.termino = termino;
+		this.descricao = descricao;
+		this.online = online;
+		this.url = url;
+		this.logradouro = logradouro;
+		this.numero = numero;
+		this.bairro = bairro;
+		this.cidade = cidade;
+		this.estado = estado;
+		this.pais = pais;
+		this.cep = cep;
+	}
 }

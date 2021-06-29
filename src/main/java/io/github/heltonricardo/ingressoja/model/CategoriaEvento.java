@@ -8,8 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Where;
@@ -30,8 +28,6 @@ public class CategoriaEvento {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@NotBlank
-	@Size(min = 1, max = 50)
 	private String nome;
 
 	private Boolean ativo = true;
@@ -41,5 +37,9 @@ public class CategoriaEvento {
 	
 	public void addEvento(Evento evento) {
 		eventos.add(evento);
+	}
+
+	public CategoriaEvento(String nome) {
+		this.nome = nome;
 	}
 }

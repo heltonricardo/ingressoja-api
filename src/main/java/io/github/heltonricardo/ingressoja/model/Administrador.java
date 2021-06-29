@@ -9,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Where;
 
@@ -32,7 +31,6 @@ public class Administrador {
 	private String email;
 	private Boolean ativo = true;
 
-	@NotNull
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Usuario usuario;
 
@@ -41,5 +39,10 @@ public class Administrador {
 	
 	public void addSaque(Saque saque) {
 		saques.add(saque);
+	}
+
+	public Administrador(String nome, String email) {
+		this.nome = nome;
+		this.email = email;
 	}
 }

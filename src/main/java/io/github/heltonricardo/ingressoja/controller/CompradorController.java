@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.github.heltonricardo.ingressoja.model.Comprador;
 import io.github.heltonricardo.ingressoja.repository.CompradorRepository;
-import io.github.heltonricardo.ingressoja.service.ValidacaoService;
+import io.github.heltonricardo.ingressoja.service.ValidacaoEmailService;
 
 @RestController
 @RequestMapping("comprador")
@@ -25,7 +25,7 @@ public class CompradorController {
 	@Autowired
 	private CompradorRepository compradorRepository;
 	@Autowired
-	private ValidacaoService validacaoService;
+	private ValidacaoEmailService validacaoService;
 
 	@GetMapping("/{id}")
 	public ResponseEntity<?> obterCompradorPorId(@PathVariable Long id) {

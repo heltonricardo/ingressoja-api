@@ -27,4 +27,12 @@ public class TipoDeIngresso {
 	private String descricao;
 	private Integer quantidade;
 	private Boolean ativo = true;
+
+	public TipoDeIngresso(String nome, Double valor, String descricao,
+			Integer quantidade) {
+		this.nome = nome;
+		this.valor = valor;
+		this.descricao = descricao;
+		this.quantidade = quantidade;
+	}
 }

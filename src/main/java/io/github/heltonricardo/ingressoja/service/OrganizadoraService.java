@@ -1,5 +1,7 @@
 package io.github.heltonricardo.ingressoja.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,14 @@ public class OrganizadoraService {
 	@Autowired
 	public OrganizadoraService(OrganizadoraRepository organizadoraRepository) {
 		this.organizadoraRepository = organizadoraRepository;
+	}
+	
+	public Iterable<Organizadora> obterTodas() {
+		return organizadoraRepository.findAll();
+	}
+	
+	public Optional<Organizadora> obterPorId(Long id) {
+		return organizadoraRepository.findById(id);
 	}
 	
 	public Organizadora salvar(Organizadora organizadora) {
