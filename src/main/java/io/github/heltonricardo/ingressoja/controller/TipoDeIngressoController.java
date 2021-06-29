@@ -1,61 +1,68 @@
 package io.github.heltonricardo.ingressoja.controller;
 
-import java.util.Optional;
-
-import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.github.heltonricardo.ingressoja.dto.TipoDeIngressoDTO;
+import io.github.heltonricardo.ingressoja.dto.TipoDeIngressoDTOResp;
 import io.github.heltonricardo.ingressoja.model.TipoDeIngresso;
-import io.github.heltonricardo.ingressoja.repository.TipoDeIngressoRepository;
+import io.github.heltonricardo.ingressoja.service.TipoDeIngressoService;
 
 @RestController
 @RequestMapping("tipo-de-ingresso")
 public class TipoDeIngressoController {
 
-	@Autowired
-	private TipoDeIngressoRepository tipoDeIngressoRepository;
+	private final TipoDeIngressoService tipoDeIngressoService;
 
-	@GetMapping("/{id}")
-	public Optional<TipoDeIngresso> obterTipoDeIngressoPorId(
-			@PathVariable Long id) {
-		return tipoDeIngressoRepository.findById(id);
+	@Autowired
+	public TipoDeIngressoController(TipoDeIngressoService tipoDeIngressoService) {
+		this.tipoDeIngressoService = tipoDeIngressoService;
 	}
+
+	/******************************* OBTER TODAS ********************************/
 
 	@GetMapping
-	public Iterable<TipoDeIngresso> obterTiposDeIngressos() {
-		return tipoDeIngressoRepository.findAll();
+	public ResponseEntity<List<TipoDeIngressoDTOResp>> obterTodas() {
+		List<TipoDeIngressoDTOResp> resp = new ArrayList<>();
+		tipoDeIngressoService.obterTodos()
+				.forEach(c -> resp.add(TipoDeIngressoDTOResp.paraDTO(c)));
+		return new ResponseEntity<>(resp, HttpStatus.OK);
 	}
 
-	@GetMapping("/pagina/{numeroPagina}/{quantidade}")
-	public Iterable<TipoDeIngresso> obterTipoDeIngressosPorPagina(
-			@PathVariable int numeroPagina, @PathVariable int quantidade) {
-		Pageable pagina = PageRequest.of(numeroPagina, quantidade);
-		return tipoDeIngressoRepository.findAll(pagina);
+	/******************************* OBTER POR ID *******************************/
+
+	@GetMapping("/{id}")
+	public ResponseEntity<TipoDeIngressoDTOResp> obterPorId(
+			@PathVariable Long id) {
+
+		TipoDeIngressoDTOResp resp;
+
+		if (tipoDeIngressoService.obterPorId(id).isEmpty())
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+		resp = TipoDeIngressoDTOResp
+				.paraDTO(tipoDeIngressoService.obterPorId(id).get());
+
+		return new ResponseEntity<>(resp, HttpStatus.OK);
 	}
 
-	@RequestMapping(method = { RequestMethod.POST, RequestMethod.PUT })
-	public void salvarTipoDeIngresso(
-			@RequestBody @Valid TipoDeIngresso tipoDeIngresso) {
-		tipoDeIngressoRepository.save(tipoDeIngresso);
-	}
+	/********************************** SALVAR **********************************/
 
-	@DeleteMapping("/{id}")
-	public Boolean excluirTipoDeIngresso(@PathVariable Long id) {
-		try {
-			tipoDeIngressoRepository.deleteById(id);
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
+	@PostMapping
+	public ResponseEntity<TipoDeIngressoDTOResp> salvar(
+			@RequestBody TipoDeIngressoDTO dto) {
+		TipoDeIngresso resp = tipoDeIngressoService.salvar(dto.paraObjeto());
+		return new ResponseEntity<>(TipoDeIngressoDTOResp.paraDTO(resp),
+				HttpStatus.OK);
 	}
 }

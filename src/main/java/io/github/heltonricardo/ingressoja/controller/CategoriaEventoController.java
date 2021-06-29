@@ -55,7 +55,6 @@ public class CategoriaEventoController {
 					.paraDTO(categoriaEventoService.obterPorId(id).get());
 		
 		return new ResponseEntity<>(resp, HttpStatus.OK);
-		
 	}
 	
 	/********************************** SALVAR **********************************/

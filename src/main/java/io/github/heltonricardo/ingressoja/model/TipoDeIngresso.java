@@ -26,6 +26,7 @@ public class TipoDeIngresso {
 	private Double valor;
 	private String descricao;
 	private Integer quantidade;
+	
 	private Boolean ativo = true;
 
 	public TipoDeIngresso(String nome, Double valor, String descricao,
