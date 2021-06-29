@@ -19,11 +19,14 @@ public class OrganizadoraDTOResp {
 	private String conta;
 	private Double valorCarteira;
 
+	private UsuarioDTOResp usuario;
+
 	public static OrganizadoraDTOResp paraDTO(Organizadora organizadora) {
 		return new OrganizadoraDTOResp(organizadora.getId(),
 				organizadora.getEmail(), organizadora.getNomeFantasia(),
 				organizadora.getRazaoSocial(), organizadora.getCnpj(),
 				organizadora.getBanco(), organizadora.getAgencia(),
-				organizadora.getConta(), organizadora.getValorCarteira());
+				organizadora.getConta(), organizadora.getValorCarteira(),
+				UsuarioDTOResp.paraDTO(organizadora.getUsuario()));
 	}
 }
