@@ -9,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Where;
 
 import lombok.Getter;
@@ -20,7 +19,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@DynamicUpdate
 @Where(clause = "ativo")
 public class CategoriaEvento {
 
@@ -34,10 +32,6 @@ public class CategoriaEvento {
 
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Evento> eventos;
-	
-	public void addEvento(Evento evento) {
-		eventos.add(evento);
-	}
 
 	public CategoriaEvento(String nome) {
 		this.nome = nome;

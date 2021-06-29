@@ -3,10 +3,12 @@ package io.github.heltonricardo.ingressoja.service;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import io.github.heltonricardo.ingressoja.model.CategoriaEvento;
 import io.github.heltonricardo.ingressoja.repository.CategoriaEventoRepository;
 
+@Service
 public class CategoriaEventoService {
 
 	private final CategoriaEventoRepository categoriaEventoRepository;
@@ -15,6 +17,10 @@ public class CategoriaEventoService {
 	public CategoriaEventoService(
 			CategoriaEventoRepository categoriaEventoRepository) {
 		this.categoriaEventoRepository = categoriaEventoRepository;
+	}
+	
+	public boolean existeId(Long id) {
+		return !categoriaEventoRepository.findById(id).isEmpty();
 	}
 	
 	public Iterable<CategoriaEvento> obterTodas() {
