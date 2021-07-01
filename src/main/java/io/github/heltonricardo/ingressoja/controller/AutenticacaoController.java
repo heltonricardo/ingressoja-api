@@ -34,18 +34,20 @@ public class AutenticacaoController {
 
 	@PostMapping
 	public ResponseEntity<?> logar(@RequestBody ObjectNode obj) {
+
 		String email, senha;
+
 		try {
 			email = obj.get("email").asText();
 			senha = obj.get("senha").asText();
-		} //
-		catch (Exception e) {
+		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
 
 		Map<String, Long> resposta = new HashMap<>();
 
 		Iterable<Comprador> user1 = compradorRepository.findByEmail(email);
+
 		if (user1.iterator().hasNext()) {
 			Comprador comprador = user1.iterator().next();
 			if (comprador.getUsuario().getSenha().equals(senha)) {
@@ -53,7 +55,6 @@ public class AutenticacaoController {
 				resposta.put("tipo", 1L);
 				return ResponseEntity.status(HttpStatus.OK).body(resposta);
 			} else
-
 				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
 

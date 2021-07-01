@@ -69,7 +69,7 @@ public class OrganizadoraController {
 		Organizadora resp = organizadoraService.salvar(dto.paraObjeto());
 
 		return new ResponseEntity<>(OrganizadoraDTOResp.paraDTO(resp),
-				HttpStatus.OK);
+				HttpStatus.CREATED);
 	}
 
 	/******************************* CRIAR EVENTO *******************************/
@@ -84,6 +84,7 @@ public class OrganizadoraController {
 		if (resp == null)
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
-		return new ResponseEntity<>(EventoDTOResp.paraDTO(resp), HttpStatus.OK);
+		return new ResponseEntity<>(EventoDTOResp.paraDTO(resp),
+				HttpStatus.CREATED);
 	}
 }

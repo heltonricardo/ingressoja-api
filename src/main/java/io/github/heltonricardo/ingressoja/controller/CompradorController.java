@@ -66,6 +66,6 @@ public class CompradorController {
 		Comprador resp = compradorService.salvar(dto.paraObjeto());
 
 		return new ResponseEntity<>(CompradorDTOResp.paraDTO(resp),
-				HttpStatus.OK);
+				HttpStatus.CREATED);
 	}
 }
