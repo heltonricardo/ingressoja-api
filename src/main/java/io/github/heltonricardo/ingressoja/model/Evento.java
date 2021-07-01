@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.SQLDelete;
@@ -43,8 +44,10 @@ public class Evento {
 	private String estado;
 	private String pais;
 	private String cep;
-
 	private Boolean ativo = true;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Organizadora organizadora;
 
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<TipoDeIngresso> tiposDeIngresso;

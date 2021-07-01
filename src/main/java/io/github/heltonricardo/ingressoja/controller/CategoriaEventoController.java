@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.github.heltonricardo.ingressoja.dto.CategoriaEventoDTO;
-import io.github.heltonricardo.ingressoja.dto.CategoriaEventoDTOResp;
+import io.github.heltonricardo.ingressoja.dto.resp.CategoriaEventoDTOResp;
 import io.github.heltonricardo.ingressoja.model.CategoriaEvento;
 import io.github.heltonricardo.ingressoja.service.CategoriaEventoService;
 

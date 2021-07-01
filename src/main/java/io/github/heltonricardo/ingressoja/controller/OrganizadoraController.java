@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.github.heltonricardo.ingressoja.dto.OrganizadoraDTOResp;
+import io.github.heltonricardo.ingressoja.dto.resp.EventoDTOResp;
+import io.github.heltonricardo.ingressoja.dto.resp.OrganizadoraDTOResp;
 import io.github.heltonricardo.ingressoja.dto.EventoDTO;
-import io.github.heltonricardo.ingressoja.dto.EventoDTOResp;
 import io.github.heltonricardo.ingressoja.dto.OrganizadoraDTO;
 import io.github.heltonricardo.ingressoja.model.Evento;
 import io.github.heltonricardo.ingressoja.model.Organizadora;

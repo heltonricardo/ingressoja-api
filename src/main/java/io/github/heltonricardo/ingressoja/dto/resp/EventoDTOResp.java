@@ -1,4 +1,4 @@
-package io.github.heltonricardo.ingressoja.dto;
+package io.github.heltonricardo.ingressoja.dto.resp;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -27,11 +27,12 @@ public class EventoDTOResp {
 	private String estado;
 	private String pais;
 	private String cep;
+	private OrganizadoraDTORespEvento organizadora;
 	private List<TipoDeIngressoDTOResp> tiposDeIngresso;
 
 	public static EventoDTOResp paraDTO(Evento evento) {
 		List<TipoDeIngressoDTOResp> tipos = new ArrayList<>();
-		
+
 		evento.getTiposDeIngresso()
 				.forEach(t -> tipos.add(TipoDeIngressoDTOResp.paraDTO(t)));
 
@@ -40,6 +41,7 @@ public class EventoDTOResp {
 				evento.getDescricao(), evento.getOnline(), evento.getUrl(),
 				evento.getLogradouro(), evento.getNumero(), evento.getBairro(),
 				evento.getCidade(), evento.getEstado(), evento.getPais(),
-				evento.getCep(), tipos);
+				evento.getCep(),
+				OrganizadoraDTORespEvento.paraDTO(evento.getOrganizadora()), tipos);
 	}
 }

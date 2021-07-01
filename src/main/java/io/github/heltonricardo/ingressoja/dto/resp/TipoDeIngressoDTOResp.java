@@ -1,4 +1,4 @@
-package io.github.heltonricardo.ingressoja.dto;
+package io.github.heltonricardo.ingressoja.dto.resp;
 
 import io.github.heltonricardo.ingressoja.model.TipoDeIngresso;
 import lombok.AllArgsConstructor;

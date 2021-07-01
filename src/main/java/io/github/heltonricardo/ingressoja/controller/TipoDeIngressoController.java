@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.github.heltonricardo.ingressoja.dto.TipoDeIngressoDTO;
-import io.github.heltonricardo.ingressoja.dto.TipoDeIngressoDTOResp;
+import io.github.heltonricardo.ingressoja.dto.resp.TipoDeIngressoDTOResp;
 import io.github.heltonricardo.ingressoja.model.TipoDeIngresso;
 import io.github.heltonricardo.ingressoja.service.TipoDeIngressoService;
 

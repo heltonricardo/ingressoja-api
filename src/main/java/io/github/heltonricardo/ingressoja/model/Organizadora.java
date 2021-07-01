@@ -38,7 +38,7 @@ public class Organizadora {
 	private Double valorCarteira = 0.0;
 	private Boolean ativo = true;
 
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "organizadora")
 	List<Evento> eventos;
 
 	@ManyToOne(cascade = CascadeType.ALL)
