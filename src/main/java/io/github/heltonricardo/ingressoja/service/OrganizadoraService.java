@@ -43,6 +43,6 @@ public class OrganizadoraService {
 
 		organizadoraRepository.save(organizadora);
 		
-		return evento;
+		return organizadora.getEventos().get(organizadora.getEventos().size() - 1);
 	}
 }
