@@ -5,11 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.github.heltonricardo.ingressoja.model.Evento;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class EventoDTOResp {
 
 	private Long id;

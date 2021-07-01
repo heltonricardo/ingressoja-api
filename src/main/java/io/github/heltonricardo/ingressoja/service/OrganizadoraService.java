@@ -38,13 +38,9 @@ public class OrganizadoraService {
 			return null;
 
 		Organizadora organizadora = pesq.get();
-
 		evento.setOrganizadora(organizadora);
-		
 		organizadora.adicionaEvento(evento);
-
 		organizadoraRepository.save(organizadora);
-		
 		return organizadora.getEventos().get(organizadora.getEventos().size() - 1);
 	}
 }

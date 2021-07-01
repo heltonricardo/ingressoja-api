@@ -1,11 +1,12 @@
 package io.github.heltonricardo.ingressoja.dto.resp;
 
 import io.github.heltonricardo.ingressoja.model.Usuario;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class UsuarioDTOResp {
 	private Long id;
 	
