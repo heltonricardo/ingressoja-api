@@ -1,55 +1,57 @@
 package io.github.heltonricardo.ingressoja.controller;
 
-import java.util.Optional;
-
-import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.github.heltonricardo.ingressoja.model.Evento;
-import io.github.heltonricardo.ingressoja.repository.EventoRepository;
+import io.github.heltonricardo.ingressoja.dto.EventoDTOResp;
+import io.github.heltonricardo.ingressoja.service.EventoService;
 
 @RestController
 @RequestMapping("evento")
 public class EventoController {
 
+	public final EventoService eventoService;
+
 	@Autowired
-	private EventoRepository eventoRepository;
+	public EventoController(EventoService eventoService) {
+		this.eventoService = eventoService;
+	}
+	
+	/******************************* OBTER TODOS ********************************/
+	
+	@GetMapping
+	public ResponseEntity<List<EventoDTOResp>> obterTodas() {
+
+		List<EventoDTOResp> resp = new ArrayList<>();
+
+		eventoService.obterTodos()
+				.forEach(c -> resp.add(EventoDTOResp.paraDTO(c)));
+
+		return new ResponseEntity<>(resp, HttpStatus.OK);
+	}
+
+	/******************************* OBTER POR ID *******************************/
 
 	@GetMapping("/{id}")
-	public Optional<Evento> obterEventoPorId(@PathVariable Long id) {
-		return eventoRepository.findById(id);
-	}
+	public ResponseEntity<EventoDTOResp> obterPorId(
+			@PathVariable Long id) {
 
-	@GetMapping("/pagina/{numeroPagina}/{quantidade}")
-	public Iterable<Evento> obterEventosPorPagina(@PathVariable int numeroPagina,
-			@PathVariable int quantidade) {
-		Pageable pagina = PageRequest.of(numeroPagina, quantidade);
-		return eventoRepository.findAll(pagina);
-	}
+		EventoDTOResp resp;
 
-	@RequestMapping(method = { RequestMethod.POST, RequestMethod.PUT })
-	public void salvarEvento(@RequestBody @Valid Evento evento) {
-		eventoRepository.save(evento);
-	}
+		if (eventoService.obterPorId(id).isEmpty())
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
-	// TODO Retornar codigo http
-	@DeleteMapping("/{id}")
-	public Boolean excluirEvento(@PathVariable Long id) {
-		try {
-			eventoRepository.deleteById(id);
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
+		resp = EventoDTOResp
+				.paraDTO(eventoService.obterPorId(id).get());
+
+		return new ResponseEntity<>(resp, HttpStatus.OK);
 	}
 }

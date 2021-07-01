@@ -38,15 +38,14 @@ public class Organizadora {
 	private Double valorCarteira = 0.0;
 	private Boolean ativo = true;
 
+	@OneToMany(cascade = CascadeType.ALL)
+	List<Evento> eventos;
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Usuario usuario;
 
 	@OneToMany(cascade = CascadeType.ALL)
 	List<Saque> saques;
-
-	public void addSaque(Saque saque) {
-		saques.add(saque);
-	}
 
 	public Organizadora(String email, String nomeFantasia, String razaoSocial,
 			String cnpj, String banco, String agencia, String conta,
@@ -59,5 +58,9 @@ public class Organizadora {
 		this.agencia = agencia;
 		this.conta = conta;
 		this.usuario = usuario;
+	}
+
+	public void adicionaEvento(Evento evento) {
+		eventos.add(evento);
 	}
 }
