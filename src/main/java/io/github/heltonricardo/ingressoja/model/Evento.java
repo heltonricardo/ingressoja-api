@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -34,6 +35,8 @@ public class Evento {
 	private String imagemURL;
 	private LocalDateTime inicio;
 	private LocalDateTime termino;
+	
+	@Column(length = 1000)
 	private String descricao;
 	private Boolean online;
 	private String url;

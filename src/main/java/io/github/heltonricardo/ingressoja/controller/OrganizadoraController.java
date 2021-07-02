@@ -13,11 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.github.heltonricardo.ingressoja.dto.resp.EventoDTOResp;
-import io.github.heltonricardo.ingressoja.dto.resp.OrganizadoraDTOResp;
-import io.github.heltonricardo.ingressoja.dto.EventoDTO;
 import io.github.heltonricardo.ingressoja.dto.OrganizadoraDTO;
-import io.github.heltonricardo.ingressoja.model.Evento;
+import io.github.heltonricardo.ingressoja.dto.resp.OrganizadoraDTOResp;
 import io.github.heltonricardo.ingressoja.model.Organizadora;
 import io.github.heltonricardo.ingressoja.service.OrganizadoraService;
 
@@ -69,22 +66,6 @@ public class OrganizadoraController {
 		Organizadora resp = organizadoraService.salvar(dto.paraObjeto());
 
 		return new ResponseEntity<>(OrganizadoraDTOResp.paraDTO(resp),
-				HttpStatus.CREATED);
-	}
-
-	/******************************* CRIAR EVENTO *******************************/
-
-	@PostMapping("/{idOrganizadora}/criar-evento")
-	public ResponseEntity<EventoDTOResp> criarEvento(
-			@PathVariable Long idOrganizadora, @RequestBody EventoDTO dto) {
-
-		Evento resp = organizadoraService.criarEvento(idOrganizadora,
-				dto.paraObjeto());
-
-		if (resp == null)
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
-		return new ResponseEntity<>(EventoDTOResp.paraDTO(resp),
 				HttpStatus.CREATED);
 	}
 }

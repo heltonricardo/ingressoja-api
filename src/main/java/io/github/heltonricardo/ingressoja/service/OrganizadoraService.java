@@ -5,7 +5,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import io.github.heltonricardo.ingressoja.model.Evento;
 import io.github.heltonricardo.ingressoja.model.Organizadora;
 import io.github.heltonricardo.ingressoja.repository.OrganizadoraRepository;
 
@@ -29,18 +28,5 @@ public class OrganizadoraService {
 
 	public Organizadora salvar(Organizadora organizadora) {
 		return organizadoraRepository.save(organizadora);
-	}
-
-	public Evento criarEvento(Long idOrganizadora, Evento evento) {
-		Optional<Organizadora> pesq = obterPorId(idOrganizadora);
-
-		if (pesq.isEmpty())
-			return null;
-
-		Organizadora organizadora = pesq.get();
-		evento.setOrganizadora(organizadora);
-		organizadora.adicionaEvento(evento);
-		organizadoraRepository.save(organizadora);
-		return organizadora.getEventos().get(organizadora.getEventos().size() - 1);
 	}
 }
