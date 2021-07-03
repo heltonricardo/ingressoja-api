@@ -13,11 +13,12 @@ public class TipoDeIngressoDTOResp {
 	private String nome;
 	private Double valor;
 	private String descricao;
-	private Integer quantidade;
+	private Integer quantidadeDisponivel;
 
 	public static TipoDeIngressoDTOResp paraDTO(TipoDeIngresso tipoDeIngresso) {
 		return new TipoDeIngressoDTOResp(tipoDeIngresso.getId(),
 				tipoDeIngresso.getNome(), tipoDeIngresso.getValor(),
-				tipoDeIngresso.getDescricao(), tipoDeIngresso.getQuantidade());
+				tipoDeIngresso.getDescricao(),
+				tipoDeIngresso.getQuantidadeDisponivel());
 	}
 }

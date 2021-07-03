@@ -25,15 +25,17 @@ public class TipoDeIngresso {
 	private String nome;
 	private Double valor;
 	private String descricao;
-	private Integer quantidade;
+	private Integer quantidadeTotal;
+	private Integer quantidadeDisponivel;
 	
 	private Boolean ativo = true;
 
 	public TipoDeIngresso(String nome, Double valor, String descricao,
-			Integer quantidade) {
+			Integer quantidadeTotal) {
 		this.nome = nome;
 		this.valor = valor;
 		this.descricao = descricao;
-		this.quantidade = quantidade;
+		this.quantidadeTotal = quantidadeTotal;
+		this.quantidadeDisponivel = quantidadeTotal;
 	}
 }

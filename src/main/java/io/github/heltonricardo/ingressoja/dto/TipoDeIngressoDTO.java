@@ -9,9 +9,9 @@ public class TipoDeIngressoDTO {
 	String nome;
 	Double valor;
 	String descricao;
-	Integer quantidade;
+	Integer quantidadeTotal;
 
 	public TipoDeIngresso paraObjeto() {
-		return new TipoDeIngresso(nome, valor, descricao, quantidade);
+		return new TipoDeIngresso(nome, valor, descricao, quantidadeTotal);
 	}
 }
