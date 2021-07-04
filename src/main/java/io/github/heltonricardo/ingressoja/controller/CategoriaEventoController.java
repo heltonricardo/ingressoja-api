@@ -42,7 +42,6 @@ public class CategoriaEventoController {
 		categoriaEventoService.obterTodas()
 				.forEach(c -> resp.add(CategoriaEventoDTORespSimples.paraDTO(c)));
 
-		System.out.println("aaaaaaaaaaaa");
 		return new ResponseEntity<>(resp, HttpStatus.OK);
 	}
 

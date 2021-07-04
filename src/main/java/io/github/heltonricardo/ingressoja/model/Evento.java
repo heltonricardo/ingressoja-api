@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
@@ -50,19 +51,20 @@ public class Evento {
 	private Boolean ativo = true;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
+	@JsonBackReference
 	private Organizadora organizadora;
-
-	@OneToMany(cascade = CascadeType.ALL)
-	private List<TipoDeIngresso> tiposDeIngresso;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	private CategoriaEvento categoriaEvento;
+
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<TipoDeIngresso> tiposDeIngresso;
 
 	public Evento(String titulo, String imagemURL, LocalDateTime inicio,
 			LocalDateTime termino, String descricao, Boolean online, String url,
 			String logradouro, String numero, String bairro, String cidade,
 			String estado, String pais, String cep,
-			List<TipoDeIngresso> tiposDeIngresso, CategoriaEvento categoriaEvento) {
+			List<TipoDeIngresso> tiposDeIngresso) {
 		this.titulo = titulo;
 		this.imagemURL = imagemURL;
 		this.inicio = inicio;
@@ -78,6 +80,5 @@ public class Evento {
 		this.pais = pais;
 		this.cep = cep;
 		this.tiposDeIngresso = tiposDeIngresso;
-		this.categoriaEvento = categoriaEvento;
 	}
 }

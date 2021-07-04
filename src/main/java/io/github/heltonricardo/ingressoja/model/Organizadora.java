@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.Where;
 
 import lombok.Getter;
@@ -39,6 +40,7 @@ public class Organizadora {
 	private Boolean ativo = true;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "organizadora")
+	@JsonManagedReference
 	private List<Evento> eventos;
 
 	@ManyToOne(cascade = CascadeType.ALL)

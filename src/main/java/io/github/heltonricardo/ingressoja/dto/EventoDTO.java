@@ -4,8 +4,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.github.heltonricardo.ingressoja.model.CategoriaEvento;
 import io.github.heltonricardo.ingressoja.model.Evento;
 import io.github.heltonricardo.ingressoja.model.TipoDeIngresso;
+import io.github.heltonricardo.ingressoja.service.CategoriaEventoService;
 import lombok.Getter;
 
 @Getter
@@ -27,7 +29,6 @@ public class EventoDTO {
   private String cep;
 
   private List<TipoDeIngressoDTO> tiposDeIngresso;
-  private CategoriaEventoDTO categoriaEvento;
 
   public Evento paraObjeto() {
     List<TipoDeIngresso> tipos = new ArrayList<>();
@@ -35,7 +36,6 @@ public class EventoDTO {
     tiposDeIngresso.forEach(t -> tipos.add(t.paraObjeto()));
 
     return new Evento(titulo, imagemURL, inicio, termino, descricao, online,
-        url, logradouro, numero, bairro, cidade, estado, pais, cep, tipos,
-        categoriaEvento.paraObjeto());
+        url, logradouro, numero, bairro, cidade, estado, pais, cep, tipos);
   }
 }

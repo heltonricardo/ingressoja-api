@@ -6,12 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import io.github.heltonricardo.ingressoja.dto.EventoDTO;
 import io.github.heltonricardo.ingressoja.dto.resp.EventoDTOResp;
@@ -22,52 +17,55 @@ import io.github.heltonricardo.ingressoja.service.EventoService;
 @RequestMapping("evento")
 public class EventoController {
 
-	public final EventoService eventoService;
+  public final EventoService eventoService;
 
-	@Autowired
-	public EventoController(EventoService eventoService) {
-		this.eventoService = eventoService;
-	}
+  @Autowired
+  public EventoController(EventoService eventoService) {
+    this.eventoService = eventoService;
+  }
 
-	/******************************* OBTER TODOS ********************************/
+  /******************************* OBTER TODOS ********************************/
 
-	@GetMapping
-	public ResponseEntity<List<EventoDTOResp>> obterTodas() {
+  @GetMapping
+  public ResponseEntity<List<EventoDTOResp>> obterTodas() {
 
-		List<EventoDTOResp> resp = new ArrayList<>();
+    List<EventoDTOResp> resp = new ArrayList<>();
 
-		eventoService.obterTodos().forEach(c -> resp.add(EventoDTOResp.paraDTO(c)));
+    eventoService.obterTodos().forEach(c -> resp.add(EventoDTOResp.paraDTO(c)));
 
-		return new ResponseEntity<>(resp, HttpStatus.OK);
-	}
+    return new ResponseEntity<>(resp, HttpStatus.OK);
+  }
 
-	/******************************* OBTER POR ID *******************************/
+  /******************************* OBTER POR ID *******************************/
 
-	@GetMapping("/{id}")
-	public ResponseEntity<EventoDTOResp> obterPorId(@PathVariable Long id) {
+  @GetMapping("/{id}")
+  public ResponseEntity<EventoDTOResp> obterPorId(@PathVariable Long id) {
 
-		EventoDTOResp resp;
+    EventoDTOResp resp;
 
-		if (eventoService.obterPorId(id).isEmpty())
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    if (eventoService.obterPorId(id).isEmpty())
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
-		resp = EventoDTOResp.paraDTO(eventoService.obterPorId(id).get());
+    resp = EventoDTOResp.paraDTO(eventoService.obterPorId(id).get());
 
-		return new ResponseEntity<>(resp, HttpStatus.OK);
-	}
+    return new ResponseEntity<>(resp, HttpStatus.OK);
+  }
 
-	/********************************** SALVAR **********************************/
+  /********************************** SALVAR **********************************/
 
-	@PostMapping("/{idOrganizadora}")
-	public ResponseEntity<EventoDTOResp> criarEvento(
-			@PathVariable Long idOrganizadora, @RequestBody EventoDTO dto) {
+  @PostMapping
+  public ResponseEntity<EventoDTOResp> criarEvento(
+      @RequestParam(name = "idOrganizadora") Long idOrganizadora,
+      @RequestParam(name = "idCategoria") Long idCategoria,
+      @RequestBody EventoDTO dto) {
 
-		Evento resp = eventoService.salvar(idOrganizadora, dto.paraObjeto());
+    Evento resp = eventoService.salvar(idOrganizadora, idCategoria,
+        dto.paraObjeto());
 
-		if (resp == null)
-			return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+    if (resp == null)
+      return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
 
-		return new ResponseEntity<>(EventoDTOResp.paraDTO(resp),
-				HttpStatus.CREATED);
-	}
+    return new ResponseEntity<>(EventoDTOResp.paraDTO(resp),
+        HttpStatus.CREATED);
+  }
 }

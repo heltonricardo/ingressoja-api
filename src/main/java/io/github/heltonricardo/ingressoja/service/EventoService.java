@@ -26,32 +26,36 @@ public class EventoService {
     this.categoriaEventoService = categoriaEvento;
   }
 
+  /******************************* OBTER TODOS ********************************/
+
   public Iterable<Evento> obterTodos() {
     return eventoRepository.findAll();
   }
+
+  /******************************* OBTER POR ID *******************************/
 
   public Optional<Evento> obterPorId(Long id) {
     return eventoRepository.findById(id);
   }
 
-  public Evento salvar(Long idOrganizadora, Evento evento) {
+  /********************************** SALVAR **********************************/
+
+  public Evento salvar(Long idOrganizadora, Long idCategoria, Evento evento) {
     Optional<Organizadora> pesqOrganizadora = organizadoraService
         .obterPorId(idOrganizadora);
 
     Optional<CategoriaEvento> pesqCategoria =
-        categoriaEventoService.obterPorId(evento.getCategoriaEvento().getId());
+        categoriaEventoService.obterPorId(idCategoria);
 
     if (pesqOrganizadora.isEmpty() || pesqCategoria.isEmpty())
       return null;
 
     Organizadora organizadora = pesqOrganizadora.get();
-    evento.setOrganizadora(organizadora);
-    organizadora.adicionaEvento(evento);
-    organizadoraService.salvar(organizadora);
-
     CategoriaEvento categoriaEvento = pesqCategoria.get();
-    categoriaEvento.adicionaEvento(evento);
+    evento.setOrganizadora(organizadora);
+    evento.setCategoriaEvento(categoriaEvento);
 
+    eventoRepository.save(evento);
     return organizadora.getEventos().get(organizadora.getEventos().size() - 1);
   }
 }
