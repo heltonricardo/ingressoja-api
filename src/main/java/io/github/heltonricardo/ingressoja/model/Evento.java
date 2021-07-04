@@ -55,11 +55,14 @@ public class Evento {
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<TipoDeIngresso> tiposDeIngresso;
 
+	@ManyToOne(cascade = CascadeType.ALL)
+	private CategoriaEvento categoriaEvento;
+
 	public Evento(String titulo, String imagemURL, LocalDateTime inicio,
 			LocalDateTime termino, String descricao, Boolean online, String url,
 			String logradouro, String numero, String bairro, String cidade,
 			String estado, String pais, String cep,
-			List<TipoDeIngresso> tiposDeIngresso) {
+			List<TipoDeIngresso> tiposDeIngresso, CategoriaEvento categoriaEvento) {
 		this.titulo = titulo;
 		this.imagemURL = imagemURL;
 		this.inicio = inicio;
@@ -75,5 +78,6 @@ public class Evento {
 		this.pais = pais;
 		this.cep = cep;
 		this.tiposDeIngresso = tiposDeIngresso;
+		this.categoriaEvento = categoriaEvento;
 	}
 }

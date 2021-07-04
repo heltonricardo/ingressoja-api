@@ -7,14 +7,14 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class CategoriaEventoDTOResp {
+public class CategoriaEventoDTORespSimples {
 
 	private Long id;
 	private String nome;
 
-	public static CategoriaEventoDTOResp paraDTO(
+	public static CategoriaEventoDTORespSimples paraDTO(
 			CategoriaEvento categoriaEvento) {
-		return new CategoriaEventoDTOResp(categoriaEvento.getId(),
+		return new CategoriaEventoDTORespSimples(categoriaEvento.getId(),
 				categoriaEvento.getNome());
 	}
 }

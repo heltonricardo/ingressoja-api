@@ -39,13 +39,13 @@ public class Organizadora {
 	private Boolean ativo = true;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "organizadora")
-	List<Evento> eventos;
+	private List<Evento> eventos;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Usuario usuario;
 
 	@OneToMany(cascade = CascadeType.ALL)
-	List<Saque> saques;
+	private List<Saque> saques;
 
 	public Organizadora(String email, String nomeFantasia, String razaoSocial,
 			String cnpj, String banco, String agencia, String conta,

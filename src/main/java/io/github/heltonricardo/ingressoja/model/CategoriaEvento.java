@@ -22,18 +22,22 @@ import lombok.Setter;
 @Where(clause = "ativo")
 public class CategoriaEvento {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-	private String nome;
+  private String nome;
 
-	private Boolean ativo = true;
+  private Boolean ativo = true;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	private List<Evento> eventos;
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoriaEvento")
+  private List<Evento> eventos;
 
-	public CategoriaEvento(String nome) {
-		this.nome = nome;
-	}
+  public CategoriaEvento(String nome) {
+    this.nome = nome;
+  }
+
+  public void adicionaEvento(Evento evento) {
+    eventos.add(evento);
+  }
 }

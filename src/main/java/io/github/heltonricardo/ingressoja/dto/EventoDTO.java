@@ -11,29 +11,31 @@ import lombok.Getter;
 @Getter
 public class EventoDTO {
 
-	private String titulo;
-	private String imagemURL;
-	private LocalDateTime inicio;
-	private LocalDateTime termino;
-	private String descricao;
-	private Boolean online;
-	private String url;
-	private String logradouro;
-	private String numero;
-	private String bairro;
-	private String cidade;
-	private String estado;
-	private String pais;
-	private String cep;
+  private String titulo;
+  private String imagemURL;
+  private LocalDateTime inicio;
+  private LocalDateTime termino;
+  private String descricao;
+  private Boolean online;
+  private String url;
+  private String logradouro;
+  private String numero;
+  private String bairro;
+  private String cidade;
+  private String estado;
+  private String pais;
+  private String cep;
 
-	private List<TipoDeIngressoDTO> tiposDeIngresso;
+  private List<TipoDeIngressoDTO> tiposDeIngresso;
+  private CategoriaEventoDTO categoriaEvento;
 
-	public Evento paraObjeto() {
-		List<TipoDeIngresso> tipos = new ArrayList<>();
+  public Evento paraObjeto() {
+    List<TipoDeIngresso> tipos = new ArrayList<>();
 
-		tiposDeIngresso.forEach(t -> tipos.add(t.paraObjeto()));
+    tiposDeIngresso.forEach(t -> tipos.add(t.paraObjeto()));
 
-		return new Evento(titulo, imagemURL, inicio, termino, descricao, online,
-				url, logradouro, numero, bairro, cidade, estado, pais, cep, tipos);
-	}
+    return new Evento(titulo, imagemURL, inicio, termino, descricao, online,
+        url, logradouro, numero, bairro, cidade, estado, pais, cep, tipos,
+        categoriaEvento.paraObjeto());
+  }
 }
