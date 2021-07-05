@@ -1,14 +1,12 @@
 package io.github.heltonricardo.ingressoja.dto;
 
+import io.github.heltonricardo.ingressoja.model.Evento;
+import io.github.heltonricardo.ingressoja.model.TipoDeIngresso;
+import lombok.Getter;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
-import io.github.heltonricardo.ingressoja.model.CategoriaEvento;
-import io.github.heltonricardo.ingressoja.model.Evento;
-import io.github.heltonricardo.ingressoja.model.TipoDeIngresso;
-import io.github.heltonricardo.ingressoja.service.CategoriaEventoService;
-import lombok.Getter;
 
 @Getter
 public class EventoDTO {

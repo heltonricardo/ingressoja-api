@@ -1,23 +1,16 @@
 package io.github.heltonricardo.ingressoja.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.prefs.Preferences;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import io.github.heltonricardo.ingressoja.dto.CategoriaEventoDTO;
 import io.github.heltonricardo.ingressoja.dto.resp.CategoriaEventoDTORespSimples;
 import io.github.heltonricardo.ingressoja.model.CategoriaEvento;
 import io.github.heltonricardo.ingressoja.service.CategoriaEventoService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/categoria-evento")

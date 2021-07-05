@@ -1,12 +1,11 @@
 package io.github.heltonricardo.ingressoja.service;
 
-import java.util.Optional;
-
+import io.github.heltonricardo.ingressoja.model.TipoDeIngresso;
+import io.github.heltonricardo.ingressoja.repository.TipoDeIngressoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import io.github.heltonricardo.ingressoja.model.TipoDeIngresso;
-import io.github.heltonricardo.ingressoja.repository.TipoDeIngressoRepository;
+import java.util.Optional;
 
 @Service
 public class TipoDeIngressoService {

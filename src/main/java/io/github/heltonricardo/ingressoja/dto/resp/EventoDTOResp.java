@@ -1,14 +1,13 @@
 package io.github.heltonricardo.ingressoja.dto.resp;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
-import io.github.heltonricardo.ingressoja.dto.CategoriaEventoDTO;
 import io.github.heltonricardo.ingressoja.model.Evento;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)

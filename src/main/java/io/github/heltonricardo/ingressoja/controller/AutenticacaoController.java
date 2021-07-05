@@ -1,8 +1,12 @@
 package io.github.heltonricardo.ingressoja.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import io.github.heltonricardo.ingressoja.model.Administrador;
+import io.github.heltonricardo.ingressoja.model.Comprador;
+import io.github.heltonricardo.ingressoja.model.Produtora;
+import io.github.heltonricardo.ingressoja.repository.AdministradorRepository;
+import io.github.heltonricardo.ingressoja.repository.CompradorRepository;
+import io.github.heltonricardo.ingressoja.repository.ProdutoraRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,14 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.databind.node.ObjectNode;
-
-import io.github.heltonricardo.ingressoja.model.Administrador;
-import io.github.heltonricardo.ingressoja.model.Comprador;
-import io.github.heltonricardo.ingressoja.model.Produtora;
-import io.github.heltonricardo.ingressoja.repository.AdministradorRepository;
-import io.github.heltonricardo.ingressoja.repository.CompradorRepository;
-import io.github.heltonricardo.ingressoja.repository.ProdutoraRepository;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("autenticacao")

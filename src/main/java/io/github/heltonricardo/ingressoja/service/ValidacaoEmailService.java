@@ -1,11 +1,10 @@
 package io.github.heltonricardo.ingressoja.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import io.github.heltonricardo.ingressoja.repository.AdministradorRepository;
 import io.github.heltonricardo.ingressoja.repository.CompradorRepository;
 import io.github.heltonricardo.ingressoja.repository.ProdutoraRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class ValidacaoEmailService {

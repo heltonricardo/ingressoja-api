@@ -1,9 +1,8 @@
 package io.github.heltonricardo.ingressoja.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import io.github.heltonricardo.ingressoja.model.Usuario;
 import io.github.heltonricardo.ingressoja.repository.UsuarioRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class UsuarioService {
 

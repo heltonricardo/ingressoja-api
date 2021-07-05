@@ -1,9 +1,8 @@
 package io.github.heltonricardo.ingressoja.repository;
 
+import io.github.heltonricardo.ingressoja.model.Saque;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
-
-import io.github.heltonricardo.ingressoja.model.Saque;
 
 @Repository
 public interface SaqueRepository
