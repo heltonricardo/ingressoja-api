@@ -7,22 +7,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import io.github.heltonricardo.ingressoja.model.Evento;
-import io.github.heltonricardo.ingressoja.model.Organizadora;
+import io.github.heltonricardo.ingressoja.model.Produtora;
 import io.github.heltonricardo.ingressoja.repository.EventoRepository;
 
 @Service
 public class EventoService {
 
   private final EventoRepository eventoRepository;
-  private final OrganizadoraService organizadoraService;
+  private final ProdutoraService produtoraService;
   private final CategoriaEventoService categoriaEventoService;
 
   @Autowired
   public EventoService(EventoRepository eventoRepository,
-                       OrganizadoraService organizadoraService,
+                       ProdutoraService produtoraService,
                        CategoriaEventoService categoriaEvento) {
     this.eventoRepository = eventoRepository;
-    this.organizadoraService = organizadoraService;
+    this.produtoraService = produtoraService;
     this.categoriaEventoService = categoriaEvento;
   }
 
@@ -40,22 +40,22 @@ public class EventoService {
 
   /********************************** SALVAR **********************************/
 
-  public Evento salvar(Long idOrganizadora, Long idCategoria, Evento evento) {
-    Optional<Organizadora> pesqOrganizadora = organizadoraService
-        .obterPorId(idOrganizadora);
+  public Evento salvar(Long idProdutora, Long idCategoria, Evento evento) {
+    Optional<Produtora> pesqProdutora = produtoraService
+        .obterPorId(idProdutora);
 
     Optional<CategoriaEvento> pesqCategoria =
         categoriaEventoService.obterPorId(idCategoria);
 
-    if (pesqOrganizadora.isEmpty() || pesqCategoria.isEmpty())
+    if (pesqProdutora.isEmpty() || pesqCategoria.isEmpty())
       return null;
 
-    Organizadora organizadora = pesqOrganizadora.get();
+    Produtora produtora = pesqProdutora.get();
     CategoriaEvento categoriaEvento = pesqCategoria.get();
-    evento.setOrganizadora(organizadora);
+    evento.setProdutora(produtora);
     evento.setCategoriaEvento(categoriaEvento);
 
     eventoRepository.save(evento);
-    return organizadora.getEventos().get(organizadora.getEventos().size() - 1);
+    return produtora.getEventos().get(produtora.getEventos().size() - 1);
   }
 }

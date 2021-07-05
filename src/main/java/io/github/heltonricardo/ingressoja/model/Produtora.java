@@ -22,7 +22,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Where(clause = "ativo")
-public class Organizadora {
+public class Produtora {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,7 +39,7 @@ public class Organizadora {
 	private Double valorCarteira = 0.0;
 	private Boolean ativo = true;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "organizadora")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "produtora")
 	@JsonManagedReference
 	private List<Evento> eventos;
 
@@ -49,7 +49,7 @@ public class Organizadora {
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Saque> saques;
 
-	public Organizadora(String email, String nomeFantasia, String razaoSocial,
+	public Produtora(String email, String nomeFantasia, String razaoSocial,
 			String cnpj, String banco, String agencia, String conta,
 			Usuario usuario) {
 		this.email = email;

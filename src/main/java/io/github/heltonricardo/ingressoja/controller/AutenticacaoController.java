@@ -15,10 +15,10 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import io.github.heltonricardo.ingressoja.model.Administrador;
 import io.github.heltonricardo.ingressoja.model.Comprador;
-import io.github.heltonricardo.ingressoja.model.Organizadora;
+import io.github.heltonricardo.ingressoja.model.Produtora;
 import io.github.heltonricardo.ingressoja.repository.AdministradorRepository;
 import io.github.heltonricardo.ingressoja.repository.CompradorRepository;
-import io.github.heltonricardo.ingressoja.repository.OrganizadoraRepository;
+import io.github.heltonricardo.ingressoja.repository.ProdutoraRepository;
 
 @RestController
 @RequestMapping("autenticacao")
@@ -30,7 +30,7 @@ public class AutenticacaoController {
 	private CompradorRepository compradorRepository;
 
 	@Autowired
-	private OrganizadoraRepository organizadoraRepository;
+	private ProdutoraRepository produtoraRepository;
 
 	@PostMapping
 	public ResponseEntity<?> logar(@RequestBody ObjectNode obj) {
@@ -58,11 +58,11 @@ public class AutenticacaoController {
 				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
 
-		Iterable<Organizadora> user2 = organizadoraRepository.findByEmail(email);
+		Iterable<Produtora> user2 = produtoraRepository.findByEmail(email);
 		if (user2.iterator().hasNext()) {
-			Organizadora organizadora = user2.iterator().next();
-			if (organizadora.getUsuario().getSenha().equals(senha)) {
-				resposta.put("id", organizadora.getId());
+			Produtora produtora = user2.iterator().next();
+			if (produtora.getUsuario().getSenha().equals(senha)) {
+				resposta.put("id", produtora.getId());
 				resposta.put("tipo", 2L);
 				return ResponseEntity.status(HttpStatus.OK).body(resposta);
 			} else

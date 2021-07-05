@@ -29,7 +29,7 @@ public class EventoDTOResp {
   private String estado;
   private String pais;
   private String cep;
-  private OrganizadoraDTORespEvento organizadora;
+  private ProdutoraDTORespEvento produtora;
   private CategoriaEventoDTORespSimples categoriaEvento;
   private List<TipoDeIngressoDTOResp> tiposDeIngresso;
 
@@ -45,7 +45,7 @@ public class EventoDTOResp {
         evento.getLogradouro(), evento.getNumero(), evento.getBairro(),
         evento.getCidade(), evento.getEstado(), evento.getPais(),
         evento.getCep(),
-        OrganizadoraDTORespEvento.paraDTO(evento.getOrganizadora()),
+        ProdutoraDTORespEvento.paraDTO(evento.getProdutora()),
         CategoriaEventoDTORespSimples.paraDTO(evento.getCategoriaEvento()),
         tipos);
   }

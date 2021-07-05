@@ -55,11 +55,11 @@ public class EventoController {
 
   @PostMapping
   public ResponseEntity<EventoDTOResp> criarEvento(
-      @RequestParam(name = "idOrganizadora") Long idOrganizadora,
+      @RequestParam(name = "idProdutora") Long idProdutora,
       @RequestParam(name = "idCategoria") Long idCategoria,
       @RequestBody EventoDTO dto) {
 
-    Evento resp = eventoService.salvar(idOrganizadora, idCategoria,
+    Evento resp = eventoService.salvar(idProdutora, idCategoria,
         dto.paraObjeto());
 
     if (resp == null)

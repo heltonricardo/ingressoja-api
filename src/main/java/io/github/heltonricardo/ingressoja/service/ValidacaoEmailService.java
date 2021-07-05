@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import io.github.heltonricardo.ingressoja.repository.AdministradorRepository;
 import io.github.heltonricardo.ingressoja.repository.CompradorRepository;
-import io.github.heltonricardo.ingressoja.repository.OrganizadoraRepository;
+import io.github.heltonricardo.ingressoja.repository.ProdutoraRepository;
 
 @Service
 public class ValidacaoEmailService {
@@ -15,11 +15,11 @@ public class ValidacaoEmailService {
 	@Autowired
 	private CompradorRepository compradorRepository;
 	@Autowired
-	private OrganizadoraRepository organizadoraRepository;
+	private ProdutoraRepository produtoraRepository;
 
 	public Boolean emailJaCadastrado(String email) {
 		return administradorRepository.findByEmail(email).iterator().hasNext()
 				|| compradorRepository.findByEmail(email).iterator().hasNext()
-				|| organizadoraRepository.findByEmail(email).iterator().hasNext();
+				|| produtoraRepository.findByEmail(email).iterator().hasNext();
 	}
 }

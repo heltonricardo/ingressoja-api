@@ -1,11 +1,11 @@
 package io.github.heltonricardo.ingressoja.dto;
 
-import io.github.heltonricardo.ingressoja.model.Organizadora;
+import io.github.heltonricardo.ingressoja.model.Produtora;
 import io.github.heltonricardo.ingressoja.model.Usuario;
 import lombok.Getter;
 
 @Getter
-public class OrganizadoraDTO {
+public class ProdutoraDTO {
 
 	private String email;
 	private String nomeFantasia;
@@ -17,8 +17,8 @@ public class OrganizadoraDTO {
 	
 	private String senha;
 
-	public Organizadora paraObjeto() {
-		return new Organizadora(email, nomeFantasia, razaoSocial, cnpj, banco,
+	public Produtora paraObjeto() {
+		return new Produtora(email, nomeFantasia, razaoSocial, cnpj, banco,
 				agencia, conta, new Usuario(senha));
 	}
 

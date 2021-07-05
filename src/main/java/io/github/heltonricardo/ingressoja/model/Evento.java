@@ -52,7 +52,7 @@ public class Evento {
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JsonBackReference
-	private Organizadora organizadora;
+	private Produtora produtora;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	private CategoriaEvento categoriaEvento;
