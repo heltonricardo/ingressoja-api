@@ -39,7 +39,7 @@ public class PedidoController {
   /********************************** SALVAR **********************************/
 
   @PostMapping
-  public ResponseEntity<Pedido> salvar(
+  public ResponseEntity<PedidoDTOResp> salvar(
       @RequestParam(name = "idEvento") Long idEvento,
       @RequestParam(name = "idComprador") Long idComprador,
       @RequestBody PedidoDTO dto) {
@@ -50,6 +50,8 @@ public class PedidoController {
     if (resp == null)
       return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
 
-    return new ResponseEntity<>(resp, HttpStatus.CREATED);
+    PedidoDTOResp dtoResp = PedidoDTOResp.paraDTO(resp);
+
+    return new ResponseEntity<>(dtoResp, HttpStatus.CREATED);
   }
 }
