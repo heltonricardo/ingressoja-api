@@ -19,14 +19,11 @@ public class ProdutoraDTOResp {
 	private String conta;
 	private Double valorCarteira;
 
-	private UsuarioDTOResp usuario;
-
 	public static ProdutoraDTOResp paraDTO(Produtora produtora) {
 		return new ProdutoraDTOResp(produtora.getId(),
 				produtora.getEmail(), produtora.getNomeFantasia(),
 				produtora.getRazaoSocial(), produtora.getCnpj(),
 				produtora.getBanco(), produtora.getAgencia(),
-				produtora.getConta(), produtora.getValorCarteira(),
-				UsuarioDTOResp.paraDTO(produtora.getUsuario()));
+				produtora.getConta(), produtora.getValorCarteira());
 	}
 }
