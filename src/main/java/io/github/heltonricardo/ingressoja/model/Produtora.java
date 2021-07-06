@@ -32,7 +32,6 @@ public class Produtora {
 	private Boolean ativo = true;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "produtora")
-	@JsonManagedReference
 	private List<Evento> eventos;
 
 	@ManyToOne(cascade = CascadeType.ALL)
