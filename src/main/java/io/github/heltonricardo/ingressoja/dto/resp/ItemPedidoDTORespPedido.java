@@ -1,12 +1,9 @@
 package io.github.heltonricardo.ingressoja.dto.resp;
 
 import io.github.heltonricardo.ingressoja.model.ItemPedido;
-import io.github.heltonricardo.ingressoja.model.TipoDeIngresso;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
-import javax.persistence.ManyToOne;
 
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)

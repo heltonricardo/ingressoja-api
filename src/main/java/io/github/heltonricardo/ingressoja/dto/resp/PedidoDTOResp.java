@@ -1,6 +1,5 @@
 package io.github.heltonricardo.ingressoja.dto.resp;
 
-import io.github.heltonricardo.ingressoja.model.ItemPedido;
 import io.github.heltonricardo.ingressoja.model.Pedido;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

@@ -1,6 +1,5 @@
 package io.github.heltonricardo.ingressoja.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
