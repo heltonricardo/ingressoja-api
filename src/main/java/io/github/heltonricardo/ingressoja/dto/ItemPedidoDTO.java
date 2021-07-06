@@ -21,6 +21,11 @@ public class ItemPedidoDTO {
   private Long idTipoDeIngresso;
 
   public ItemPedido paraObjeto() {
-    return new ItemPedido(ingressante, cpf, email, idTipoDeIngresso);
+
+
+    TipoDeIngresso tipoDeIngresso = new TipoDeIngresso();
+    tipoDeIngresso.setId(idTipoDeIngresso);
+
+    return new ItemPedido(ingressante, cpf, email, tipoDeIngresso);
   }
 }

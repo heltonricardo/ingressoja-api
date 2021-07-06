@@ -19,7 +19,7 @@ public class ItemPedido {
   private String cpf;
   private String email;
 
-  @ManyToOne(cascade = CascadeType.ALL)
+  @ManyToOne
   private TipoDeIngresso tipoDeIngresso;
 
   public ItemPedido(String ingressante, String cpf, String email,

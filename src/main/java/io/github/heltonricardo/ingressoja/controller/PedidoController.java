@@ -19,6 +19,13 @@ public class PedidoController {
     this.pedidoService = pedidoService;
   }
 
+  /******************************* OBTER TODOS ********************************/
+
+  @GetMapping
+  public ResponseEntity<Iterable<Pedido>> obterTodos() {
+    return new ResponseEntity<>(pedidoService.obterTodos(), HttpStatus.OK);
+  }
+
   /********************************** SALVAR **********************************/
 
   @PostMapping

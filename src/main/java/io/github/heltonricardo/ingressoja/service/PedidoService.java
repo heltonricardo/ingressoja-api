@@ -3,6 +3,7 @@ package io.github.heltonricardo.ingressoja.service;
 import io.github.heltonricardo.ingressoja.model.Comprador;
 import io.github.heltonricardo.ingressoja.model.Evento;
 import io.github.heltonricardo.ingressoja.model.Pedido;
+import io.github.heltonricardo.ingressoja.model.TipoDeIngresso;
 import io.github.heltonricardo.ingressoja.repository.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,14 +16,23 @@ public class PedidoService {
   private final PedidoRepository pedidoRepository;
   private final EventoService eventoService;
   private final CompradorService compradorService;
+  private final TipoDeIngressoService tipoDeIngressoService;
 
   @Autowired
   public PedidoService(PedidoRepository pedidoRepository,
                        EventoService eventoService,
-                       CompradorService compradorService) {
+                       CompradorService compradorService,
+                       TipoDeIngressoService tipoDeIngressoService) {
     this.pedidoRepository = pedidoRepository;
     this.eventoService = eventoService;
     this.compradorService = compradorService;
+    this.tipoDeIngressoService = tipoDeIngressoService;
+  }
+
+  /******************************* OBTER TODOS ********************************/
+
+  public Iterable<Pedido> obterTodos() {
+    return pedidoRepository.findAll();
   }
 
   /********************************** SALVAR **********************************/
@@ -36,6 +46,28 @@ public class PedidoService {
 
     if (pesqEvento.isEmpty() || pesqComprador.isEmpty())
       return null;
+
+    try {
+      pedido.getItensPedido().forEach(item -> {
+
+        Long pesqId = item.getTipoDeIngresso().getId();
+
+        Optional<TipoDeIngresso> pesqTipoDeIngresso =
+            tipoDeIngressoService.obterPorId(pesqId);
+
+        TipoDeIngresso tipoDeIngresso = pesqTipoDeIngresso.get();
+
+        item.setTipoDeIngresso(tipoDeIngresso);
+      });
+    } catch (Exception e) {
+      return null;
+    }
+
+    Double total = pedido.getItensPedido().stream()
+        .reduce(0.0, (s, item) -> s + item.getTipoDeIngresso().getValor(),
+            Double::sum);
+
+    pedido.setValorTotal(total);
 
     Comprador comprador = pesqComprador.get();
     comprador.adicionaPedido(pedido);
