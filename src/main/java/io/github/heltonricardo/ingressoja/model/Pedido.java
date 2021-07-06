@@ -14,25 +14,29 @@ import java.util.List;
 @NoArgsConstructor
 public class Pedido {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	private LocalDateTime dataHora;
-	private String numeroCartao;
-	private String codigoSegurancaCartao;
-	private String nomeCartao;
-	private String cpfCartao;
-	private Double valorTotal;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+  private LocalDateTime dataHora;
+  private String numeroCartao;
+  private String codigoSegurancaCartao;
+  private String nomeCartao;
+  private String cpfCartao;
+  private Double valorTotal;
 
-	@OneToMany
-	private List<ItemPedido> itensPedido;
+  @OneToMany(cascade = CascadeType.ALL)
+  private List<ItemPedido> itensPedido;
 
-	public Pedido(LocalDateTime dataHora, String numeroCartao,
-			String codigoSegurancaCartao, String nomeCartao, String cpfCartao) {
-		this.dataHora = dataHora;
-		this.numeroCartao = numeroCartao;
-		this.codigoSegurancaCartao = codigoSegurancaCartao;
-		this.nomeCartao = nomeCartao;
-		this.cpfCartao = cpfCartao;
-	}
+  public Pedido(LocalDateTime dataHora, String numeroCartao,
+                String codigoSegurancaCartao, String nomeCartao,
+                String cpfCartao, Double valorTotal,
+                List<ItemPedido> itensPedido) {
+    this.dataHora = dataHora;
+    this.numeroCartao = numeroCartao;
+    this.codigoSegurancaCartao = codigoSegurancaCartao;
+    this.nomeCartao = nomeCartao;
+    this.cpfCartao = cpfCartao;
+    this.valorTotal = valorTotal;
+    this.itensPedido = itensPedido;
+  }
 }

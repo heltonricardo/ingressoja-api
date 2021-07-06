@@ -12,21 +12,21 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class ItemPedido {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	private String cpf;
-	private String email;
-	private String ingressante;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+  private String ingressante;
+  private String cpf;
+  private String email;
 
-	@ManyToOne
-	private TipoDeIngresso tipoDeIngresso;
+  @ManyToOne(cascade = CascadeType.ALL)
+  private TipoDeIngresso tipoDeIngresso;
 
-	public ItemPedido(String cpf, String email, String ingressante,
-			TipoDeIngresso tipoDeIngresso) {
-		this.cpf = cpf;
-		this.email = email;
-		this.ingressante = ingressante;
-		this.tipoDeIngresso = tipoDeIngresso;
-	}
+  public ItemPedido(String ingressante, String cpf, String email,
+                    TipoDeIngresso tipoDeIngresso) {
+    this.ingressante = ingressante;
+    this.cpf = cpf;
+    this.email = email;
+    this.tipoDeIngresso = tipoDeIngresso;
+  }
 }

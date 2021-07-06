@@ -15,24 +15,28 @@ import java.util.List;
 @Where(clause = "ativo")
 public class Comprador {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	private String nome;
-	private String email;
-	private String cpf;
-	private Boolean ativo = true;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+  private String nome;
+  private String email;
+  private String cpf;
+  private Boolean ativo = true;
 
-	@ManyToOne(cascade = CascadeType.ALL)
-	private Usuario usuario;
+  @ManyToOne(cascade = CascadeType.ALL)
+  private Usuario usuario;
 
-	@OneToMany
-	private List<Pedido> pedidos;
+  @OneToMany
+  private List<Pedido> pedidos;
 
-	public Comprador(String nome, String email, String cpf, Usuario usuario) {
-		this.nome = nome;
-		this.email = email;
-		this.cpf = cpf;
-		this.usuario = usuario;
-	}
+  public Comprador(String nome, String email, String cpf, Usuario usuario) {
+    this.nome = nome;
+    this.email = email;
+    this.cpf = cpf;
+    this.usuario = usuario;
+  }
+
+  public void adicionaPedido(Pedido pedido) {
+    pedidos.add(pedido);
+  }
 }
