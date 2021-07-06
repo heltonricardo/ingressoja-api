@@ -1,12 +1,17 @@
 package io.github.heltonricardo.ingressoja.controller;
 
 import io.github.heltonricardo.ingressoja.dto.PedidoDTO;
+import io.github.heltonricardo.ingressoja.dto.resp.PedidoDTOResp;
+import io.github.heltonricardo.ingressoja.dto.resp.ProdutoraDTOResp;
 import io.github.heltonricardo.ingressoja.model.Pedido;
 import io.github.heltonricardo.ingressoja.service.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("pedido")
@@ -22,8 +27,14 @@ public class PedidoController {
   /******************************* OBTER TODOS ********************************/
 
   @GetMapping
-  public ResponseEntity<Iterable<Pedido>> obterTodos() {
-    return new ResponseEntity<>(pedidoService.obterTodos(), HttpStatus.OK);
+  public ResponseEntity<List<PedidoDTOResp>> obterTodos() {
+
+    List<PedidoDTOResp> resp = new ArrayList<>();
+
+    pedidoService.obterTodos()
+        .forEach(p -> resp.add(PedidoDTOResp.paraDTO(p)));
+
+    return new ResponseEntity<>(resp, HttpStatus.OK);
   }
 
   /********************************** SALVAR **********************************/
