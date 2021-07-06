@@ -9,8 +9,8 @@ import lombok.Getter;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class CategoriaEventoDTORespSimples {
 
-	private Long id;
-	private String nome;
+	private final Long id;
+	private final String nome;
 
 	public static CategoriaEventoDTORespSimples paraDTO(
 			CategoriaEvento categoriaEvento) {

@@ -13,24 +13,24 @@ import java.util.List;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class EventoDTOResp {
 
-  private Long id;
-  private String titulo;
-  private String imagemURL;
-  private LocalDateTime inicio;
-  private LocalDateTime termino;
-  private String descricao;
-  private Boolean online;
-  private String url;
-  private String logradouro;
-  private String numero;
-  private String bairro;
-  private String cidade;
-  private String uf;
-  private String pais;
-  private String cep;
-  private ProdutoraDTORespEvento produtora;
-  private CategoriaEventoDTORespSimples categoriaEvento;
-  private List<TipoDeIngressoDTOResp> tiposDeIngresso;
+  private final Long id;
+  private final String titulo;
+  private final String imagemURL;
+  private final LocalDateTime inicio;
+  private final LocalDateTime termino;
+  private final String descricao;
+  private final Boolean online;
+  private final String url;
+  private final String logradouro;
+  private final String numero;
+  private final String bairro;
+  private final String cidade;
+  private final String uf;
+  private final String pais;
+  private final String cep;
+  private final ProdutoraDTORespEvento produtora;
+  private final CategoriaEventoDTORespSimples categoriaEvento;
+  private final List<TipoDeIngressoDTOResp> tiposDeIngresso;
 
   public static EventoDTOResp paraDTO(Evento evento) {
     List<TipoDeIngressoDTOResp> tipos = new ArrayList<>();

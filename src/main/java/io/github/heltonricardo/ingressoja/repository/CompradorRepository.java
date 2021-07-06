@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CompradorRepository
 		extends PagingAndSortingRepository<Comprador, Long> {
-	public Iterable<Comprador> findByCpf(String cpf);
-	public Iterable<Comprador> findByEmail(String email);
+	Iterable<Comprador> findByCpf(String cpf);
+	Iterable<Comprador> findByEmail(String email);
 }

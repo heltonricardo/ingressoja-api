@@ -13,11 +13,11 @@ import java.util.List;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class PedidoDTOResp {
 
-  private Long id;
-  private LocalDateTime dataHora;
-  private String numeroCartao;
-  private Double valorTotal;
-  private List<ItemPedidoDTORespPedido> itensPedido;
+  private final Long id;
+  private final LocalDateTime dataHora;
+  private final String numeroCartao;
+  private final Double valorTotal;
+  private final List<ItemPedidoDTORespPedido> itensPedido;
 
   public static PedidoDTOResp paraDTO(Pedido pedido) {
 

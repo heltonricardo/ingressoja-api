@@ -9,11 +9,11 @@ import lombok.Getter;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class ItemPedidoDTORespPedido {
 
-  private Long id;
-  private String ingressante;
-  private String cpf;
-  private String email;
-  private TipoDeIngressoDTORespItemPedido tipoDeIngresso;
+  private final Long id;
+  private final String ingressante;
+  private final String cpf;
+  private final String email;
+  private final TipoDeIngressoDTORespItemPedido tipoDeIngresso;
 
   public static ItemPedidoDTORespPedido paraDTO(ItemPedido itemPedido) {
     return new ItemPedidoDTORespPedido(itemPedido.getId(),

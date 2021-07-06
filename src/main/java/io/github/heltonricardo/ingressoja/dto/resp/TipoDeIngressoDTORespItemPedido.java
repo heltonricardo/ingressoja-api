@@ -9,9 +9,9 @@ import lombok.Getter;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class TipoDeIngressoDTORespItemPedido {
 
-  private String nome;
-  private Double valor;
-  private String descricao;
+  private final String nome;
+  private final Double valor;
+  private final String descricao;
 
   public static TipoDeIngressoDTORespItemPedido paraDTO(
       TipoDeIngresso tipoDeIngresso) {

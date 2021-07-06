@@ -9,11 +9,11 @@ import lombok.Getter;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class ProdutoraDTORespEvento {
 
-	private Long id;
-	private String email;
-	private String nomeFantasia;
-	private String razaoSocial;
-	private String cnpj;
+	private final Long id;
+	private final String email;
+	private final String nomeFantasia;
+	private final String razaoSocial;
+	private final String cnpj;
 
 	public static ProdutoraDTORespEvento paraDTO(Produtora produtora) {
 		return new ProdutoraDTORespEvento(produtora.getId(),

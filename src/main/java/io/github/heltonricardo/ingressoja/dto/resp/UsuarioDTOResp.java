@@ -8,7 +8,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class UsuarioDTOResp {
-	private Long id;
+	private final Long id;
 	
 	public static UsuarioDTOResp paraDTO(Usuario usuario) {
 		return new UsuarioDTOResp(usuario.getId());

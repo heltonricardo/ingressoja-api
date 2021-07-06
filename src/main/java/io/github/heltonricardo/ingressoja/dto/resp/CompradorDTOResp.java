@@ -9,10 +9,10 @@ import lombok.Getter;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class CompradorDTOResp {
 	
-	private Long id;
-	private String nome;
-	private String email;
-	private String cpf;
+	private final Long id;
+	private final String nome;
+	private final String email;
+	private final String cpf;
 	
 	public static CompradorDTOResp paraDTO(Comprador comprador) {
 		return new CompradorDTOResp(comprador.getId(), comprador.getNome(),

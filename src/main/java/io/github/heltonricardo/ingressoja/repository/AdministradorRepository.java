@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AdministradorRepository
 		extends PagingAndSortingRepository<Administrador, Long> {
-	public Iterable<Administrador> findByEmail(String email);
+	Iterable<Administrador> findByEmail(String email);
 }
