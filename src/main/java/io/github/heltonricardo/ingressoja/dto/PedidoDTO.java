@@ -16,7 +16,6 @@ public class PedidoDTO {
   private String codigoSegurancaCartao;
   private String nomeTitular;
   private String cpfTitular;
-  private Double valorTotal;
 
   private Long idEvento;
   private Long idComprador;
@@ -30,6 +29,6 @@ public class PedidoDTO {
     itensPedido.forEach(i -> itens.add(i.paraObjeto()));
 
     return new Pedido(new Date(), numeroCartao, codigoSegurancaCartao,
-        nomeTitular, cpfTitular, valorTotal, itens, idComprador, idEvento);
+        nomeTitular, cpfTitular, itens, idComprador, idEvento);
   }
 }
