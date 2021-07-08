@@ -2,6 +2,7 @@ package io.github.heltonricardo.ingressoja.controller;
 
 import io.github.heltonricardo.ingressoja.dto.EventoDTO;
 import io.github.heltonricardo.ingressoja.dto.resp.EventoDTOResp;
+import io.github.heltonricardo.ingressoja.dto.resp.EventoDTORespGrade;
 import io.github.heltonricardo.ingressoja.model.Evento;
 import io.github.heltonricardo.ingressoja.service.EventoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +27,12 @@ public class EventoController {
   /******************************* OBTER TODOS ********************************/
 
   @GetMapping
-  public ResponseEntity<List<EventoDTOResp>> obterTodas() {
+  public ResponseEntity<List<EventoDTORespGrade>> obterTodas() {
 
-    List<EventoDTOResp> resp = new ArrayList<>();
+    List<EventoDTORespGrade> resp = new ArrayList<>();
 
-    eventoService.obterTodos().forEach(c -> resp.add(EventoDTOResp.paraDTO(c)));
+    eventoService
+        .obterTodos().forEach(c -> resp.add(EventoDTORespGrade.paraDTO(c)));
 
     return new ResponseEntity<>(resp, HttpStatus.OK);
   }
