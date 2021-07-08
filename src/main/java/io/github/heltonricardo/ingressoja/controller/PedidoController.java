@@ -36,6 +36,20 @@ public class PedidoController {
     return new ResponseEntity<>(resp, HttpStatus.OK);
   }
 
+  /******************************* OBTER POR ID *******************************/
+
+  @GetMapping("/{id}")
+  public ResponseEntity<PedidoDTOResp> obterPorId(@PathVariable Long id) {
+
+    if (pedidoService.obterPorId(id).isEmpty())
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+    PedidoDTOResp resp = PedidoDTOResp
+        .paraDTO(pedidoService.obterPorId(id).get());
+
+    return new ResponseEntity<>(resp, HttpStatus.OK);
+  }
+
   /********************************** SALVAR **********************************/
 
   @PostMapping

@@ -35,6 +35,10 @@ public class PedidoService {
     return pedidoRepository.findAll();
   }
 
+  public Optional<Pedido> obterPorId(Long id) {
+    return pedidoRepository.findById(id);
+  }
+
   /********************************** SALVAR **********************************/
 
   public Pedido salvar(Long idEvento, Long idComprador, Pedido pedido) {
