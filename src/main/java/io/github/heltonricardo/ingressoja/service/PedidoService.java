@@ -43,6 +43,9 @@ public class PedidoService {
 
   public Pedido salvar(Pedido pedido) {
 
+    // TODO: Abater um ingresso no total de cada tipo
+    // TODO: Verificar se o ingresso pertence ao evento
+
     Optional<Evento> pesqEvento =
         eventoService.obterPorId(pedido.getIdEvento());
 
