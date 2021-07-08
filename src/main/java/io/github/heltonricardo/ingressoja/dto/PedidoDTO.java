@@ -15,8 +15,8 @@ public class PedidoDTO {
   private LocalDateTime dataHora;
   private String numeroCartao;
   private String codigoSegurancaCartao;
-  private String nomeCartao;
-  private String cpfCartao;
+  private String nomeTitular;
+  private String cpfTitular;
   private Double valorTotal;
 
   @OneToMany
@@ -28,6 +28,6 @@ public class PedidoDTO {
     itensPedido.forEach(i -> itens.add(i.paraObjeto()));
 
     return new Pedido(dataHora, numeroCartao, codigoSegurancaCartao,
-        nomeCartao, cpfCartao, valorTotal, itens);
+        nomeTitular, cpfTitular, valorTotal, itens);
   }
 }

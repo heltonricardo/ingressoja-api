@@ -20,22 +20,22 @@ public class Pedido {
   private LocalDateTime dataHora;
   private String numeroCartao;
   private String codigoSegurancaCartao;
-  private String nomeCartao;
-  private String cpfCartao;
+  private String nomeTitular;
+  private String cpfTitular;
   private Double valorTotal;
 
   @OneToMany(cascade = CascadeType.ALL)
   private List<ItemPedido> itensPedido;
 
   public Pedido(LocalDateTime dataHora, String numeroCartao,
-                String codigoSegurancaCartao, String nomeCartao,
-                String cpfCartao, Double valorTotal,
+                String codigoSegurancaCartao, String nomeTitular,
+                String cpfTitular, Double valorTotal,
                 List<ItemPedido> itensPedido) {
     this.dataHora = dataHora;
     this.numeroCartao = numeroCartao;
     this.codigoSegurancaCartao = codigoSegurancaCartao;
-    this.nomeCartao = nomeCartao;
-    this.cpfCartao = cpfCartao;
+    this.nomeTitular = nomeTitular;
+    this.cpfTitular = cpfTitular;
     this.valorTotal = valorTotal;
     this.itensPedido = itensPedido;
   }
