@@ -5,14 +5,13 @@ import io.github.heltonricardo.ingressoja.model.Pedido;
 import lombok.Getter;
 
 import javax.persistence.OneToMany;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Getter
 public class PedidoDTO {
 
-  private LocalDateTime dataHora;
   private String numeroCartao;
   private String codigoSegurancaCartao;
   private String nomeTitular;
@@ -27,7 +26,7 @@ public class PedidoDTO {
 
     itensPedido.forEach(i -> itens.add(i.paraObjeto()));
 
-    return new Pedido(dataHora, numeroCartao, codigoSegurancaCartao,
+    return new Pedido(new Date(), numeroCartao, codigoSegurancaCartao,
         nomeTitular, cpfTitular, valorTotal, itens);
   }
 }

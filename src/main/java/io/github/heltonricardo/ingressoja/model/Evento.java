@@ -7,7 +7,7 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -24,8 +24,8 @@ public class Evento {
 
   private String titulo;
   private String imagemURL;
-  private LocalDateTime inicio;
-  private LocalDateTime termino;
+  private Date inicio;
+  private Date termino;
 
   @Column(length = 1000)
   private String descricao;
@@ -48,8 +48,8 @@ public class Evento {
   @OneToMany(cascade = CascadeType.ALL)
   private List<TipoDeIngresso> tiposDeIngresso;
 
-  public Evento(String titulo, String imagemURL, LocalDateTime inicio,
-                LocalDateTime termino, String descricao, Boolean online,
+  public Evento(String titulo, String imagemURL, Date inicio,
+                Date termino, String descricao, Boolean online,
                 String url, String logradouro, String numero, String bairro,
                 String cidade, String uf, String cep,
                 List<TipoDeIngresso> tiposDeIngresso) {

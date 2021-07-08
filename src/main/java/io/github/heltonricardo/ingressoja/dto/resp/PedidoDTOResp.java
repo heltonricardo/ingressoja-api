@@ -5,8 +5,8 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -14,7 +14,7 @@ import java.util.List;
 public class PedidoDTOResp {
 
   private final Long id;
-  private final LocalDateTime dataHora;
+  private final Date dataHora;
   private final String numeroCartao;
   private final Double valorTotal;
   private final List<ItemPedidoDTORespPedido> itensPedido;

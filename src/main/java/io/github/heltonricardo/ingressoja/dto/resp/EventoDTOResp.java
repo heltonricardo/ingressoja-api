@@ -5,8 +5,8 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -16,8 +16,8 @@ public class EventoDTOResp {
   private final Long id;
   private final String titulo;
   private final String imagemURL;
-  private final LocalDateTime inicio;
-  private final LocalDateTime termino;
+  private final Date inicio;
+  private final Date termino;
   private final String descricao;
   private final Boolean online;
   private final String url;

@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -17,7 +17,7 @@ public class Pedido {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  private LocalDateTime dataHora;
+  private Date dataHora;
   private String numeroCartao;
   private String codigoSegurancaCartao;
   private String nomeTitular;
@@ -27,7 +27,7 @@ public class Pedido {
   @OneToMany(cascade = CascadeType.ALL)
   private List<ItemPedido> itensPedido;
 
-  public Pedido(LocalDateTime dataHora, String numeroCartao,
+  public Pedido(Date dataHora, String numeroCartao,
                 String codigoSegurancaCartao, String nomeTitular,
                 String cpfTitular, Double valorTotal,
                 List<ItemPedido> itensPedido) {

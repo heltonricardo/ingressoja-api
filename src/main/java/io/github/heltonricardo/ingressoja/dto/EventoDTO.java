@@ -4,8 +4,8 @@ import io.github.heltonricardo.ingressoja.model.Evento;
 import io.github.heltonricardo.ingressoja.model.TipoDeIngresso;
 import lombok.Getter;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -13,8 +13,8 @@ public class EventoDTO {
 
   private String titulo;
   private String imagemURL;
-  private LocalDateTime inicio;
-  private LocalDateTime termino;
+  private Date inicio;
+  private Date termino;
   private String descricao;
   private Boolean online;
   private String url;
