@@ -18,6 +18,9 @@ public class PedidoDTO {
   private String cpfTitular;
   private Double valorTotal;
 
+  private Long idEvento;
+  private Long idComprador;
+
   @OneToMany
   private List<ItemPedidoDTO> itensPedido;
 
@@ -27,6 +30,6 @@ public class PedidoDTO {
     itensPedido.forEach(i -> itens.add(i.paraObjeto()));
 
     return new Pedido(new Date(), numeroCartao, codigoSegurancaCartao,
-        nomeTitular, cpfTitular, valorTotal, itens);
+        nomeTitular, cpfTitular, valorTotal, itens, idComprador, idEvento);
   }
 }

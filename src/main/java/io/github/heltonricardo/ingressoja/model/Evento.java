@@ -68,4 +68,8 @@ public class Evento {
     this.cep = cep;
     this.tiposDeIngresso = tiposDeIngresso;
   }
+
+  public Evento(Long id) {
+    this.id = id;
+  }
 }

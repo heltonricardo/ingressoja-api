@@ -27,10 +27,16 @@ public class Pedido {
   @OneToMany(cascade = CascadeType.ALL)
   private List<ItemPedido> itensPedido;
 
+  @Transient
+  private Long idEvento;
+
+  @Transient
+  private Long idComprador;
+
   public Pedido(Date dataHora, String numeroCartao,
                 String codigoSegurancaCartao, String nomeTitular,
                 String cpfTitular, Double valorTotal,
-                List<ItemPedido> itensPedido) {
+                List<ItemPedido> itensPedido, Long idComprador, Long idEvento) {
     this.dataHora = dataHora;
     this.numeroCartao = numeroCartao;
     this.codigoSegurancaCartao = codigoSegurancaCartao;
@@ -38,5 +44,7 @@ public class Pedido {
     this.cpfTitular = cpfTitular;
     this.valorTotal = valorTotal;
     this.itensPedido = itensPedido;
+    this.idComprador = idComprador;
+    this.idEvento = idEvento;
   }
 }

@@ -53,13 +53,9 @@ public class PedidoController {
   /********************************** SALVAR **********************************/
 
   @PostMapping
-  public ResponseEntity<PedidoDTOResp> salvar(
-      @RequestParam(name = "idEvento") Long idEvento,
-      @RequestParam(name = "idComprador") Long idComprador,
-      @RequestBody PedidoDTO dto) {
+  public ResponseEntity<PedidoDTOResp> salvar(@RequestBody PedidoDTO dto) {
 
-    Pedido resp = pedidoService.salvar(idEvento, idComprador,
-        dto.paraObjeto());
+    Pedido resp = pedidoService.salvar(dto.paraObjeto());
 
     if (resp == null)
       return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);

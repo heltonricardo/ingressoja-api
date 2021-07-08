@@ -41,12 +41,13 @@ public class PedidoService {
 
   /********************************** SALVAR **********************************/
 
-  public Pedido salvar(Long idEvento, Long idComprador, Pedido pedido) {
+  public Pedido salvar(Pedido pedido) {
 
-    Optional<Evento> pesqEvento = eventoService.obterPorId(idEvento);
+    Optional<Evento> pesqEvento =
+        eventoService.obterPorId(pedido.getIdEvento());
 
     Optional<Comprador> pesqComprador =
-        compradorService.obterPorId(idComprador);
+        compradorService.obterPorId(pedido.getIdComprador());
 
     if (pesqEvento.isEmpty() || pesqComprador.isEmpty())
       return null;

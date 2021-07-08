@@ -36,6 +36,10 @@ public class Comprador {
     this.usuario = usuario;
   }
 
+  public Comprador(Long id) {
+    this.id = id;
+  }
+
   public void adicionaPedido(Pedido pedido) {
     pedidos.add(pedido);
   }
