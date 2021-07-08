@@ -55,13 +55,9 @@ public class EventoController {
   /********************************** SALVAR **********************************/
 
   @PostMapping
-  public ResponseEntity<EventoDTOResp> criarEvento(
-      @RequestParam(name = "idProdutora") Long idProdutora,
-      @RequestParam(name = "idCategoria") Long idCategoria,
-      @RequestBody EventoDTO dto) {
+  public ResponseEntity<EventoDTOResp> criarEvento(@RequestBody EventoDTO dto) {
 
-    Evento resp = eventoService.salvar(idProdutora, idCategoria,
-        dto.paraObjeto());
+    Evento resp = eventoService.salvar(dto.paraObjeto());
 
     if (resp == null)
       return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);

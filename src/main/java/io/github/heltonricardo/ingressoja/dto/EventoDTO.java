@@ -27,12 +27,16 @@ public class EventoDTO {
 
   private List<TipoDeIngressoDTO> tiposDeIngresso;
 
+  private Long idProdutora;
+  private Long idCategoria;
+
   public Evento paraObjeto() {
     List<TipoDeIngresso> tipos = new ArrayList<>();
 
     tiposDeIngresso.forEach(t -> tipos.add(t.paraObjeto()));
 
     return new Evento(titulo, imagemURL, inicio, termino, descricao, online,
-        url, logradouro, numero, bairro, cidade, uf, cep, tipos);
+        url, logradouro, numero, bairro, cidade, uf, cep, tipos, idProdutora,
+        idCategoria);
   }
 }

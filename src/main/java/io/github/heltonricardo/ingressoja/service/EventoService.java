@@ -39,12 +39,12 @@ public class EventoService {
 
   /********************************** SALVAR **********************************/
 
-  public Evento salvar(Long idProdutora, Long idCategoria, Evento evento) {
+  public Evento salvar(Evento evento) {
     Optional<Produtora> pesqProdutora = produtoraService
-        .obterPorId(idProdutora);
+        .obterPorId(evento.getIdProdutora());
 
     Optional<CategoriaEvento> pesqCategoria =
-        categoriaEventoService.obterPorId(idCategoria);
+        categoriaEventoService.obterPorId(evento.getIdCategoria());
 
     if (pesqProdutora.isEmpty() || pesqCategoria.isEmpty())
       return null;
