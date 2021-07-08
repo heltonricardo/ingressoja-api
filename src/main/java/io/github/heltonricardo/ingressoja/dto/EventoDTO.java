@@ -23,7 +23,6 @@ public class EventoDTO {
   private String bairro;
   private String cidade;
   private String uf;
-  private String pais;
   private String cep;
 
   private List<TipoDeIngressoDTO> tiposDeIngresso;
@@ -34,6 +33,6 @@ public class EventoDTO {
     tiposDeIngresso.forEach(t -> tipos.add(t.paraObjeto()));
 
     return new Evento(titulo, imagemURL, inicio, termino, descricao, online,
-        url, logradouro, numero, bairro, cidade, uf, pais, cep, tipos);
+        url, logradouro, numero, bairro, cidade, uf, cep, tipos);
   }
 }

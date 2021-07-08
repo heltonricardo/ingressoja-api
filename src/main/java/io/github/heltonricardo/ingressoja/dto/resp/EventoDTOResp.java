@@ -26,7 +26,6 @@ public class EventoDTOResp {
   private final String bairro;
   private final String cidade;
   private final String uf;
-  private final String pais;
   private final String cep;
   private final ProdutoraDTORespEvento produtora;
   private final CategoriaEventoDTORespSimples categoriaEvento;
@@ -42,8 +41,7 @@ public class EventoDTOResp {
         evento.getImagemURL(), evento.getInicio(), evento.getTermino(),
         evento.getDescricao(), evento.getOnline(), evento.getUrl(),
         evento.getLogradouro(), evento.getNumero(), evento.getBairro(),
-        evento.getCidade(), evento.getUf(), evento.getPais(),
-        evento.getCep(),
+        evento.getCidade(), evento.getUf(), evento.getCep(),
         ProdutoraDTORespEvento.paraDTO(evento.getProdutora()),
         CategoriaEventoDTORespSimples.paraDTO(evento.getCategoriaEvento()),
         tipos);

@@ -36,7 +36,6 @@ public class Evento {
   private String bairro;
   private String cidade;
   private String uf;
-  private String pais;
   private String cep;
   private Boolean ativo = true;
 
@@ -52,7 +51,7 @@ public class Evento {
   public Evento(String titulo, String imagemURL, LocalDateTime inicio,
                 LocalDateTime termino, String descricao, Boolean online,
                 String url, String logradouro, String numero, String bairro,
-                String cidade, String uf, String pais, String cep,
+                String cidade, String uf, String cep,
                 List<TipoDeIngresso> tiposDeIngresso) {
     this.titulo = titulo;
     this.imagemURL = imagemURL;
@@ -66,7 +65,6 @@ public class Evento {
     this.bairro = bairro;
     this.cidade = cidade;
     this.uf = uf;
-    this.pais = pais;
     this.cep = cep;
     this.tiposDeIngresso = tiposDeIngresso;
   }
