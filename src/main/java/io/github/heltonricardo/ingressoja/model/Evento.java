@@ -45,7 +45,7 @@ public class Evento {
   @ManyToOne(cascade = CascadeType.ALL)
   private CategoriaEvento categoriaEvento;
 
-  @OneToMany(cascade = CascadeType.ALL)
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "evento")
   private List<TipoDeIngresso> tiposDeIngresso;
 
   @Transient

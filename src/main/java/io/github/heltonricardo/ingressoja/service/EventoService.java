@@ -15,14 +15,17 @@ public class EventoService {
   private final EventoRepository eventoRepository;
   private final ProdutoraService produtoraService;
   private final CategoriaEventoService categoriaEventoService;
+  private final TipoDeIngressoService tipoDeIngressoService;
 
   @Autowired
   public EventoService(EventoRepository eventoRepository,
                        ProdutoraService produtoraService,
-                       CategoriaEventoService categoriaEvento) {
+                       CategoriaEventoService categoriaEvento,
+                       TipoDeIngressoService tipoDeIngressoService) {
     this.eventoRepository = eventoRepository;
     this.produtoraService = produtoraService;
     this.categoriaEventoService = categoriaEvento;
+    this.tipoDeIngressoService = tipoDeIngressoService;
   }
 
   /******************************* OBTER TODOS ********************************/
@@ -53,6 +56,7 @@ public class EventoService {
     CategoriaEvento categoriaEvento = pesqCategoria.get();
     evento.setProdutora(produtora);
     evento.setCategoriaEvento(categoriaEvento);
+    evento.getTiposDeIngresso().forEach(t -> t.setEvento(evento));
 
     eventoRepository.save(evento);
     return produtora.getEventos().get(produtora.getEventos().size() - 1);

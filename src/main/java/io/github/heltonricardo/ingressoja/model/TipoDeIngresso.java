@@ -5,10 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Where;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -26,8 +23,10 @@ public class TipoDeIngresso {
 	private String descricao;
 	private Integer quantidadeTotal;
 	private Integer quantidadeDisponivel;
-	
 	private Boolean ativo = true;
+
+	@ManyToOne
+	private Evento evento;
 
 	public TipoDeIngresso(String nome, Double valor, String descricao,
 			Integer quantidadeTotal) {
