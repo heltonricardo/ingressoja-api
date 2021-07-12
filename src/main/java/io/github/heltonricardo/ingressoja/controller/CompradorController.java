@@ -43,12 +43,12 @@ public class CompradorController {
 
   @GetMapping("/{id}")
   public ResponseEntity<CompradorDTOResp> obterPorId(@PathVariable Long id) {
+    Optional<Comprador> pesq = compradorService.obterPorId(id);
 
-    if (compradorService.obterPorId(id).isEmpty())
+    if (pesq.isEmpty())
       return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
 
-    CompradorDTOResp resp = CompradorDTOResp
-        .paraDTO(compradorService.obterPorId(id).get());
+    CompradorDTOResp resp = CompradorDTOResp.paraDTO(pesq.get());
 
     return new ResponseEntity<>(resp, HttpStatus.OK);
   }

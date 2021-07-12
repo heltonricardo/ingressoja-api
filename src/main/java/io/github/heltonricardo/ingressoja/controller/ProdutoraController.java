@@ -1,7 +1,9 @@
 package io.github.heltonricardo.ingressoja.controller;
 
 import io.github.heltonricardo.ingressoja.dto.ProdutoraDTO;
+import io.github.heltonricardo.ingressoja.dto.resp.AdministradorDTOResp;
 import io.github.heltonricardo.ingressoja.dto.resp.ProdutoraDTOResp;
+import io.github.heltonricardo.ingressoja.model.Administrador;
 import io.github.heltonricardo.ingressoja.model.Produtora;
 import io.github.heltonricardo.ingressoja.service.ProdutoraService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("produtora")
@@ -42,11 +45,12 @@ public class ProdutoraController {
   @GetMapping("/{id}")
   public ResponseEntity<ProdutoraDTOResp> obterPorId(@PathVariable Long id) {
 
-    if (produtoraService.obterPorId(id).isEmpty())
+    Optional<Produtora> pesq = produtoraService.obterPorId(id);
+
+    if (pesq.isEmpty())
       return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
 
-    ProdutoraDTOResp resp = ProdutoraDTOResp
-        .paraDTO(produtoraService.obterPorId(id).get());
+    ProdutoraDTOResp resp = ProdutoraDTOResp.paraDTO(pesq.get());
 
     return new ResponseEntity<>(resp, HttpStatus.OK);
   }
