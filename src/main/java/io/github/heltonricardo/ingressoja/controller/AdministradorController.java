@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("administrador")
@@ -36,6 +37,22 @@ public class AdministradorController {
     return new ResponseEntity<>(resp, HttpStatus.OK);
   }
 
+  /******************************* OBTER POR ID *******************************/
+
+  @GetMapping("/{id}")
+  public ResponseEntity<AdministradorDTOResp> obterPorId(
+      @PathVariable Long id) {
+
+    Optional<Administrador> pesq = administradorService.obterPorId(id);
+
+    if (pesq.isEmpty())
+      return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+
+    AdministradorDTOResp resp = AdministradorDTOResp.paraDTO(pesq.get());
+
+    return new ResponseEntity<>(resp, HttpStatus.OK);
+  }
+
   /********************************** SALVAR **********************************/
 
   @PostMapping
@@ -46,7 +63,7 @@ public class AdministradorController {
 
     if (resp == null)
       return new ResponseEntity<>(HttpStatus.CONFLICT);
-    
+
     return new ResponseEntity<>(AdministradorDTOResp.paraDTO(resp),
         HttpStatus.CREATED);
   }
