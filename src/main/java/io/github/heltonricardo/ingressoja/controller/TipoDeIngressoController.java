@@ -46,7 +46,7 @@ public class TipoDeIngressoController {
 		TipoDeIngressoDTOResp resp;
 
 		if (tipoDeIngressoService.obterPorId(id).isEmpty())
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
 
 		resp = TipoDeIngressoDTOResp
 				.paraDTO(tipoDeIngressoService.obterPorId(id).get());

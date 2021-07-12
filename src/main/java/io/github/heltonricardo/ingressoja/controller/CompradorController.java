@@ -45,7 +45,7 @@ public class CompradorController {
   public ResponseEntity<CompradorDTOResp> obterPorId(@PathVariable Long id) {
 
     if (compradorService.obterPorId(id).isEmpty())
-      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+      return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
 
     CompradorDTOResp resp = CompradorDTOResp
         .paraDTO(compradorService.obterPorId(id).get());
@@ -62,7 +62,7 @@ public class CompradorController {
     Optional<Comprador> pesq = compradorService.obterPorId(id);
 
     if (pesq.isEmpty())
-      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+      return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
 
     Comprador comprador = pesq.get();
 

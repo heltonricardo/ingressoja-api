@@ -45,7 +45,7 @@ public class EventoController {
     EventoDTOResp resp;
 
     if (eventoService.obterPorId(id).isEmpty())
-      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+      return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
 
     resp = EventoDTOResp.paraDTO(eventoService.obterPorId(id).get());
 

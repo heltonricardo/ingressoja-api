@@ -43,7 +43,7 @@ public class ProdutoraController {
 	public ResponseEntity<ProdutoraDTOResp> obterPorId(@PathVariable Long id) {
 
 		if (produtoraService.obterPorId(id).isEmpty())
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
 
 		ProdutoraDTOResp resp = ProdutoraDTOResp
 				.paraDTO(produtoraService.obterPorId(id).get());

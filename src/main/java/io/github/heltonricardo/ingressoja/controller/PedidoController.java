@@ -42,7 +42,7 @@ public class PedidoController {
   public ResponseEntity<PedidoDTOResp> obterPorId(@PathVariable Long id) {
 
     if (pedidoService.obterPorId(id).isEmpty())
-      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+      return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
 
     PedidoDTOResp resp = PedidoDTOResp
         .paraDTO(pedidoService.obterPorId(id).get());
