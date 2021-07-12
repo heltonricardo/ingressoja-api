@@ -37,4 +37,10 @@ public class Administrador {
 		this.nome = nome;
 		this.email = email;
 	}
+
+	public Administrador(String nome, String email, Usuario usuario) {
+		this.nome = nome;
+		this.email = email;
+		this.usuario = usuario;
+	}
 }
