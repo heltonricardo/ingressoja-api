@@ -16,50 +16,53 @@ import java.util.List;
 @RequestMapping("produtora")
 public class ProdutoraController {
 
-	private final ProdutoraService produtoraService;
+  private final ProdutoraService produtoraService;
 
-	@Autowired
-	public ProdutoraController(ProdutoraService produtoraService) {
+  @Autowired
+  public ProdutoraController(ProdutoraService produtoraService) {
 
-		this.produtoraService = produtoraService;
-	}
+    this.produtoraService = produtoraService;
+  }
 
-	/******************************* OBTER TODAS ********************************/
+  /******************************* OBTER TODAS ********************************/
 
-	@GetMapping
-	public ResponseEntity<List<ProdutoraDTOResp>> obterTodas() {
+  @GetMapping
+  public ResponseEntity<List<ProdutoraDTOResp>> obterTodas() {
 
-		List<ProdutoraDTOResp> resp = new ArrayList<>();
+    List<ProdutoraDTOResp> resp = new ArrayList<>();
 
-		produtoraService.obterTodas()
-				.forEach(c -> resp.add(ProdutoraDTOResp.paraDTO(c)));
+    produtoraService.obterTodas()
+        .forEach(c -> resp.add(ProdutoraDTOResp.paraDTO(c)));
 
-		return new ResponseEntity<>(resp, HttpStatus.OK);
-	}
+    return new ResponseEntity<>(resp, HttpStatus.OK);
+  }
 
-	/******************************* OBTER POR ID *******************************/
+  /******************************* OBTER POR ID *******************************/
 
-	@GetMapping("/{id}")
-	public ResponseEntity<ProdutoraDTOResp> obterPorId(@PathVariable Long id) {
+  @GetMapping("/{id}")
+  public ResponseEntity<ProdutoraDTOResp> obterPorId(@PathVariable Long id) {
 
-		if (produtoraService.obterPorId(id).isEmpty())
-			return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+    if (produtoraService.obterPorId(id).isEmpty())
+      return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
 
-		ProdutoraDTOResp resp = ProdutoraDTOResp
-				.paraDTO(produtoraService.obterPorId(id).get());
+    ProdutoraDTOResp resp = ProdutoraDTOResp
+        .paraDTO(produtoraService.obterPorId(id).get());
 
-		return new ResponseEntity<>(resp, HttpStatus.OK);
-	}
+    return new ResponseEntity<>(resp, HttpStatus.OK);
+  }
 
-	/********************************** SALVAR **********************************/
+  /********************************** SALVAR **********************************/
 
-	@PostMapping
-	public ResponseEntity<ProdutoraDTOResp> salvar(
-			@RequestBody ProdutoraDTO dto) {
+  @PostMapping
+  public ResponseEntity<ProdutoraDTOResp> salvar(
+      @RequestBody ProdutoraDTO dto) {
 
-		Produtora resp = produtoraService.salvar(dto.paraObjeto());
+    Produtora resp = produtoraService.salvar(dto.paraObjeto());
 
-		return new ResponseEntity<>(ProdutoraDTOResp.paraDTO(resp),
-				HttpStatus.CREATED);
-	}
+    if (resp == null)
+      return new ResponseEntity<>(HttpStatus.CONFLICT);
+
+    return new ResponseEntity<>(ProdutoraDTOResp.paraDTO(resp),
+        HttpStatus.CREATED);
+  }
 }

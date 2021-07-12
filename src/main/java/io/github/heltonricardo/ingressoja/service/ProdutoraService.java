@@ -10,22 +10,28 @@ import java.util.Optional;
 @Service
 public class ProdutoraService {
 
-	private final ProdutoraRepository produtoraRepository;
+  private final ProdutoraRepository produtoraRepository;
+  private final ValidacaoEmailService validacaoEmailService;
 
-	@Autowired
-	public ProdutoraService(ProdutoraRepository produtoraRepository) {
-		this.produtoraRepository = produtoraRepository;
-	}
+  @Autowired
+  public ProdutoraService(ProdutoraRepository produtoraRepository,
+                          ValidacaoEmailService validacaoEmailService) {
+    this.produtoraRepository = produtoraRepository;
+    this.validacaoEmailService = validacaoEmailService;
+  }
 
-	public Iterable<Produtora> obterTodas() {
-		return produtoraRepository.findAll();
-	}
+  public Iterable<Produtora> obterTodas() {
+    return produtoraRepository.findAll();
+  }
 
-	public Optional<Produtora> obterPorId(Long id) {
-		return produtoraRepository.findById(id);
-	}
+  public Optional<Produtora> obterPorId(Long id) {
+    return produtoraRepository.findById(id);
+  }
 
-	public Produtora salvar(Produtora produtora) {
-		return produtoraRepository.save(produtora);
-	}
+  public Produtora salvar(Produtora produtora) {
+    if (validacaoEmailService.emailJaCadastrado(produtora.getEmail()))
+      return null;
+
+    return produtoraRepository.save(produtora);
+  }
 }
