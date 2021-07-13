@@ -11,13 +11,13 @@ import java.util.Optional;
 public class AdministradorService {
 
   private final AdministradorRepository administradorRepository;
-  private final ValidacaoEmailService validacaoEmailService;
+  private final ValidacaoService validacaoService;
 
   @Autowired
   public AdministradorService(AdministradorRepository administradorRepository,
-                              ValidacaoEmailService validacaoEmailService) {
+                              ValidacaoService validacaoService) {
     this.administradorRepository = administradorRepository;
-    this.validacaoEmailService = validacaoEmailService;
+    this.validacaoService = validacaoService;
   }
 
   public Iterable<Administrador> obterTodos() {
@@ -29,7 +29,7 @@ public class AdministradorService {
   }
 
   public Administrador salvar(Administrador administrador) {
-    if (validacaoEmailService.emailJaCadastrado(administrador.getEmail()))
+    if (validacaoService.emailJaCadastrado(administrador.getEmail()))
       return null;
 
     return administradorRepository.save(administrador);

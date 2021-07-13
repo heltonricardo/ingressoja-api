@@ -11,13 +11,13 @@ import java.util.Optional;
 public class ProdutoraService {
 
   private final ProdutoraRepository produtoraRepository;
-  private final ValidacaoEmailService validacaoEmailService;
+  private final ValidacaoService validacaoService;
 
   @Autowired
   public ProdutoraService(ProdutoraRepository produtoraRepository,
-                          ValidacaoEmailService validacaoEmailService) {
+                          ValidacaoService validacaoService) {
     this.produtoraRepository = produtoraRepository;
-    this.validacaoEmailService = validacaoEmailService;
+    this.validacaoService = validacaoService;
   }
 
   public Iterable<Produtora> obterTodas() {
@@ -29,7 +29,7 @@ public class ProdutoraService {
   }
 
   public Produtora salvar(Produtora produtora) {
-    if (validacaoEmailService.emailJaCadastrado(produtora.getEmail()))
+    if (validacaoService.emailJaCadastrado(produtora.getEmail()))
       return null;
 
     return produtoraRepository.save(produtora);

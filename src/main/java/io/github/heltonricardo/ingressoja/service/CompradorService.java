@@ -11,13 +11,13 @@ import java.util.Optional;
 public class CompradorService {
 
   private final CompradorRepository compradorRepository;
-  private final ValidacaoEmailService validacaoEmailService;
+  private final ValidacaoService validacaoService;
 
   @Autowired
   public CompradorService(CompradorRepository compradorRepository,
-                          ValidacaoEmailService validacaoEmailService) {
+                          ValidacaoService validacaoService) {
     this.compradorRepository = compradorRepository;
-    this.validacaoEmailService = validacaoEmailService;
+    this.validacaoService = validacaoService;
   }
 
   public Iterable<Comprador> obterTodos() {
@@ -29,7 +29,7 @@ public class CompradorService {
   }
 
   public Comprador salvar(Comprador comprador) {
-    if (validacaoEmailService.emailJaCadastrado(comprador.getEmail()))
+    if (validacaoService.emailJaCadastrado(comprador.getEmail()))
       return null;
 
     return compradorRepository.save(comprador);
