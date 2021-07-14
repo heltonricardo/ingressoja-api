@@ -17,16 +17,14 @@ public class ItemPedido {
   private Long id;
   private String ingressante;
   private String cpf;
-  private String email;
 
   @ManyToOne
   private TipoDeIngresso tipoDeIngresso;
 
-  public ItemPedido(String ingressante, String cpf, String email,
+  public ItemPedido(String ingressante, String cpf,
                     TipoDeIngresso tipoDeIngresso) {
     this.ingressante = ingressante;
     this.cpf = cpf;
-    this.email = email;
     this.tipoDeIngresso = tipoDeIngresso;
   }
 }

@@ -9,15 +9,13 @@ public class ItemPedidoDTO {
 
   private String ingressante;
   private String cpf;
-  private String email;
   private Long idTipoDeIngresso;
 
   public ItemPedido paraObjeto() {
 
-
     TipoDeIngresso tipoDeIngresso = new TipoDeIngresso();
     tipoDeIngresso.setId(idTipoDeIngresso);
 
-    return new ItemPedido(ingressante, cpf, email, tipoDeIngresso);
+    return new ItemPedido(ingressante, cpf, tipoDeIngresso);
   }
 }

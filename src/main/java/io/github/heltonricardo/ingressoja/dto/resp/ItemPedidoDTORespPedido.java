@@ -12,13 +12,11 @@ public class ItemPedidoDTORespPedido {
   private final Long id;
   private final String ingressante;
   private final String cpf;
-  private final String email;
   private final TipoDeIngressoDTORespItemPedido tipoDeIngresso;
 
   public static ItemPedidoDTORespPedido paraDTO(ItemPedido itemPedido) {
     return new ItemPedidoDTORespPedido(itemPedido.getId(),
         itemPedido.getIngressante(), itemPedido.getCpf(),
-        itemPedido.getEmail(),
         TipoDeIngressoDTORespItemPedido.paraDTO(
             itemPedido.getTipoDeIngresso()));
   }
