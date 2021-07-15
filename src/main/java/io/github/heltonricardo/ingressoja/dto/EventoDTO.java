@@ -12,7 +12,6 @@ import java.util.List;
 public class EventoDTO {
 
   private String titulo;
-  private String imagemURL;
   private Date inicio;
   private Date termino;
   private String descricao;
@@ -35,7 +34,7 @@ public class EventoDTO {
 
     tiposDeIngresso.forEach(t -> tipos.add(t.paraObjeto()));
 
-    return new Evento(titulo, imagemURL, inicio, termino, descricao, online,
+    return new Evento(titulo, inicio, termino, descricao, online,
         url, logradouro, numero, bairro, cidade, uf, cep, tipos, idProdutora,
         idCategoria);
   }

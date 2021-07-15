@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,9 +56,12 @@ public class EventoController {
   /********************************** SALVAR **********************************/
 
   @PostMapping
-  public ResponseEntity<EventoDTOResp> criarEvento(@RequestBody EventoDTO dto) {
+  public ResponseEntity<EventoDTOResp> criarEvento(
+      @RequestParam EventoDTO dto,
+      @RequestParam MultipartFile file
+  ) {
 
-    Evento resp = eventoService.salvar(dto.paraObjeto());
+    Evento resp = eventoService.salvar(dto.paraObjeto(), file);
 
     if (resp == null)
       return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);

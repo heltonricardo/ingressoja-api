@@ -23,7 +23,7 @@ public class Evento {
   private Long id;
 
   private String titulo;
-  private String imagemURL;
+  private String imagemURL = "";
   private Date inicio;
   private Date termino;
 
@@ -54,14 +54,12 @@ public class Evento {
   @Transient
   private Long idCategoria;
 
-  public Evento(String titulo, String imagemURL, Date inicio,
-                Date termino, String descricao, Boolean online,
-                String url, String logradouro, String numero, String bairro,
-                String cidade, String uf, String cep,
+  public Evento(String titulo, Date inicio, Date termino, String descricao,
+                Boolean online, String url, String logradouro, String numero,
+                String bairro, String cidade, String uf, String cep,
                 List<TipoDeIngresso> tiposDeIngresso, Long idProdutora,
                 Long idCategoria) {
     this.titulo = titulo;
-    this.imagemURL = imagemURL;
     this.inicio = inicio;
     this.termino = termino;
     this.descricao = descricao;
