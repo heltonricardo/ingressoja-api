@@ -42,6 +42,6 @@ public class S3Connector {
       return null;
     }
 
-    return baseUrl + "image.png";
+    return baseUrl + nomeArquivo;
   }
 }

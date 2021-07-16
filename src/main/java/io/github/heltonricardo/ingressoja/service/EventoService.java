@@ -68,9 +68,12 @@ public class EventoService {
 
     Long id = retorno.getId();
 
-    S3Connector.upload(file,
+    String urlImagem = S3Connector.upload(file,
         Formatador.nomeArquivo(id, file.getOriginalFilename()));
 
-    return retorno;
+    evento.setImagemURL(urlImagem);
+    eventoRepository.save(evento);
+
+    return evento;
   }
 }

@@ -1,5 +1,7 @@
 package io.github.heltonricardo.ingressoja.controller;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import io.github.heltonricardo.ingressoja.dto.EventoDTO;
 import io.github.heltonricardo.ingressoja.dto.resp.EventoDTOResp;
 import io.github.heltonricardo.ingressoja.dto.resp.EventoDTORespGrade;
@@ -56,10 +58,11 @@ public class EventoController {
   /********************************** SALVAR **********************************/
 
   @PostMapping
-  public ResponseEntity<EventoDTOResp> criarEvento(
-      @RequestParam EventoDTO dto,
-      @RequestParam MultipartFile file
-  ) {
+  public ResponseEntity<EventoDTOResp> criarEvento(String evento,
+                                                   MultipartFile file) {
+
+    Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm").create();
+    EventoDTO dto = gson.fromJson(evento, EventoDTO.class);
 
     Evento resp = eventoService.salvar(dto.paraObjeto(), file);
 
