@@ -55,6 +55,9 @@ public class EventoService {
     if (pesqProdutora.isEmpty() || pesqCategoria.isEmpty())
       return null;
 
+    if (!Formatador.isImagem(file.getOriginalFilename()))
+      return null;
+
     Produtora produtora = pesqProdutora.get();
     CategoriaEvento categoriaEvento = pesqCategoria.get();
     evento.setProdutora(produtora);
