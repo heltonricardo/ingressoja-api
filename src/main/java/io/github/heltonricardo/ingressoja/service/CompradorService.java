@@ -28,6 +28,14 @@ public class CompradorService {
     return compradorRepository.findById(id);
   }
 
+  public Optional<Comprador> obterPorEmail(String email) {
+    return compradorRepository.findByEmail(email);
+  }
+
+  public Optional<Comprador> obterPorCpf(String cpf) {
+    return compradorRepository.findByEmail(cpf);
+  }
+
   public Comprador salvar(Comprador comprador) {
     if (validacaoService.emailJaCadastrado(comprador.getEmail()))
       return null;

@@ -4,9 +4,9 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import io.github.heltonricardo.ingressoja.model.Administrador;
 import io.github.heltonricardo.ingressoja.model.Comprador;
 import io.github.heltonricardo.ingressoja.model.Produtora;
-import io.github.heltonricardo.ingressoja.repository.AdministradorRepository;
-import io.github.heltonricardo.ingressoja.repository.CompradorRepository;
-import io.github.heltonricardo.ingressoja.repository.ProdutoraRepository;
+import io.github.heltonricardo.ingressoja.service.AdministradorService;
+import io.github.heltonricardo.ingressoja.service.CompradorService;
+import io.github.heltonricardo.ingressoja.service.ProdutoraService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,67 +17,67 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("autenticacao")
 public class AutenticacaoController {
-	@Autowired
-	private AdministradorRepository administradorRepository;
 
-	@Autowired
-	private CompradorRepository compradorRepository;
+  @Autowired
+  private AdministradorService administradorService;
+  @Autowired
+  private CompradorService compradorService;
+  @Autowired
+  private ProdutoraService produtoraService;
 
-	@Autowired
-	private ProdutoraRepository produtoraRepository;
+  @PostMapping
+  public ResponseEntity<Map<String, Long>> logar(@RequestBody ObjectNode obj) {
 
-	@PostMapping
-	public ResponseEntity<?> logar(@RequestBody ObjectNode obj) {
+    String email, senha;
 
-		String email, senha;
+    try {
+      email = obj.get("email").asText();
+      senha = obj.get("senha").asText();
+    } catch (Exception e) {
+      return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+    }
 
-		try {
-			email = obj.get("email").asText();
-			senha = obj.get("senha").asText();
-		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-		}
+    Map<String, Long> resposta = new HashMap<>();
 
-		Map<String, Long> resposta = new HashMap<>();
+    Optional<Comprador> user1 = compradorService.obterPorEmail(email);
 
-		Iterable<Comprador> user1 = compradorRepository.findByEmail(email);
+    if (user1.isPresent()) {
+      Comprador comprador = user1.get();
+      if (comprador.getUsuario().getSenha().equals(senha)) {
+        resposta.put("id", comprador.getId());
+        resposta.put("tipo", 1L);
+        return new ResponseEntity<>(resposta, HttpStatus.OK);
+      } else
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+    }
 
-		if (user1.iterator().hasNext()) {
-			Comprador comprador = user1.iterator().next();
-			if (comprador.getUsuario().getSenha().equals(senha)) {
-				resposta.put("id", comprador.getId());
-				resposta.put("tipo", 1L);
-				return ResponseEntity.status(HttpStatus.OK).body(resposta);
-			} else
-				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-		}
+    Optional<Produtora> user2 = produtoraService.obterPorEmail(email);
+    if (user2.isPresent()) {
+      Produtora produtora = user2.get();
+      if (produtora.getUsuario().getSenha().equals(senha)) {
+        resposta.put("id", produtora.getId());
+        resposta.put("tipo", 2L);
+        return new ResponseEntity<>(resposta, HttpStatus.OK);
+      } else
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+    }
 
-		Iterable<Produtora> user2 = produtoraRepository.findByEmail(email);
-		if (user2.iterator().hasNext()) {
-			Produtora produtora = user2.iterator().next();
-			if (produtora.getUsuario().getSenha().equals(senha)) {
-				resposta.put("id", produtora.getId());
-				resposta.put("tipo", 2L);
-				return ResponseEntity.status(HttpStatus.OK).body(resposta);
-			} else
-				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-		}
+    Optional<Administrador> user3 = administradorService.obterPorEmail(email);
+    if (user3.isPresent()) {
+      Administrador administrador = user3.get();
+      if (administrador.getUsuario().getSenha().equals(senha)) {
+        resposta.put("id", administrador.getId());
+        resposta.put("tipo", 3L);
+        return new ResponseEntity<>(resposta, HttpStatus.OK);
+      } else
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+    }
 
-		Iterable<Administrador> user3 = administradorRepository.findByEmail(email);
-		if (user3.iterator().hasNext()) {
-			Administrador administrador = user3.iterator().next();
-			if (administrador.getUsuario().getSenha().equals(senha)) {
-				resposta.put("id", administrador.getId());
-				resposta.put("tipo", 3L);
-				return ResponseEntity.status(HttpStatus.OK).body(resposta);
-			} else
-				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-		}
-
-		return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-	}
+    return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+  }
 }

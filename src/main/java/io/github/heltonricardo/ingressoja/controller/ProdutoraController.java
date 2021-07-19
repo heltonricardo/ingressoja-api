@@ -1,9 +1,7 @@
 package io.github.heltonricardo.ingressoja.controller;
 
 import io.github.heltonricardo.ingressoja.dto.ProdutoraDTO;
-import io.github.heltonricardo.ingressoja.dto.resp.AdministradorDTOResp;
 import io.github.heltonricardo.ingressoja.dto.resp.ProdutoraDTOResp;
-import io.github.heltonricardo.ingressoja.model.Administrador;
 import io.github.heltonricardo.ingressoja.model.Produtora;
 import io.github.heltonricardo.ingressoja.service.ProdutoraService;
 import org.springframework.beans.factory.annotation.Autowired;

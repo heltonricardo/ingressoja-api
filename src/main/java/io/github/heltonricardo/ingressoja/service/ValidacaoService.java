@@ -1,39 +1,43 @@
 package io.github.heltonricardo.ingressoja.service;
 
-import io.github.heltonricardo.ingressoja.repository.AdministradorRepository;
-import io.github.heltonricardo.ingressoja.repository.CategoriaEventoRepository;
-import io.github.heltonricardo.ingressoja.repository.CompradorRepository;
-import io.github.heltonricardo.ingressoja.repository.ProdutoraRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ValidacaoService {
 
+  private final AdministradorService administradorService;
+  private final CompradorService compradorService;
+  private final ProdutoraService produtoraService;
+  private final CategoriaEventoService categoriaEventoService;
+
   @Autowired
-  private AdministradorRepository administradorRepository;
-  @Autowired
-  private CompradorRepository compradorRepository;
-  @Autowired
-  private ProdutoraRepository produtoraRepository;
-  @Autowired
-  private CategoriaEventoRepository categoriaEventoRepository;
+  public ValidacaoService(@Lazy AdministradorService administradorService,
+                          @Lazy CompradorService compradorService,
+                          @Lazy ProdutoraService produtoraService,
+                          @Lazy CategoriaEventoService categoriaEventoService) {
+    this.administradorService = administradorService;
+    this.compradorService = compradorService;
+    this.produtoraService = produtoraService;
+    this.categoriaEventoService = categoriaEventoService;
+  }
 
   public Boolean emailJaCadastrado(String email) {
-    return administradorRepository.findByEmail(email).iterator().hasNext()
-        || compradorRepository.findByEmail(email).iterator().hasNext()
-        || produtoraRepository.findByEmail(email).iterator().hasNext();
+    return administradorService.obterPorEmail(email).isPresent()
+        || compradorService.obterPorEmail(email).isPresent()
+        || produtoraService.obterPorEmail(email).isPresent();
   }
 
   public Boolean cpfJaCadastrado(String cpf) {
-    return compradorRepository.findByCpf(cpf).iterator().hasNext();
+    return compradorService.obterPorCpf(cpf).isPresent();
   }
 
   public Boolean cnpjJaCadastrado(String cnpj) {
-    return produtoraRepository.findByCnpj(cnpj).iterator().hasNext();
+    return produtoraService.obterPorCnpj(cnpj).isPresent();
   }
 
   public Boolean categoriaJaCadastrada(String nome) {
-    return categoriaEventoRepository.findByNome(nome).iterator().hasNext();
+    return categoriaEventoService.obterPorNome(nome).isPresent();
   }
 }

@@ -30,6 +30,10 @@ public class CategoriaEventoService {
     return categoriaEventoRepository.findById(id);
   }
 
+  public Optional<CategoriaEvento> obterPorNome(String nome) {
+    return categoriaEventoRepository.findByNome(nome);
+  }
+
   public CategoriaEvento salvar(CategoriaEvento categoriaEvento) {
 
     if (validacaoService.categoriaJaCadastrada(categoriaEvento.getNome()))

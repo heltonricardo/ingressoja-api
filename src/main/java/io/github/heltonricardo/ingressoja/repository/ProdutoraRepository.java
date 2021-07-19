@@ -4,10 +4,12 @@ import io.github.heltonricardo.ingressoja.model.Produtora;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface ProdutoraRepository
     extends PagingAndSortingRepository<Produtora, Long> {
-  Iterable<Produtora> findByCnpj(String cnpj);
+  Optional<Produtora> findByCnpj(String cnpj);
 
-  Iterable<Produtora> findByEmail(String email);
+  Optional<Produtora> findByEmail(String email);
 }
