@@ -1,7 +1,7 @@
 package io.github.heltonricardo.ingressoja.controller;
 
-import io.github.heltonricardo.ingressoja.dto.CategoriaEventoDTO;
-import io.github.heltonricardo.ingressoja.dto.resp.CategoriaEventoDTORespSimples;
+import io.github.heltonricardo.ingressoja.dto_in.CategoriaEventoDTO;
+import io.github.heltonricardo.ingressoja.dto_out.CategoriaEventoDTORespSimples;
 import io.github.heltonricardo.ingressoja.model.CategoriaEvento;
 import io.github.heltonricardo.ingressoja.service.CategoriaEventoService;
 import org.springframework.beans.factory.annotation.Autowired;

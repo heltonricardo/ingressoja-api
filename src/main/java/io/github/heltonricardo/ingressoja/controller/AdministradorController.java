@@ -1,7 +1,7 @@
 package io.github.heltonricardo.ingressoja.controller;
 
-import io.github.heltonricardo.ingressoja.dto.AdministradorDTO;
-import io.github.heltonricardo.ingressoja.dto.resp.AdministradorDTOResp;
+import io.github.heltonricardo.ingressoja.dto_in.AdministradorDTO;
+import io.github.heltonricardo.ingressoja.dto_out.AdministradorDTOResp;
 import io.github.heltonricardo.ingressoja.model.Administrador;
 import io.github.heltonricardo.ingressoja.service.AdministradorService;
 import org.springframework.beans.factory.annotation.Autowired;

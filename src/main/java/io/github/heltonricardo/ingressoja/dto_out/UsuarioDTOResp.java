@@ -1,4 +1,4 @@
-package io.github.heltonricardo.ingressoja.dto.resp;
+package io.github.heltonricardo.ingressoja.dto_out;
 
 import io.github.heltonricardo.ingressoja.model.Usuario;
 import lombok.AccessLevel;

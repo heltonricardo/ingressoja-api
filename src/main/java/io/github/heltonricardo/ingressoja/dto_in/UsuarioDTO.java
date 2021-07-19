@@ -1,4 +1,4 @@
-package io.github.heltonricardo.ingressoja.dto;
+package io.github.heltonricardo.ingressoja.dto_in;
 
 import io.github.heltonricardo.ingressoja.model.Usuario;
 import lombok.Getter;

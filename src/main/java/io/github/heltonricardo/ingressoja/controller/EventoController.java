@@ -2,9 +2,9 @@ package io.github.heltonricardo.ingressoja.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import io.github.heltonricardo.ingressoja.dto.EventoDTO;
-import io.github.heltonricardo.ingressoja.dto.resp.EventoDTOResp;
-import io.github.heltonricardo.ingressoja.dto.resp.EventoDTORespGrade;
+import io.github.heltonricardo.ingressoja.dto_in.EventoDTO;
+import io.github.heltonricardo.ingressoja.dto_out.EventoDTOResp;
+import io.github.heltonricardo.ingressoja.dto_out.EventoDTORespGrade;
 import io.github.heltonricardo.ingressoja.model.Evento;
 import io.github.heltonricardo.ingressoja.service.EventoService;
 import org.springframework.beans.factory.annotation.Autowired;

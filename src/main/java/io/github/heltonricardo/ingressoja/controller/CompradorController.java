@@ -1,8 +1,8 @@
 package io.github.heltonricardo.ingressoja.controller;
 
-import io.github.heltonricardo.ingressoja.dto.CompradorDTO;
-import io.github.heltonricardo.ingressoja.dto.resp.CompradorDTOResp;
-import io.github.heltonricardo.ingressoja.dto.resp.PedidoDTORespComprador;
+import io.github.heltonricardo.ingressoja.dto_in.CompradorDTO;
+import io.github.heltonricardo.ingressoja.dto_out.CompradorDTOResp;
+import io.github.heltonricardo.ingressoja.dto_out.PedidoDTORespComprador;
 import io.github.heltonricardo.ingressoja.model.Comprador;
 import io.github.heltonricardo.ingressoja.service.CompradorService;
 import org.springframework.beans.factory.annotation.Autowired;
