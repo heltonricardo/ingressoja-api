@@ -18,6 +18,10 @@ public class TipoDeIngressoService {
 		this.tipoDeIngressoRepository = tipoDeIngressoRepository;
 	}
 
+	public Optional<TipoDeIngresso> obterPorId(Long id) {
+		return tipoDeIngressoRepository.findById(id);
+	}
+
 	public TipoDeIngresso salvar(TipoDeIngresso tipoDeIngresso) {
 		return tipoDeIngressoRepository.save(tipoDeIngresso);
 	}
