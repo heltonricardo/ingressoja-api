@@ -22,10 +22,6 @@ public class CategoriaEventoService {
     this.validacaoService = validacaoService;
   }
 
-  public boolean existeId(Long id) {
-    return !categoriaEventoRepository.findById(id).isEmpty();
-  }
-
   public Iterable<CategoriaEvento> obterTodas() {
     return categoriaEventoRepository.findAll();
   }
