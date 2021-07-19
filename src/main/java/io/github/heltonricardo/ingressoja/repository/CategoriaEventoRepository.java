@@ -6,5 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CategoriaEventoRepository
-		extends PagingAndSortingRepository<CategoriaEvento, Long> {
+    extends PagingAndSortingRepository<CategoriaEvento, Long> {
+
+  Iterable<CategoriaEvento> findByNome(String nome);
 }

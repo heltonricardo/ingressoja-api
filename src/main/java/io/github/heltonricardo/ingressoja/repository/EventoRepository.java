@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface EventoRepository
-		extends PagingAndSortingRepository<Evento, Long> {
+    extends PagingAndSortingRepository<Evento, Long> {
 }

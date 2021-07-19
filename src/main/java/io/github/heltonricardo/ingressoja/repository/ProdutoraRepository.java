@@ -6,7 +6,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ProdutoraRepository
-		extends PagingAndSortingRepository<Produtora, Long> {
-	Iterable<Produtora> findByCnpj(String cpf);
-	Iterable<Produtora> findByEmail(String email);
+    extends PagingAndSortingRepository<Produtora, Long> {
+  Iterable<Produtora> findByCnpj(String cpf);
+
+  Iterable<Produtora> findByEmail(String email);
 }

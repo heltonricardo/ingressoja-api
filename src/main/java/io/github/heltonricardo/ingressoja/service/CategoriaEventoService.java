@@ -10,27 +10,35 @@ import java.util.Optional;
 @Service
 public class CategoriaEventoService {
 
-	private final CategoriaEventoRepository categoriaEventoRepository;
+  private final CategoriaEventoRepository categoriaEventoRepository;
+  private final ValidacaoService validacaoService;
 
-	@Autowired
-	public CategoriaEventoService(
-			CategoriaEventoRepository categoriaEventoRepository) {
-		this.categoriaEventoRepository = categoriaEventoRepository;
-	}
-	
-	public boolean existeId(Long id) {
-		return !categoriaEventoRepository.findById(id).isEmpty();
-	}
-	
-	public Iterable<CategoriaEvento> obterTodas() {
-		return categoriaEventoRepository.findAll();
-	}
-	
-	public Optional<CategoriaEvento> obterPorId(Long id) {
-		return categoriaEventoRepository.findById(id);
-	}
-	
-	public CategoriaEvento salvar(CategoriaEvento categoriaEvento) {
-		return categoriaEventoRepository.save(categoriaEvento);
-	}
+  @Autowired
+  public CategoriaEventoService(
+      CategoriaEventoRepository categoriaEventoRepository,
+      ValidacaoService validacaoService) {
+
+    this.categoriaEventoRepository = categoriaEventoRepository;
+    this.validacaoService = validacaoService;
+  }
+
+  public boolean existeId(Long id) {
+    return !categoriaEventoRepository.findById(id).isEmpty();
+  }
+
+  public Iterable<CategoriaEvento> obterTodas() {
+    return categoriaEventoRepository.findAll();
+  }
+
+  public Optional<CategoriaEvento> obterPorId(Long id) {
+    return categoriaEventoRepository.findById(id);
+  }
+
+  public CategoriaEvento salvar(CategoriaEvento categoriaEvento) {
+
+    if (validacaoService.categoriaJaCadastrada(categoriaEvento.getNome()))
+      return null;
+
+    return categoriaEventoRepository.save(categoriaEvento);
+  }
 }

@@ -43,6 +43,7 @@ public class CompradorController {
 
   @GetMapping("/{id}")
   public ResponseEntity<CompradorDTOResp> obterPorId(@PathVariable Long id) {
+
     Optional<Comprador> pesq = compradorService.obterPorId(id);
 
     if (pesq.isEmpty())

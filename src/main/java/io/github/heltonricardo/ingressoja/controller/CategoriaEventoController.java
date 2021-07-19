@@ -16,54 +16,57 @@ import java.util.List;
 @RequestMapping("/categoria-evento")
 public class CategoriaEventoController {
 
-	private final CategoriaEventoService categoriaEventoService;
+  private final CategoriaEventoService categoriaEventoService;
 
-	@Autowired
-	public CategoriaEventoController(
-			CategoriaEventoService categoriaEventoService) {
+  @Autowired
+  public CategoriaEventoController(
+      CategoriaEventoService categoriaEventoService) {
 
-		this.categoriaEventoService = categoriaEventoService;
-	}
+    this.categoriaEventoService = categoriaEventoService;
+  }
 
-	/******************************* OBTER TODAS ********************************/
+  /******************************* OBTER TODAS ********************************/
 
-	@GetMapping
-	public ResponseEntity<List<CategoriaEventoDTORespSimples>> obterTodas() {
+  @GetMapping
+  public ResponseEntity<List<CategoriaEventoDTORespSimples>> obterTodas() {
 
-		List<CategoriaEventoDTORespSimples> resp = new ArrayList<>();
+    List<CategoriaEventoDTORespSimples> resp = new ArrayList<>();
 
-		categoriaEventoService.obterTodas()
-				.forEach(c -> resp.add(CategoriaEventoDTORespSimples.paraDTO(c)));
+    categoriaEventoService.obterTodas()
+        .forEach(c -> resp.add(CategoriaEventoDTORespSimples.paraDTO(c)));
 
-		return new ResponseEntity<>(resp, HttpStatus.OK);
-	}
+    return new ResponseEntity<>(resp, HttpStatus.OK);
+  }
 
-	/******************************* OBTER POR ID *******************************/
+  /******************************* OBTER POR ID *******************************/
 
-	@GetMapping("/{id}")
-	public ResponseEntity<CategoriaEventoDTORespSimples> obterPorId(
-			@PathVariable Long id) {
+  @GetMapping("/{id}")
+  public ResponseEntity<CategoriaEventoDTORespSimples> obterPorId(
+      @PathVariable Long id) {
 
-		CategoriaEventoDTORespSimples resp;
+    CategoriaEventoDTORespSimples resp;
 
-		if (categoriaEventoService.obterPorId(id).isEmpty())
-			return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+    if (categoriaEventoService.obterPorId(id).isEmpty())
+      return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
 
-		resp = CategoriaEventoDTORespSimples
-				.paraDTO(categoriaEventoService.obterPorId(id).get());
+    resp = CategoriaEventoDTORespSimples
+        .paraDTO(categoriaEventoService.obterPorId(id).get());
 
-		return new ResponseEntity<>(resp, HttpStatus.OK);
-	}
+    return new ResponseEntity<>(resp, HttpStatus.OK);
+  }
 
-	/********************************** SALVAR **********************************/
+  /********************************** SALVAR **********************************/
 
-	@PostMapping
-	public ResponseEntity<CategoriaEventoDTORespSimples> salvar(
-			@RequestBody CategoriaEventoDTO dto) {
+  @PostMapping
+  public ResponseEntity<CategoriaEventoDTORespSimples> salvar(
+      @RequestBody CategoriaEventoDTO dto) {
 
-		CategoriaEvento resp = categoriaEventoService.salvar(dto.paraObjeto());
+    CategoriaEvento resp = categoriaEventoService.salvar(dto.paraObjeto());
 
-		return new ResponseEntity<>(CategoriaEventoDTORespSimples.paraDTO(resp),
-				HttpStatus.CREATED);
-	}
+    if (resp == null)
+      return new ResponseEntity<>(HttpStatus.CONFLICT);
+
+    return new ResponseEntity<>(CategoriaEventoDTORespSimples.paraDTO(resp),
+        HttpStatus.CREATED);
+  }
 }
