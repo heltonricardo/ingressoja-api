@@ -32,6 +32,9 @@ public class CompradorService {
     if (validacaoService.emailJaCadastrado(comprador.getEmail()))
       return null;
 
+    if (validacaoService.cpfJaCadastrado(comprador.getCpf()))
+      return null;
+
     return compradorRepository.save(comprador);
   }
 }

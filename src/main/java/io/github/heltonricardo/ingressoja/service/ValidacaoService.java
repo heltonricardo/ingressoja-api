@@ -9,16 +9,24 @@ import org.springframework.stereotype.Service;
 @Service
 public class ValidacaoService {
 
-	@Autowired
-	private AdministradorRepository administradorRepository;
-	@Autowired
-	private CompradorRepository compradorRepository;
-	@Autowired
-	private ProdutoraRepository produtoraRepository;
+  @Autowired
+  private AdministradorRepository administradorRepository;
+  @Autowired
+  private CompradorRepository compradorRepository;
+  @Autowired
+  private ProdutoraRepository produtoraRepository;
 
-	public Boolean emailJaCadastrado(String email) {
-		return administradorRepository.findByEmail(email).iterator().hasNext()
-				|| compradorRepository.findByEmail(email).iterator().hasNext()
-				|| produtoraRepository.findByEmail(email).iterator().hasNext();
-	}
+  public Boolean emailJaCadastrado(String email) {
+    return administradorRepository.findByEmail(email).iterator().hasNext()
+        || compradorRepository.findByEmail(email).iterator().hasNext()
+        || produtoraRepository.findByEmail(email).iterator().hasNext();
+  }
+
+  public Boolean cpfJaCadastrado(String cpf) {
+    return compradorRepository.findByCpf(cpf).iterator().hasNext();
+  }
+
+  public Boolean cnpjJaCadastrado(String cnpj) {
+    return produtoraRepository.findByCnpj(cnpj).iterator().hasNext();
+  }
 }

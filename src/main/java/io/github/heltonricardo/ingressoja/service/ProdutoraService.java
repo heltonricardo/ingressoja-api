@@ -32,6 +32,9 @@ public class ProdutoraService {
     if (validacaoService.emailJaCadastrado(produtora.getEmail()))
       return null;
 
+    if (validacaoService.cnpjJaCadastrado((produtora.getCnpj())))
+      return null;
+
     return produtoraRepository.save(produtora);
   }
 }
