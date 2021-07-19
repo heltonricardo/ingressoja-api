@@ -18,7 +18,6 @@ public class EventoService {
   private final EventoRepository eventoRepository;
   private final ProdutoraService produtoraService;
   private final CategoriaEventoService categoriaEventoService;
-  private final TipoDeIngressoService tipoDeIngressoService;
 
   @Autowired
   public EventoService(EventoRepository eventoRepository,
@@ -28,7 +27,6 @@ public class EventoService {
     this.eventoRepository = eventoRepository;
     this.produtoraService = produtoraService;
     this.categoriaEventoService = categoriaEvento;
-    this.tipoDeIngressoService = tipoDeIngressoService;
   }
 
   /******************************* OBTER TODOS ********************************/
