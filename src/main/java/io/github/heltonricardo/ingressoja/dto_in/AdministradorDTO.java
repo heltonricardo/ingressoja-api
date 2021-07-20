@@ -9,9 +9,9 @@ public class AdministradorDTO {
 
 	private String nome;
 	private String email;
-	private String senha;
+	private UsuarioDTO usuarioDTO;
 
 	public Administrador paraObjeto() {
-		return new Administrador(nome, email, new Usuario(senha));
+		return new Administrador(nome, email, usuarioDTO.paraObjeto());
 	}
 }
