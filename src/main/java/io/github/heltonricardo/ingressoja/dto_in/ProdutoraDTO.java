@@ -14,11 +14,11 @@ public class ProdutoraDTO {
 	private String banco;
 	private String agencia;
 	private String conta;
-	private UsuarioDTO usuarioDTO;
+	private UsuarioDTO usuario;
 
 	public Produtora paraObjeto() {
 		return new Produtora(email, nomeFantasia, razaoSocial, cnpj, banco,
-				agencia, conta, usuarioDTO.paraObjeto());
+				agencia, conta, usuario.paraObjeto());
 	}
 
 }

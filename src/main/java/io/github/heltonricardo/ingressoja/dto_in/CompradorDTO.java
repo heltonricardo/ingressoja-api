@@ -10,9 +10,9 @@ public class CompradorDTO {
 	private String nome;
 	private String email;
 	private String cpf;
-	private UsuarioDTO usuarioDTO;
+	private UsuarioDTO usuario;
 
 	public Comprador paraObjeto() {
-		return new Comprador(nome, email, cpf, usuarioDTO.paraObjeto());
+		return new Comprador(nome, email, cpf, usuario.paraObjeto());
 	}
 }
