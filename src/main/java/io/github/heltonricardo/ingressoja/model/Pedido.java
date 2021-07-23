@@ -24,6 +24,9 @@ public class Pedido {
   private String cpfTitular;
   private Double valorTotal;
 
+  @ManyToOne(cascade = CascadeType.ALL)
+  private Comprador comprador;
+
   @OneToMany(cascade = CascadeType.ALL)
   private List<ItemPedido> itensPedido;
 

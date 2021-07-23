@@ -26,7 +26,7 @@ public class Comprador {
   @ManyToOne(cascade = CascadeType.ALL)
   private Usuario usuario;
 
-  @OneToMany
+  @OneToMany(mappedBy = "comprador", cascade = CascadeType.ALL)
   private List<Pedido> pedidos;
 
   public Comprador(String nome, String email, String cpf, Usuario usuario) {
@@ -34,9 +34,5 @@ public class Comprador {
     this.email = email;
     this.cpf = cpf;
     this.usuario = usuario;
-  }
-
-  public void adicionaPedido(Pedido pedido) {
-    pedidos.add(pedido);
   }
 }

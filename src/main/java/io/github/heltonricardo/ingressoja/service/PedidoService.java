@@ -71,14 +71,14 @@ public class PedidoService {
       return null;
     }
 
+    Comprador comprador = pesqComprador.get();
+    pedido.setComprador(comprador);
+
     Double total = pedido.getItensPedido().stream()
         .reduce(0.0, (s, item) -> s + item.getTipoDeIngresso().getValor(),
             Double::sum);
 
     pedido.setValorTotal(total);
-
-    Comprador comprador = pesqComprador.get();
-    comprador.adicionaPedido(pedido);
 
     return pedidoRepository.save(pedido);
   }
