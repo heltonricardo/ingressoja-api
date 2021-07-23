@@ -29,8 +29,4 @@ public class CategoriaEvento {
   public CategoriaEvento(String nome) {
     this.nome = nome;
   }
-
-  public void adicionaEvento(Evento evento) {
-    eventos.add(evento);
-  }
 }

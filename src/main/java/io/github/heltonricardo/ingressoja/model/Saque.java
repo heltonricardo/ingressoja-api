@@ -21,9 +21,4 @@ public class Saque {
 	private Long id;
 	private Date dataHora;
 	private Double valor;
-	
-	public Saque(Date dataHora, Double valor) {
-		this.dataHora = dataHora;
-		this.valor = valor;
-	}	
 }

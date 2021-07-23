@@ -51,8 +51,4 @@ public class Produtora {
 		this.conta = conta;
 		this.usuario = usuario;
 	}
-
-	public void adicionaEvento(Evento evento) {
-		eventos.add(evento);
-	}
 }

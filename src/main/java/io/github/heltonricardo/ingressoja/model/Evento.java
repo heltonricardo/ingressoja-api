@@ -75,8 +75,4 @@ public class Evento {
     this.idProdutora = idProdutora;
     this.idCategoria = idCategoria;
   }
-
-  public Evento(Long id) {
-    this.id = id;
-  }
 }
