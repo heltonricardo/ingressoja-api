@@ -15,13 +15,13 @@ import javax.persistence.Id;
 @NoArgsConstructor
 public class Usuario {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-	private String senha;
+  private String senha;
 
-	public Usuario(String senha) {
-		this.senha = senha;
-	}
+  public Usuario(String senha) {
+    this.senha = senha;
+  }
 }

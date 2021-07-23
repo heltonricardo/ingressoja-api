@@ -6,9 +6,9 @@ import lombok.Getter;
 @Getter
 public class CategoriaEventoDTO {
 
-	private String nome;
-	
-	public CategoriaEvento paraObjeto() {
-		return new CategoriaEvento(nome);
-	}
+  private String nome;
+
+  public CategoriaEvento paraObjeto() {
+    return new CategoriaEvento(nome);
+  }
 }

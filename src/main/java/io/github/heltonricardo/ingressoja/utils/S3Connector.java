@@ -12,17 +12,17 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class S3Connector {
 
-  private static String bucketName = "ingresso-ja";
+  private static final String bucketName = "ingresso-ja";
 
-  private static String baseUrl =
+  private static final String baseUrl =
       "https://ingresso-ja.s3.us-east-2.amazonaws.com/";
 
-  private static AWSCredentials credentials = new BasicAWSCredentials(
+  private static final AWSCredentials credentials = new BasicAWSCredentials(
       "AKIAQ3HRRU3JBMMEWI4I",
       "mnmV0aKMxHY883bzeV6FH4GsEDFsCan8trI1wWDt"
   );
 
-  private static AmazonS3 s3client = AmazonS3ClientBuilder
+  private static final AmazonS3 s3client = AmazonS3ClientBuilder
       .standard()
       .withCredentials(new AWSStaticCredentialsProvider(credentials))
       .withRegion(Regions.US_EAST_2)

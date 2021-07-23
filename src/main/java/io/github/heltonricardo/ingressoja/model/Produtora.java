@@ -15,40 +15,40 @@ import java.util.List;
 @Where(clause = "ativo")
 public class Produtora {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	private String email;
-	private String nomeFantasia;
-	private String razaoSocial;
-	private String cnpj;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+  private String email;
+  private String nomeFantasia;
+  private String razaoSocial;
+  private String cnpj;
 
-	private String banco;
-	private String agencia;
-	private String conta;
+  private String banco;
+  private String agencia;
+  private String conta;
 
-	private Double valorCarteira = 0.0;
-	private Boolean ativo = true;
+  private Double valorCarteira = 0.0;
+  private Boolean ativo = true;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "produtora")
-	private List<Evento> eventos;
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "produtora")
+  private List<Evento> eventos;
 
-	@ManyToOne(cascade = CascadeType.ALL)
-	private Usuario usuario;
+  @ManyToOne(cascade = CascadeType.ALL)
+  private Usuario usuario;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	private List<Saque> saques;
+  @OneToMany(cascade = CascadeType.ALL)
+  private List<Saque> saques;
 
-	public Produtora(String email, String nomeFantasia, String razaoSocial,
-			String cnpj, String banco, String agencia, String conta,
-			Usuario usuario) {
-		this.email = email;
-		this.nomeFantasia = nomeFantasia;
-		this.razaoSocial = razaoSocial;
-		this.cnpj = cnpj;
-		this.banco = banco;
-		this.agencia = agencia;
-		this.conta = conta;
-		this.usuario = usuario;
-	}
+  public Produtora(String email, String nomeFantasia, String razaoSocial,
+                   String cnpj, String banco, String agencia, String conta,
+                   Usuario usuario) {
+    this.email = email;
+    this.nomeFantasia = nomeFantasia;
+    this.razaoSocial = razaoSocial;
+    this.cnpj = cnpj;
+    this.banco = banco;
+    this.agencia = agencia;
+    this.conta = conta;
+    this.usuario = usuario;
+  }
 }

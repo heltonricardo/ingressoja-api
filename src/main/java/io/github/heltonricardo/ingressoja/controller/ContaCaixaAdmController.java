@@ -12,26 +12,26 @@ import java.util.Optional;
 @RequestMapping("conta-caixa-adm")
 public class ContaCaixaAdmController {
 
-	@Autowired
-	private ContaCaixaAdmRepository contaCaixaAdmRepository;
+  @Autowired
+  private ContaCaixaAdmRepository contaCaixaAdmRepository;
 
-	@GetMapping
-	public Optional<ContaCaixaAdm> obterContaCaixaAdm() {
-		return contaCaixaAdmRepository.findById(1);
-	}
+  @GetMapping
+  public Optional<ContaCaixaAdm> obterContaCaixaAdm() {
+    return contaCaixaAdmRepository.findById(1);
+  }
 
-	@PostMapping
-	public void obterContaCaixaAdm(
-			@RequestBody @Valid ContaCaixaAdm contaCaixaAdm) {
-		if (obterContaCaixaAdm().isEmpty()) {
-			contaCaixaAdmRepository.save(contaCaixaAdm);
-		}
-	}
+  @PostMapping
+  public void obterContaCaixaAdm(
+      @RequestBody @Valid ContaCaixaAdm contaCaixaAdm) {
+    if (obterContaCaixaAdm().isEmpty()) {
+      contaCaixaAdmRepository.save(contaCaixaAdm);
+    }
+  }
 
-	@PutMapping
-	public void alterarContaCaixaAdm(
-			@RequestBody @Valid ContaCaixaAdm contaCaixaAdm) {
-		contaCaixaAdm.setId(1);
-		contaCaixaAdmRepository.save(contaCaixaAdm);
-	}
+  @PutMapping
+  public void alterarContaCaixaAdm(
+      @RequestBody @Valid ContaCaixaAdm contaCaixaAdm) {
+    contaCaixaAdm.setId(1);
+    contaCaixaAdmRepository.save(contaCaixaAdm);
+  }
 }

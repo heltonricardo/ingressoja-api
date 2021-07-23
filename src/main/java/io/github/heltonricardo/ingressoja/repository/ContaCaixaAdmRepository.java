@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ContaCaixaAdmRepository
-		extends PagingAndSortingRepository<ContaCaixaAdm, Integer> {
+    extends PagingAndSortingRepository<ContaCaixaAdm, Integer> {
 }

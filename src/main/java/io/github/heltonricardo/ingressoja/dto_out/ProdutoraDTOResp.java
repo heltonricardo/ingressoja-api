@@ -9,21 +9,21 @@ import lombok.Getter;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class ProdutoraDTOResp {
 
-	private final Long id;
-	private final String email;
-	private final String nomeFantasia;
-	private final String razaoSocial;
-	private final String cnpj;
-	private final String banco;
-	private final String agencia;
-	private final String conta;
-	private final Double valorCarteira;
+  private final Long id;
+  private final String email;
+  private final String nomeFantasia;
+  private final String razaoSocial;
+  private final String cnpj;
+  private final String banco;
+  private final String agencia;
+  private final String conta;
+  private final Double valorCarteira;
 
-	public static ProdutoraDTOResp paraDTO(Produtora produtora) {
-		return new ProdutoraDTOResp(produtora.getId(),
-				produtora.getEmail(), produtora.getNomeFantasia(),
-				produtora.getRazaoSocial(), produtora.getCnpj(),
-				produtora.getBanco(), produtora.getAgencia(),
-				produtora.getConta(), produtora.getValorCarteira());
-	}
+  public static ProdutoraDTOResp paraDTO(Produtora produtora) {
+    return new ProdutoraDTOResp(produtora.getId(),
+        produtora.getEmail(), produtora.getNomeFantasia(),
+        produtora.getRazaoSocial(), produtora.getCnpj(),
+        produtora.getBanco(), produtora.getAgencia(),
+        produtora.getConta(), produtora.getValorCarteira());
+  }
 }

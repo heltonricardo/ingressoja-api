@@ -6,9 +6,9 @@ import lombok.Getter;
 @Getter
 public class UsuarioDTO {
 
-	private String senha;
-	
-	public Usuario paraObjeto() {
-		return new Usuario(senha);
-	}
+  private String senha;
+
+  public Usuario paraObjeto() {
+    return new Usuario(senha);
+  }
 }

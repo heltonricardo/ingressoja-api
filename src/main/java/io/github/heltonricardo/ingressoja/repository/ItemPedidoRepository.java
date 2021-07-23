@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ItemPedidoRepository
-		extends PagingAndSortingRepository<ItemPedido, Long> {
+    extends PagingAndSortingRepository<ItemPedido, Long> {
 }

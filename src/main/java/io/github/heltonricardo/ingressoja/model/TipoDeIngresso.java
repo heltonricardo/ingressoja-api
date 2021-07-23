@@ -11,29 +11,29 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-@Where(clause="ativo")
+@Where(clause = "ativo")
 public class TipoDeIngresso {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
-	private String nome;
-	private Double valor;
-	private String descricao;
-	private Integer quantidadeTotal;
-	private Integer quantidadeDisponivel;
-	private Boolean ativo = true;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-	@ManyToOne
-	private Evento evento;
+  private String nome;
+  private Double valor;
+  private String descricao;
+  private Integer quantidadeTotal;
+  private Integer quantidadeDisponivel;
+  private Boolean ativo = true;
 
-	public TipoDeIngresso(String nome, Double valor, String descricao,
-			Integer quantidadeTotal) {
-		this.nome = nome;
-		this.valor = valor;
-		this.descricao = descricao;
-		this.quantidadeTotal = quantidadeTotal;
-		this.quantidadeDisponivel = quantidadeTotal;
-	}
+  @ManyToOne
+  private Evento evento;
+
+  public TipoDeIngresso(String nome, Double valor, String descricao,
+                        Integer quantidadeTotal) {
+    this.nome = nome;
+    this.valor = valor;
+    this.descricao = descricao;
+    this.quantidadeTotal = quantidadeTotal;
+    this.quantidadeDisponivel = quantidadeTotal;
+  }
 }

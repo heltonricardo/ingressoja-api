@@ -9,16 +9,16 @@ import lombok.Getter;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class TipoDeIngressoDTOResp {
 
-	private final Long id;
-	private final String nome;
-	private final Double valor;
-	private final String descricao;
-	private final Integer quantidadeDisponivel;
+  private final Long id;
+  private final String nome;
+  private final Double valor;
+  private final String descricao;
+  private final Integer quantidadeDisponivel;
 
-	public static TipoDeIngressoDTOResp paraDTO(TipoDeIngresso tipoDeIngresso) {
-		return new TipoDeIngressoDTOResp(tipoDeIngresso.getId(),
-				tipoDeIngresso.getNome(), tipoDeIngresso.getValor(),
-				tipoDeIngresso.getDescricao(),
-				tipoDeIngresso.getQuantidadeDisponivel());
-	}
+  public static TipoDeIngressoDTOResp paraDTO(TipoDeIngresso tipoDeIngresso) {
+    return new TipoDeIngressoDTOResp(tipoDeIngresso.getId(),
+        tipoDeIngresso.getNome(), tipoDeIngresso.getValor(),
+        tipoDeIngresso.getDescricao(),
+        tipoDeIngresso.getQuantidadeDisponivel());
+  }
 }

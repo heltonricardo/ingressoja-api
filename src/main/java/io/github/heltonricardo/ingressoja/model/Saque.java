@@ -16,9 +16,9 @@ import java.util.Date;
 @NoArgsConstructor
 public class Saque {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	private Date dataHora;
-	private Double valor;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+  private Date dataHora;
+  private Double valor;
 }

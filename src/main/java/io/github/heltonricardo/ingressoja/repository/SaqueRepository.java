@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SaqueRepository
-		extends PagingAndSortingRepository<Saque, Long> {
+    extends PagingAndSortingRepository<Saque, Long> {
 }

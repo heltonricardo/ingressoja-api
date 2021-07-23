@@ -9,15 +9,15 @@ import lombok.Getter;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class ProdutoraDTORespEvento {
 
-	private final Long id;
-	private final String email;
-	private final String nomeFantasia;
-	private final String razaoSocial;
-	private final String cnpj;
+  private final Long id;
+  private final String email;
+  private final String nomeFantasia;
+  private final String razaoSocial;
+  private final String cnpj;
 
-	public static ProdutoraDTORespEvento paraDTO(Produtora produtora) {
-		return new ProdutoraDTORespEvento(produtora.getId(),
-				produtora.getEmail(), produtora.getNomeFantasia(),
-				produtora.getRazaoSocial(), produtora.getCnpj());
-	}
+  public static ProdutoraDTORespEvento paraDTO(Produtora produtora) {
+    return new ProdutoraDTORespEvento(produtora.getId(),
+        produtora.getEmail(), produtora.getNomeFantasia(),
+        produtora.getRazaoSocial(), produtora.getCnpj());
+  }
 }
