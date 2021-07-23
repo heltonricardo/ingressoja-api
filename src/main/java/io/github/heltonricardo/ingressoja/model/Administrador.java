@@ -28,15 +28,6 @@ public class Administrador {
 
 	@OneToMany(cascade = CascadeType.ALL)
 	List<Saque> saques;
-	
-	public void addSaque(Saque saque) {
-		saques.add(saque);
-	}
-
-	public Administrador(String nome, String email) {
-		this.nome = nome;
-		this.email = email;
-	}
 
 	public Administrador(String nome, String email, Usuario usuario) {
 		this.nome = nome;
