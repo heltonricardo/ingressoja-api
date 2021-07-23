@@ -19,7 +19,7 @@ public class Pedido {
   private Long id;
   private Date dataHora;
   private String numeroCartao;
-  private String codigoSegurancaCartao;
+  private String codigoCartao;
   private String nomeTitular;
   private String cpfTitular;
   private Double valorTotal;
@@ -34,12 +34,12 @@ public class Pedido {
   private Long idComprador;
 
   public Pedido(Date dataHora, String numeroCartao,
-                String codigoSegurancaCartao, String nomeTitular,
+                String codigoCartao, String nomeTitular,
                 String cpfTitular, List<ItemPedido> itensPedido,
                 Long idComprador, Long idEvento) {
     this.dataHora = dataHora;
     this.numeroCartao = numeroCartao;
-    this.codigoSegurancaCartao = codigoSegurancaCartao;
+    this.codigoCartao = codigoCartao;
     this.nomeTitular = nomeTitular;
     this.cpfTitular = cpfTitular;
     this.itensPedido = itensPedido;

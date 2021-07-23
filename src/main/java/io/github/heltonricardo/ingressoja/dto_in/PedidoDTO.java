@@ -13,7 +13,7 @@ import java.util.List;
 public class PedidoDTO {
 
   private String numeroCartao;
-  private String codigoSegurancaCartao;
+  private String codigoCartao;
   private String nomeTitular;
   private String cpfTitular;
 
@@ -28,7 +28,7 @@ public class PedidoDTO {
 
     itensPedido.forEach(i -> itens.add(i.paraObjeto()));
 
-    return new Pedido(new Date(), numeroCartao, codigoSegurancaCartao,
+    return new Pedido(new Date(), numeroCartao, codigoCartao,
         nomeTitular, cpfTitular, itens, idComprador, idEvento);
   }
 }
