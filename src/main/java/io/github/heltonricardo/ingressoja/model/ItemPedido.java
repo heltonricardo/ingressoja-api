@@ -21,10 +21,13 @@ public class ItemPedido {
   @ManyToOne
   private TipoDeIngresso tipoDeIngresso;
 
+  @Transient
+  private Long idTipoDeIngresso;
+
   public ItemPedido(String ingressante, String cpf,
-                    TipoDeIngresso tipoDeIngresso) {
+                    Long idTipoDeIngresso) {
     this.ingressante = ingressante;
     this.cpf = cpf;
-    this.tipoDeIngresso = tipoDeIngresso;
+    this.idTipoDeIngresso = idTipoDeIngresso;
   }
 }

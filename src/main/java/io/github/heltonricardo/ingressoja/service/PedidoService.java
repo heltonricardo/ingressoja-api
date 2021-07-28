@@ -54,24 +54,36 @@ public class PedidoService {
     if (pesqEvento.isEmpty() || pesqComprador.isEmpty())
       return null;
 
-    try {
-      pedido.getItensPedido().forEach(item -> {
+    Evento evento = pesqEvento.get();
 
-        Long pesqId = item.getTipoDeIngresso().getId();
+    Boolean erroTipoIngresso = pedido
+        .getItensPedido()
+        .stream()
+        .anyMatch(itemPedido ->
+            evento
+                .getTiposDeIngresso()
+                .stream()
+                .noneMatch(tipoDeIngresso ->
+                    tipoDeIngresso.getId() == itemPedido.getIdTipoDeIngresso())
+        );
 
-        Optional<TipoDeIngresso> pesqTipoDeIngresso =
-            tipoDeIngressoService.obterPorId(pesqId);
-
-        TipoDeIngresso tipoDeIngresso = pesqTipoDeIngresso.get();
-
-        tipoDeIngresso.setQuantidadeDisponivel(
-            tipoDeIngresso.getQuantidadeDisponivel() - 1);
-
-        item.setTipoDeIngresso(tipoDeIngresso);
-      });
-    } catch (Exception e) {
+    if (erroTipoIngresso)
       return null;
-    }
+
+    pedido.getItensPedido().forEach(item -> {
+
+      Long pesqId = item.getIdTipoDeIngresso();
+
+      Optional<TipoDeIngresso> pesqTipoDeIngresso =
+          tipoDeIngressoService.obterPorId(pesqId);
+
+      TipoDeIngresso tipoDeIngresso = pesqTipoDeIngresso.get();
+
+      tipoDeIngresso.setQuantidadeDisponivel(
+          tipoDeIngresso.getQuantidadeDisponivel() - 1);
+
+      item.setTipoDeIngresso(tipoDeIngresso);
+    });
 
     Comprador comprador = pesqComprador.get();
     pedido.setComprador(comprador);
