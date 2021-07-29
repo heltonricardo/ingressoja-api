@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,7 +54,7 @@ public class PedidoController {
   /********************************** SALVAR **********************************/
 
   @PostMapping
-  public ResponseEntity<PedidoDTOResp> salvar(@RequestBody PedidoDTO dto) {
+  public ResponseEntity<PedidoDTOResp> salvar(@RequestBody @Valid PedidoDTO dto) {
 
     Pedido resp = pedidoService.salvar(dto.paraObjeto());
 

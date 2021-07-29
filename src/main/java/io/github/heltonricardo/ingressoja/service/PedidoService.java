@@ -43,8 +43,6 @@ public class PedidoService {
 
   public Pedido salvar(Pedido pedido) {
 
-    // TODO: Verificar se o ingresso pertence ao evento
-
     Optional<Evento> pesqEvento =
         eventoService.obterPorId(pedido.getIdEvento());
 
