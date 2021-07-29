@@ -43,7 +43,7 @@ public class PedidoController {
   public ResponseEntity<PedidoDTOResp> obterPorId(@PathVariable Long id) {
 
     if (pedidoService.obterPorId(id).isEmpty())
-      return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
     PedidoDTOResp resp = PedidoDTOResp
         .paraDTO(pedidoService.obterPorId(id).get());
@@ -59,7 +59,7 @@ public class PedidoController {
     Pedido resp = pedidoService.salvar(dto.paraObjeto());
 
     if (resp == null)
-      return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
     PedidoDTOResp dtoResp = PedidoDTOResp.paraDTO(resp);
 

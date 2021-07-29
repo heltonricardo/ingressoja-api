@@ -48,7 +48,7 @@ public class EventoController {
     EventoDTOResp resp;
 
     if (eventoService.obterPorId(id).isEmpty())
-      return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
     resp = EventoDTOResp.paraDTO(eventoService.obterPorId(id).get());
 
@@ -67,7 +67,7 @@ public class EventoController {
     Evento resp = eventoService.salvar(dto.paraObjeto(), file);
 
     if (resp == null)
-      return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
     return new ResponseEntity<>(EventoDTOResp.paraDTO(resp),
         HttpStatus.CREATED);

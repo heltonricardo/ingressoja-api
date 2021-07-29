@@ -46,7 +46,7 @@ public class AdministradorController {
     Optional<Administrador> pesq = administradorService.obterPorId(id);
 
     if (pesq.isEmpty())
-      return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
     AdministradorDTOResp resp = AdministradorDTOResp.paraDTO(pesq.get());
 

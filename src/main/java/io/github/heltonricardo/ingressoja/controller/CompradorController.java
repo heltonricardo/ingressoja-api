@@ -47,7 +47,7 @@ public class CompradorController {
     Optional<Comprador> pesq = compradorService.obterPorId(id);
 
     if (pesq.isEmpty())
-      return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
     CompradorDTOResp resp = CompradorDTOResp.paraDTO(pesq.get());
 
@@ -63,7 +63,7 @@ public class CompradorController {
     Optional<Comprador> pesq = compradorService.obterPorId(id);
 
     if (pesq.isEmpty())
-      return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
     Comprador comprador = pesq.get();
 

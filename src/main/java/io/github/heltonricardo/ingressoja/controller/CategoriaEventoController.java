@@ -47,7 +47,7 @@ public class CategoriaEventoController {
     CategoriaEventoDTORespSimples resp;
 
     if (categoriaEventoService.obterPorId(id).isEmpty())
-      return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
     resp = CategoriaEventoDTORespSimples
         .paraDTO(categoriaEventoService.obterPorId(id).get());

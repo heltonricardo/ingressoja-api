@@ -46,7 +46,7 @@ public class ProdutoraController {
     Optional<Produtora> pesq = produtoraService.obterPorId(id);
 
     if (pesq.isEmpty())
-      return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
     ProdutoraDTOResp resp = ProdutoraDTOResp.paraDTO(pesq.get());
 
