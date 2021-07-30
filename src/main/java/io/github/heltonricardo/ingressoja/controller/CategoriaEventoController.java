@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,7 +60,7 @@ public class CategoriaEventoController {
 
   @PostMapping
   public ResponseEntity<CategoriaEventoDTORespSimples> salvar(
-      @RequestBody CategoriaEventoDTO dto) {
+      @RequestBody @Valid CategoriaEventoDTO dto) {
 
     CategoriaEvento resp = categoriaEventoService.salvar(dto.paraObjeto());
 
