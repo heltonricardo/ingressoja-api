@@ -2,13 +2,27 @@ package io.github.heltonricardo.ingressoja.dto_in;
 
 import io.github.heltonricardo.ingressoja.model.Comprador;
 import lombok.Getter;
+import org.hibernate.validator.constraints.br.CPF;
+
+import javax.validation.Valid;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Getter
 public class CompradorDTO {
 
+  @NotBlank
+  @Size(max = 255)
   private String nome;
+
+  @Email
   private String email;
+
+  @CPF
   private String cpf;
+
+  @Valid
   private UsuarioDTO usuario;
 
   public Comprador paraObjeto() {

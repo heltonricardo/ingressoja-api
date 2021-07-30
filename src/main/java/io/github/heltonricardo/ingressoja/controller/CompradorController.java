@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -79,7 +80,7 @@ public class CompradorController {
 
   @PostMapping
   public ResponseEntity<CompradorDTOResp> salvar(
-      @RequestBody CompradorDTO dto) {
+      @RequestBody @Valid CompradorDTO dto) {
 
     Comprador resp = compradorService.salvar(dto.paraObjeto());
 
