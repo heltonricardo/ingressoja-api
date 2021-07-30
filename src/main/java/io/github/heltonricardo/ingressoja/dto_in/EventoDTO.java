@@ -9,6 +9,7 @@ import org.hibernate.validator.constraints.URL;
 
 import javax.validation.Valid;
 import javax.validation.constraints.*;
+import javax.validation.groups.Default;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,60 +17,60 @@ import java.util.List;
 @Getter
 public class EventoDTO {
 
-  @NotBlank(groups = {EventoOnline.class, EventoPresencial.class})
-  @Size(max = 255, groups = {EventoOnline.class, EventoPresencial.class})
+  @Size(max = 255)
+  @NotBlank(groups = Default.class)
   private String titulo;
 
-  @Future(groups = {EventoOnline.class, EventoPresencial.class})
-  @NotNull(groups = {EventoOnline.class, EventoPresencial.class})
+  @Future(groups = Default.class)
+  @NotNull(groups = Default.class)
   private Date inicio;
 
-  @Future(groups = {EventoOnline.class, EventoPresencial.class})
-  @NotNull(groups = {EventoOnline.class, EventoPresencial.class})
+  @Future(groups = Default.class)
+  @NotNull(groups = Default.class)
   private Date termino;
 
-  @NotBlank(groups = {EventoOnline.class, EventoPresencial.class})
-  @Size(max = 2000, groups = {EventoOnline.class, EventoPresencial.class})
+  @NotBlank(groups = Default.class)
+  @Size(max = 2000, groups = Default.class)
   private String descricao;
 
-  @NotNull(groups = {EventoOnline.class, EventoPresencial.class})
+  @NotNull(groups = Default.class)
   private Boolean online;
 
-  @Size(max = 1000, groups = EventoOnline.class)
-  @NotBlank(groups = EventoOnline.class)
   @URL(groups = EventoOnline.class)
+  @NotBlank(groups = EventoOnline.class)
+  @Size(max = 1000, groups = EventoOnline.class)
   private String url;
 
-  @Size(max = 100, groups = EventoPresencial.class)
   @NotBlank(groups = EventoPresencial.class)
+  @Size(max = 100, groups = EventoPresencial.class)
   private String logradouro;
 
-  @Size(max = 10, groups = EventoPresencial.class)
   @NotBlank(groups = EventoPresencial.class)
+  @Size(max = 10, groups = EventoPresencial.class)
   private String numero;
 
-  @Size(max = 50, groups = EventoPresencial.class)
   @NotBlank(groups = EventoPresencial.class)
+  @Size(max = 50, groups = EventoPresencial.class)
   private String bairro;
 
-  @Size(max = 50, groups = EventoPresencial.class)
   @NotBlank(groups = EventoPresencial.class)
+  @Size(max = 50, groups = EventoPresencial.class)
   private String cidade;
 
-  @Size(max = 2, groups = EventoPresencial.class)
   @NotBlank(groups = EventoPresencial.class)
+  @Size(max = 2, groups = EventoPresencial.class)
   private String uf;
 
-  @Size(max = 8, groups = EventoPresencial.class)
   @NotBlank(groups = EventoPresencial.class)
+  @Size(max = 8, groups = EventoPresencial.class)
   private String cep;
 
-  @NotNull(groups = {EventoOnline.class, EventoPresencial.class})
-  @PositiveOrZero(groups = {EventoOnline.class, EventoPresencial.class})
+  @NotNull(groups = Default.class)
+  @PositiveOrZero(groups = Default.class)
   private Long idProdutora;
 
-  @NotNull(groups = {EventoOnline.class, EventoPresencial.class})
-  @PositiveOrZero(groups = {EventoOnline.class, EventoPresencial.class})
+  @NotNull(groups = Default.class)
+  @PositiveOrZero(groups = Default.class)
   private Long idCategoria;
 
   @Valid

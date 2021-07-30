@@ -64,9 +64,9 @@ public class EventoController {
   @PostMapping
   public ResponseEntity<EventoDTOResp> criarEvento(String evento,
                                                    MultipartFile file) {
+    try {
       if (file == null)
-        //throw new Exception();
-      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        throw new Exception();
 
       Gson gson =
           new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm").create();
@@ -79,27 +79,19 @@ public class EventoController {
           Validation.buildDefaultValidatorFactory().getValidator();
 
       if (validator.validate(dto, online ? EventoOnline.class :
-          EventoPresencial.class).size() > 0) {
-        System.out.println(validator.validate(dto, online ? EventoOnline.class :
-            EventoPresencial.class).size());
+          EventoPresencial.class).size() > 0)
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        //throw new Exception();
-      }
-
+      
       Evento resp = eventoService.salvar(dto.paraObjeto(), file);
 
       if (resp == null)
-      //  throw new Exception();
-      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
       return new ResponseEntity<>(EventoDTOResp.paraDTO(resp),
           HttpStatus.CREATED);
 
-//    try {
-//
-//    } catch (Exception e) {
-//      System.out.println(e);
-//      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//    }
+    } catch (Exception e) {
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
   }
 }

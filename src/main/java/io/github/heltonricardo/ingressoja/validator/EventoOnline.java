@@ -1,4 +1,6 @@
 package io.github.heltonricardo.ingressoja.validator;
 
-public interface EventoOnline {
+import javax.validation.groups.Default;
+
+public interface EventoOnline extends Default {
 }
