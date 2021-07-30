@@ -7,19 +7,18 @@ import io.github.heltonricardo.ingressoja.dto_out.EventoDTOResp;
 import io.github.heltonricardo.ingressoja.dto_out.EventoDTORespGrade;
 import io.github.heltonricardo.ingressoja.model.Evento;
 import io.github.heltonricardo.ingressoja.service.EventoService;
+import io.github.heltonricardo.ingressoja.validator.EventoOnline;
+import io.github.heltonricardo.ingressoja.validator.EventoPresencial;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("evento")
@@ -65,25 +64,42 @@ public class EventoController {
   @PostMapping
   public ResponseEntity<EventoDTOResp> criarEvento(String evento,
                                                    MultipartFile file) {
-    if (file == null)
+      if (file == null)
+        //throw new Exception();
       return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
-    Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm").create();
-    EventoDTO dto = gson.fromJson(evento, EventoDTO.class);
+      Gson gson =
+          new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm").create();
 
-    ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-    Validator validator = factory.getValidator();
-    Set<ConstraintViolation<EventoDTO>> violations = validator.validate(dto);
+      EventoDTO dto = gson.fromJson(evento, EventoDTO.class);
 
-    if (violations.size() > 0)
+      boolean online = dto.getOnline();
+
+      Validator validator =
+          Validation.buildDefaultValidatorFactory().getValidator();
+
+      if (validator.validate(dto, online ? EventoOnline.class :
+          EventoPresencial.class).size() > 0) {
+        System.out.println(validator.validate(dto, online ? EventoOnline.class :
+            EventoPresencial.class).size());
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        //throw new Exception();
+      }
+
+      Evento resp = eventoService.salvar(dto.paraObjeto(), file);
+
+      if (resp == null)
+      //  throw new Exception();
       return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
-    Evento resp = eventoService.salvar(dto.paraObjeto(), file);
+      return new ResponseEntity<>(EventoDTOResp.paraDTO(resp),
+          HttpStatus.CREATED);
 
-    if (resp == null)
-      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-
-    return new ResponseEntity<>(EventoDTOResp.paraDTO(resp),
-        HttpStatus.CREATED);
+//    try {
+//
+//    } catch (Exception e) {
+//      System.out.println(e);
+//      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//    }
   }
 }
