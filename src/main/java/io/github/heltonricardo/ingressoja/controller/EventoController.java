@@ -13,8 +13,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("evento")
@@ -60,9 +65,18 @@ public class EventoController {
   @PostMapping
   public ResponseEntity<EventoDTOResp> criarEvento(String evento,
                                                    MultipartFile file) {
+    if (file == null)
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
     Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm").create();
     EventoDTO dto = gson.fromJson(evento, EventoDTO.class);
+
+    ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+    Validator validator = factory.getValidator();
+    Set<ConstraintViolation<EventoDTO>> violations = validator.validate(dto);
+
+    if (violations.size() > 0)
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
     Evento resp = eventoService.salvar(dto.paraObjeto(), file);
 

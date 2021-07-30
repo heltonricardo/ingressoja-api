@@ -27,7 +27,7 @@ public class Evento {
   private Date inicio;
   private Date termino;
 
-  @Column(length = 1000)
+  @Column(length = 2000)
   private String descricao;
   private Boolean online;
   private String url;
