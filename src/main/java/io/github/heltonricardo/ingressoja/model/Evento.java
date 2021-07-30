@@ -21,16 +21,13 @@ public class Evento {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-
   private String titulo;
-  private String imagemURL = "";
+  @Column(length = 1000) private String imagemURL = "";
   private Date inicio;
   private Date termino;
-
-  @Column(length = 2000)
-  private String descricao;
+  @Column(length = 2000) private String descricao;
   private Boolean online;
-  private String url;
+  @Column(length = 1000) private String url;
   private String logradouro;
   private String numero;
   private String bairro;
