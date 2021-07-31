@@ -81,7 +81,7 @@ public class EventoController {
       if (validator.validate(dto, online ? EventoOnline.class :
           EventoPresencial.class).size() > 0)
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-      
+
       Evento resp = eventoService.salvar(dto.paraObjeto(), file);
 
       if (resp == null)

@@ -7,10 +7,8 @@ import org.hibernate.validator.constraints.CreditCardNumber;
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.OneToMany;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PositiveOrZero;
-import javax.validation.constraints.Size;
+import javax.validation.Valid;
+import javax.validation.constraints.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -39,8 +37,9 @@ public class PedidoDTO {
   @PositiveOrZero
   private Long idComprador;
 
+  @NotEmpty
   @OneToMany
-  private List<ItemPedidoDTO> itensPedido;
+  private List<@Valid ItemPedidoDTO> itensPedido;
 
   public Pedido paraObjeto() {
     List<ItemPedido> itens = new ArrayList<>();
