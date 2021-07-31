@@ -73,8 +73,8 @@ public class EventoDTO {
   @PositiveOrZero(groups = Default.class)
   private Long idCategoria;
 
-  @Valid
-  private List<TipoDeIngressoDTO> tiposDeIngresso;
+  @NotEmpty
+  private List<@Valid TipoDeIngressoDTO> tiposDeIngresso;
 
   /************************* CONVERSÃO DTO -> OBJETO **************************/
 
