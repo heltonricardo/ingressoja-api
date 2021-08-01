@@ -17,11 +17,23 @@ public class Pedido {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+
+  @Column(nullable = false)
   private Date dataHora;
+
+  @Column(length = 19, nullable = false)
   private String numeroCartao;
+
+  @Column(length = 4, nullable = false)
   private String codigoCartao;
+
+  @Column(nullable = false)
   private String nomeTitular;
+
+  @Column(length = 11, nullable = false)
   private String cpfTitular;
+
+  @Column(nullable = false)
   private Double valorTotal;
 
   @ManyToOne(cascade = CascadeType.ALL)

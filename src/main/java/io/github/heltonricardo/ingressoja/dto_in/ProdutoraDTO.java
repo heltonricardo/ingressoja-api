@@ -29,15 +29,15 @@ public class ProdutoraDTO {
   private String cnpj;
 
   @NotBlank
-  @Size(max = 100)
+  @Size(max = 50)
   private String banco;
 
   @NotBlank
-  @Size(max = 50)
+  @Size(max = 20)
   private String agencia;
 
   @NotBlank
-  @Size(max = 50)
+  @Size(max = 20)
   private String conta;
 
   @Valid

@@ -15,7 +15,11 @@ public class ItemPedido {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+
+  @Column(nullable = false)
   private String ingressante;
+
+  @Column(length = 11, nullable = false)
   private String cpf;
 
   @ManyToOne

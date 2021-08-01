@@ -18,9 +18,17 @@ public class Comprador {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+
+  @Column(nullable = false)
   private String nome;
+
+  @Column(unique = true, nullable = false)
   private String email;
+
+  @Column(length = 11, unique = true, nullable = false)
   private String cpf;
+
+  @Column(nullable = false)
   private Boolean ativo = true;
 
   @ManyToOne(cascade = CascadeType.ALL)

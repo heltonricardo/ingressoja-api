@@ -21,19 +21,47 @@ public class Evento {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+
+  @Column(nullable = false)
   private String titulo;
-  @Column(length = 1000) private String imagemURL = "";
+
+  @Column(length = 1000, nullable = false)
+  private String imagemURL = "";
+
+  @Column(nullable = false)
   private Date inicio;
+
+  @Column(nullable = false)
   private Date termino;
-  @Column(length = 2000) private String descricao;
+
+  @Column(length = 2000, nullable = false)
+  private String descricao;
+
+  @Column(nullable = false)
   private Boolean online;
-  @Column(length = 1000) private String url;
+
+  @Column(length = 1000)
+  private String url;
+
+  @Column(length = 100)
   private String logradouro;
+
+  @Column(length = 10)
   private String numero;
+
+  @Column(length = 50)
   private String bairro;
+
+  @Column(length = 50)
   private String cidade;
+
+  @Column(length = 2)
   private String uf;
+
+  @Column(length = 8)
   private String cep;
+
+  @Column(nullable = false)
   private Boolean ativo = true;
 
   @ManyToOne(cascade = CascadeType.ALL)

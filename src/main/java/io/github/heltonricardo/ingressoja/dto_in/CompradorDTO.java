@@ -7,6 +7,7 @@ import org.hibernate.validator.constraints.br.CPF;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Getter
@@ -17,9 +18,12 @@ public class CompradorDTO {
   private String nome;
 
   @Email
+  @NotNull
+  @Size(max = 255)
   private String email;
 
   @CPF
+  @NotNull
   private String cpf;
 
   @Valid

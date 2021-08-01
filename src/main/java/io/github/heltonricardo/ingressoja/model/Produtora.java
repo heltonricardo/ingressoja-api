@@ -18,16 +18,32 @@ public class Produtora {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+
+  @Column(unique = true, nullable = false)
   private String email;
+
+  @Column(nullable = false)
   private String nomeFantasia;
+
+  @Column(nullable = false)
   private String razaoSocial;
+
+  @Column(length = 14, nullable = false)
   private String cnpj;
 
+  @Column(length = 50, nullable = false)
   private String banco;
+
+  @Column(length = 20, nullable = false)
   private String agencia;
+
+  @Column(length = 20, nullable = false)
   private String conta;
 
+  @Column(nullable = false)
   private Double valorCarteira = 0.0;
+
+  @Column(nullable = false)
   private Boolean ativo = true;
 
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "produtora")

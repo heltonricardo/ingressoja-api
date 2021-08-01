@@ -19,8 +19,10 @@ public class CategoriaEvento {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @Column(length = 50, unique = true, nullable = false)
   private String nome;
 
+  @Column(nullable = false)
   private Boolean ativo = true;
 
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoriaEvento")

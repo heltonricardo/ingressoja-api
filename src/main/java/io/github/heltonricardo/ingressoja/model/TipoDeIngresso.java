@@ -18,11 +18,22 @@ public class TipoDeIngresso {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @Column(length = 30, nullable = false)
   private String nome;
+
+  @Column(nullable = false)
   private Double valor;
+
+  @Column(length = 50)
   private String descricao;
+
+  @Column(nullable = false)
   private Integer quantidadeTotal;
+
+  @Column(nullable = false)
   private Integer quantidadeDisponivel;
+
+  @Column(nullable = false)
   private Boolean ativo = true;
 
   @ManyToOne

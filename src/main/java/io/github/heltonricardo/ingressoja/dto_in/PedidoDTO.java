@@ -20,6 +20,7 @@ public class PedidoDTO {
   private String numeroCartao;
 
   @NotBlank
+  @Size(max = 4)
   private String codigoCartao;
 
   @NotBlank

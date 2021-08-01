@@ -15,16 +15,24 @@ import java.util.List;
 @Where(clause = "ativo")
 public class Administrador {
 
-  @OneToMany(cascade = CascadeType.ALL)
-  List<Saque> saques;
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+
+  @Column(nullable = false)
   private String nome;
+
+  @Column(nullable = false, unique = true)
   private String email;
+
+  @Column(nullable = false)
   private Boolean ativo = true;
+
   @ManyToOne(cascade = CascadeType.ALL)
   private Usuario usuario;
+
+  @OneToMany(cascade = CascadeType.ALL)
+  List<Saque> saques;
 
   public Administrador(String nome, String email, Usuario usuario) {
     this.nome = nome;
