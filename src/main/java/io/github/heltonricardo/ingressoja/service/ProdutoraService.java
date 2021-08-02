@@ -28,16 +28,12 @@ public class ProdutoraService {
     return produtoraRepository.findById(id);
   }
 
-  public Optional<Produtora> obterPorEmail(String email) {
-    return produtoraRepository.findByEmail(email);
-  }
-
   public Optional<Produtora> obterPorCnpj(String cnpj) {
-    return produtoraRepository.findByEmail(cnpj);
+    return produtoraRepository.findByCnpj(cnpj);
   }
 
   public Produtora salvar(Produtora produtora) {
-    if (validacaoService.emailJaCadastrado(produtora.getEmail()))
+    if (validacaoService.emailJaCadastrado(produtora.getUsuario().getEmail()))
       return null;
 
     if (validacaoService.cnpjJaCadastrado((produtora.getCnpj())))

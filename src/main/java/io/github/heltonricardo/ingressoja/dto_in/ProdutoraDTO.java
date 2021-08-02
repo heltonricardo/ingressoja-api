@@ -13,10 +13,6 @@ import javax.validation.constraints.Size;
 @Getter
 public class ProdutoraDTO {
 
-  @NotNull
-  @Email
-  private String email;
-
   @NotBlank
   @Size(max = 255)
   private String nomeFantasia;
@@ -44,7 +40,7 @@ public class ProdutoraDTO {
   private UsuarioDTO usuario;
 
   public Produtora paraObjeto() {
-    return new Produtora(email, nomeFantasia, razaoSocial, cnpj, banco,
+    return new Produtora(nomeFantasia, razaoSocial, cnpj, banco,
         agencia, conta, usuario.paraObjeto());
   }
 

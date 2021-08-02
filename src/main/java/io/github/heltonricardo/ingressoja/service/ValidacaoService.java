@@ -7,26 +7,24 @@ import org.springframework.stereotype.Service;
 @Service
 public class ValidacaoService {
 
-  private final AdministradorService administradorService;
+  private final UsuarioService usuarioService;
   private final CompradorService compradorService;
   private final ProdutoraService produtoraService;
   private final CategoriaEventoService categoriaEventoService;
 
   @Autowired
-  public ValidacaoService(@Lazy AdministradorService administradorService,
+  public ValidacaoService(@Lazy UsuarioService usuarioService,
                           @Lazy CompradorService compradorService,
                           @Lazy ProdutoraService produtoraService,
                           @Lazy CategoriaEventoService categoriaEventoService) {
-    this.administradorService = administradorService;
+    this.usuarioService = usuarioService;
     this.compradorService = compradorService;
     this.produtoraService = produtoraService;
     this.categoriaEventoService = categoriaEventoService;
   }
 
   public Boolean emailJaCadastrado(String email) {
-    return administradorService.obterPorEmail(email).isPresent()
-        || compradorService.obterPorEmail(email).isPresent()
-        || produtoraService.obterPorEmail(email).isPresent();
+    return usuarioService.obterPorEmail(email).isPresent();
   }
 
   public Boolean cpfJaCadastrado(String cpf) {

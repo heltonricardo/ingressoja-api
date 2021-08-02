@@ -10,6 +10,4 @@ import java.util.Optional;
 public interface CompradorRepository
     extends PagingAndSortingRepository<Comprador, Long> {
   Optional<Comprador> findByCpf(String cpf);
-
-  Optional<Comprador> findByEmail(String email);
 }

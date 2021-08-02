@@ -15,6 +15,6 @@ public class AdministradorDTOResp {
 
   public static AdministradorDTOResp paraDTO(Administrador administrador) {
     return new AdministradorDTOResp(administrador.getId(),
-        administrador.getNome(), administrador.getEmail());
+        administrador.getNome(), administrador.getUsuario().getEmail());
   }
 }

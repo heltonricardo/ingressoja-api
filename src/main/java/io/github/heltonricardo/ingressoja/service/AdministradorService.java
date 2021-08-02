@@ -28,12 +28,9 @@ public class AdministradorService {
     return administradorRepository.findById(id);
   }
 
-  public Optional<Administrador> obterPorEmail(String email) {
-    return administradorRepository.findByEmail(email);
-  }
-
   public Administrador salvar(Administrador administrador) {
-    if (validacaoService.emailJaCadastrado(administrador.getEmail()))
+    if (validacaoService.emailJaCadastrado(
+        administrador.getUsuario().getEmail()))
       return null;
 
     return administradorRepository.save(administrador);

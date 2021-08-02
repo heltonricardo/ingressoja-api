@@ -16,15 +16,10 @@ public class AdministradorDTO {
   @Size(max = 255)
   private String nome;
 
-  @Email
-  @NotNull
-  @Size(max = 255)
-  private String email;
-
   @Valid
   private UsuarioDTO usuario;
 
   public Administrador paraObjeto() {
-    return new Administrador(nome, email, usuario.paraObjeto());
+    return new Administrador(nome, usuario.paraObjeto());
   }
 }
