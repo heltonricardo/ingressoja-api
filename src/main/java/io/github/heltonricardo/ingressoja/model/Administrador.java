@@ -25,7 +25,6 @@ public class Administrador {
   @Column(nullable = false)
   private Boolean ativo = true;
 
-  @JoinColumn(name = "usuario_id", referencedColumnName = "id")
   @OneToOne(cascade = CascadeType.ALL)
   private Usuario usuario;
 

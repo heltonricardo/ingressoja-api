@@ -22,14 +22,13 @@ public class Usuario {
   @Column(unique = true, nullable = false)
   private String email;
 
-  @OneToOne
-  @JoinColumn(name = "administrador_id")
+  @OneToOne(mappedBy = "usuario")
   private Administrador administrador;
 
-  @OneToOne
+  @OneToOne(mappedBy = "usuario")
   private Comprador comprador;
 
-  @OneToOne
+  @OneToOne(mappedBy = "usuario")
   private Produtora produtora;
 
   public Usuario(String senha, String email) {

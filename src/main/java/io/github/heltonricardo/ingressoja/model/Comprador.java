@@ -28,7 +28,7 @@ public class Comprador {
   @Column(nullable = false)
   private Boolean ativo = true;
 
-  @OneToOne(cascade = CascadeType.ALL, mappedBy = "comprador")
+  @OneToOne(cascade = CascadeType.ALL)
   private Usuario usuario;
 
   @OneToMany(mappedBy = "comprador", cascade = CascadeType.ALL)
