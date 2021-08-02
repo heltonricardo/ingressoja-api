@@ -16,6 +16,6 @@ public class CompradorDTOResp {
 
   public static CompradorDTOResp paraDTO(Comprador comprador) {
     return new CompradorDTOResp(comprador.getId(), comprador.getNome(),
-        comprador.getEmail(), comprador.getCpf());
+        comprador.getUsuario().getEmail(), comprador.getCpf());
   }
 }

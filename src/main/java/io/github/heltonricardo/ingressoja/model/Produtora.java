@@ -19,9 +19,6 @@ public class Produtora {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(unique = true, nullable = false)
-  private String email;
-
   @Column(nullable = false)
   private String nomeFantasia;
 
@@ -46,19 +43,18 @@ public class Produtora {
   @Column(nullable = false)
   private Boolean ativo = true;
 
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "produtora")
+  @OneToMany(cascade = CascadeType.ALL)
   private List<Evento> eventos;
 
-  @ManyToOne(cascade = CascadeType.ALL)
+  @OneToOne(cascade = CascadeType.ALL)
   private Usuario usuario;
 
   @OneToMany(cascade = CascadeType.ALL)
   private List<Saque> saques;
 
-  public Produtora(String email, String nomeFantasia, String razaoSocial,
+  public Produtora(String nomeFantasia, String razaoSocial,
                    String cnpj, String banco, String agencia, String conta,
                    Usuario usuario) {
-    this.email = email;
     this.nomeFantasia = nomeFantasia;
     this.razaoSocial = razaoSocial;
     this.cnpj = cnpj;

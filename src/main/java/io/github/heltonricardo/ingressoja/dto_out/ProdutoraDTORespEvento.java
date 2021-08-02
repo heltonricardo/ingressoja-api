@@ -17,7 +17,7 @@ public class ProdutoraDTORespEvento {
 
   public static ProdutoraDTORespEvento paraDTO(Produtora produtora) {
     return new ProdutoraDTORespEvento(produtora.getId(),
-        produtora.getEmail(), produtora.getNomeFantasia(),
+        produtora.getUsuario().getEmail(), produtora.getNomeFantasia(),
         produtora.getRazaoSocial(), produtora.getCnpj());
   }
 }

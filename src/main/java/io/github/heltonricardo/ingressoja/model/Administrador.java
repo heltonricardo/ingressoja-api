@@ -22,21 +22,17 @@ public class Administrador {
   @Column(nullable = false)
   private String nome;
 
-  @Column(nullable = false, unique = true)
-  private String email;
-
   @Column(nullable = false)
   private Boolean ativo = true;
 
-  @ManyToOne(cascade = CascadeType.ALL)
+  @OneToOne(cascade = CascadeType.ALL)
   private Usuario usuario;
 
   @OneToMany(cascade = CascadeType.ALL)
   List<Saque> saques;
 
-  public Administrador(String nome, String email, Usuario usuario) {
+  public Administrador(String nome, Usuario usuario) {
     this.nome = nome;
-    this.email = email;
     this.usuario = usuario;
   }
 }

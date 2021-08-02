@@ -19,7 +19,20 @@ public class Usuario {
   @Column(nullable = false)
   private String senha;
 
-  public Usuario(String senha) {
+  @Column(unique = true, nullable = false)
+  private String email;
+
+  @OneToOne(mappedBy = "usuario")
+  private Administrador administrador;
+
+  @OneToOne(mappedBy = "usuario")
+  private Comprador comprador;
+
+  @OneToOne(mappedBy = "usuario")
+  private Produtora produtora;
+
+  public Usuario(String senha, String email) {
     this.senha = senha;
+    this.email = email;
   }
 }

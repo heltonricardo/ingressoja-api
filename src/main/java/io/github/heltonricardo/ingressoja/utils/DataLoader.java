@@ -21,6 +21,6 @@ public class DataLoader implements ApplicationRunner {
   @Override
   public void run(ApplicationArguments args) throws Exception {
     administradorService.salvar(new Administrador("Administrador Padrão",
-        "a", new Usuario("a")));
+        new Usuario("a", "a")));
   }
 }

@@ -21,7 +21,7 @@ public class ProdutoraDTOResp {
 
   public static ProdutoraDTOResp paraDTO(Produtora produtora) {
     return new ProdutoraDTOResp(produtora.getId(),
-        produtora.getEmail(), produtora.getNomeFantasia(),
+        produtora.getUsuario().getEmail(), produtora.getNomeFantasia(),
         produtora.getRazaoSocial(), produtora.getCnpj(),
         produtora.getBanco(), produtora.getAgencia(),
         produtora.getConta(), produtora.getValorCarteira());

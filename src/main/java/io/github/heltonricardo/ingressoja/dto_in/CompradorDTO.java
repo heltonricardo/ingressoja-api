@@ -17,11 +17,6 @@ public class CompradorDTO {
   @Size(max = 255)
   private String nome;
 
-  @Email
-  @NotNull
-  @Size(max = 255)
-  private String email;
-
   @CPF
   @NotNull
   private String cpf;
@@ -30,6 +25,6 @@ public class CompradorDTO {
   private UsuarioDTO usuario;
 
   public Comprador paraObjeto() {
-    return new Comprador(nome, email, cpf, usuario.paraObjeto());
+    return new Comprador(nome, cpf, usuario.paraObjeto());
   }
 }
