@@ -5,7 +5,7 @@ import io.github.heltonricardo.ingressoja.service.AutenticacaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,7 +23,7 @@ public class AutenticacaoController {
     this.autenticacaoService = autenticacaoService;
   }
 
-  @GetMapping
+  @PostMapping
   public ResponseEntity<Map<String, Long>> logar(@RequestBody ObjectNode obj) {
 
     try {
@@ -31,7 +31,8 @@ public class AutenticacaoController {
       String senha = obj.get("senha").asText();
       Map<String, Long> resposta = autenticacaoService.logar(email, senha);
 
-      if (resposta == null) throw new Exception();
+      if (resposta == null)
+        throw new Exception();
 
       return new ResponseEntity<>(resposta, HttpStatus.OK);
     } //
