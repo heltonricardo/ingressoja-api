@@ -16,7 +16,6 @@ public class TipoDeIngressoDTO {
   @DecimalMin("0.0")
   BigDecimal valor;
 
-  @NotBlank
   @Size(max = 50)
   String descricao;
 
