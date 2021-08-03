@@ -11,16 +11,16 @@ import javax.validation.constraints.Size;
 @Getter
 public class UsuarioDTO {
 
-  @NotBlank
-  @Size(min = 6, max = 30)
-  private String senha;
-
   @Email
   @NotNull
   @Size(max = 255)
   private String email;
 
+  @NotBlank
+  @Size(min = 6, max = 30)
+  private String senha;
+
   public Usuario paraObjeto() {
-    return new Usuario(senha, email);
+    return new Usuario(email, senha);
   }
 }

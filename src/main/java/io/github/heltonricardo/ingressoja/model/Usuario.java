@@ -31,8 +31,8 @@ public class Usuario {
   @OneToOne(mappedBy = "usuario")
   private Produtora produtora;
 
-  public Usuario(String senha, String email) {
-    this.senha = senha;
+  public Usuario(String email, String senha) {
     this.email = email;
+    this.senha = senha;
   }
 }
