@@ -17,7 +17,7 @@ public class UsuarioDTO {
   private String email;
 
   @NotBlank
-  @Size(min = 6, max = 30)
+  @Size(min = 6, max = 50)
   private String senha;
 
   public Usuario paraObjeto() {
