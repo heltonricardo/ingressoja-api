@@ -62,12 +62,7 @@ public class EventoService {
     evento.setCategoriaEvento(categoriaEvento);
     evento.getTiposDeIngresso().forEach(t -> t.setEvento(evento));
 
-    eventoRepository.save(evento);
-
-    Evento retorno =
-        produtora.getEventos().get(produtora.getEventos().size() - 1);
-
-    Long id = retorno.getId();
+    Long id = eventoRepository.save(evento).getId();
 
     String urlImagem = S3Connector.upload(file,
         Formatador.nomeArquivo(id, file.getOriginalFilename()));
