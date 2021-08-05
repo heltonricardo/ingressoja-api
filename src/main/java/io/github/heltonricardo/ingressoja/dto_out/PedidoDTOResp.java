@@ -17,6 +17,7 @@ public class PedidoDTOResp {
   private final Date dataHora;
   private final String numeroCartao;
   private final Double valorTotal;
+  private final EventoDTOResp evento;
   private final List<ItemPedidoDTORespPedido> itensPedido;
 
   public static PedidoDTOResp paraDTO(Pedido pedido) {
@@ -31,6 +32,7 @@ public class PedidoDTOResp {
         pedido.getDataHora(),
         pedido.getNumeroCartao().
             substring(pedido.getNumeroCartao().length() - 4),
-        pedido.getValorTotal(), itens);
+        pedido.getValorTotal(),
+        EventoDTOResp.paraDTO(pedido.getEvento()), itens);
   }
 }

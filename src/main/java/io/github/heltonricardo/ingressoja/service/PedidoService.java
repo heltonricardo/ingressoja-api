@@ -54,6 +54,8 @@ public class PedidoService {
 
     Evento evento = pesqEvento.get();
 
+    pedido.setEvento(evento);
+
     Boolean erroTipoIngresso = pedido
         .getItensPedido()
         .stream()

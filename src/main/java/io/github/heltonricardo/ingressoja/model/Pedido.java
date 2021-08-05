@@ -37,6 +37,9 @@ public class Pedido {
   private Double valorTotal;
 
   @ManyToOne(cascade = CascadeType.ALL)
+  private Evento evento;
+
+  @ManyToOne(cascade = CascadeType.ALL)
   private Comprador comprador;
 
   @OneToMany(cascade = CascadeType.ALL)
