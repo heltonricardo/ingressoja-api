@@ -1,10 +1,14 @@
 package io.github.heltonricardo.ingressoja.service;
 
+import io.github.heltonricardo.ingressoja.dto_out.PedidoDTORespComprador;
 import io.github.heltonricardo.ingressoja.model.Comprador;
+import io.github.heltonricardo.ingressoja.model.Pedido;
 import io.github.heltonricardo.ingressoja.repository.CompradorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -32,7 +36,24 @@ public class CompradorService {
     return compradorRepository.findByCpf(cpf);
   }
 
+  /****************************** OBTER PEDIDOS *******************************/
+
+  public List<Pedido> obterPedidos(Long id) {
+
+    Optional<Comprador> pesq = obterPorId(id);
+
+    if (pesq.isEmpty())
+      return null;
+
+    Comprador comprador = pesq.get();
+
+    return comprador.getPedidos();
+  }
+
+  /********************************** SALVAR **********************************/
+
   public Comprador salvar(Comprador comprador) {
+
     if (validacaoService.emailJaCadastrado(comprador.getUsuario().getEmail()))
       return null;
 

@@ -4,6 +4,7 @@ import io.github.heltonricardo.ingressoja.dto_in.CompradorDTO;
 import io.github.heltonricardo.ingressoja.dto_out.CompradorDTOResp;
 import io.github.heltonricardo.ingressoja.dto_out.PedidoDTORespComprador;
 import io.github.heltonricardo.ingressoja.model.Comprador;
+import io.github.heltonricardo.ingressoja.model.Pedido;
 import io.github.heltonricardo.ingressoja.service.CompradorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -61,19 +62,16 @@ public class CompradorController {
   public ResponseEntity<List<PedidoDTORespComprador>> obterPedidos(
       @PathVariable Long id) {
 
-    Optional<Comprador> pesq = compradorService.obterPorId(id);
+    List<Pedido> pedidos = compradorService.obterPedidos(id);
 
-    if (pesq.isEmpty())
+    if (pedidos == null)
       return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
-    Comprador comprador = pesq.get();
+    List<PedidoDTORespComprador> resp = new ArrayList<>();
 
-    List<PedidoDTORespComprador> lista = new ArrayList<>();
+    pedidos.forEach(p -> resp.add(PedidoDTORespComprador.paraDTO(p)));
 
-    comprador.getPedidos()
-        .forEach(p -> lista.add(PedidoDTORespComprador.paraDTO(p)));
-
-    return new ResponseEntity<>(lista, HttpStatus.OK);
+    return new ResponseEntity<>(resp, HttpStatus.OK);
   }
 
   /********************************** SALVAR **********************************/

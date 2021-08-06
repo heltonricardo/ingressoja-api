@@ -86,6 +86,7 @@ public class PedidoService {
     });
 
     Comprador comprador = pesqComprador.get();
+
     pedido.setComprador(comprador);
 
     Double total = pedido.getItensPedido().stream()
