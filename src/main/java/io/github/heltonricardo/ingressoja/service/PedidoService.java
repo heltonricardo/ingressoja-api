@@ -1,9 +1,6 @@
 package io.github.heltonricardo.ingressoja.service;
 
-import io.github.heltonricardo.ingressoja.model.Comprador;
-import io.github.heltonricardo.ingressoja.model.Evento;
-import io.github.heltonricardo.ingressoja.model.Pedido;
-import io.github.heltonricardo.ingressoja.model.TipoDeIngresso;
+import io.github.heltonricardo.ingressoja.model.*;
 import io.github.heltonricardo.ingressoja.repository.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,7 +53,7 @@ public class PedidoService {
 
     pedido.setEvento(evento);
 
-    Boolean erroTipoIngresso = pedido
+    boolean erroTipoIngresso = pedido
         .getItensPedido()
         .stream()
         .anyMatch(itemPedido ->
@@ -94,6 +91,9 @@ public class PedidoService {
             Double::sum);
 
     pedido.setValorTotal(total);
+
+    Produtora produtora = evento.getProdutora();
+    produtora.setValorCarteira(produtora.getValorCarteira() + total);
 
     return pedidoRepository.save(pedido);
   }
