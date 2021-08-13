@@ -43,7 +43,7 @@ public class Produtora {
   @Column(nullable = false)
   private Boolean ativo = true;
 
-  @OneToMany(cascade = CascadeType.ALL)
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "produtora")
   private List<Evento> eventos;
 
   @OneToOne(cascade = CascadeType.ALL)

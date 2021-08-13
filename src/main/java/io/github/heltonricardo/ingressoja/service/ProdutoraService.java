@@ -1,10 +1,12 @@
 package io.github.heltonricardo.ingressoja.service;
 
+import io.github.heltonricardo.ingressoja.model.Evento;
 import io.github.heltonricardo.ingressoja.model.Produtora;
 import io.github.heltonricardo.ingressoja.repository.ProdutoraRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -30,6 +32,18 @@ public class ProdutoraService {
 
   public Optional<Produtora> obterPorCnpj(String cnpj) {
     return produtoraRepository.findByCnpj(cnpj);
+  }
+
+  public List<Evento> obterEventos(Long id) {
+
+    Optional<Produtora> pesq = obterPorId(id);
+
+    if (pesq.isEmpty())
+      return null;
+
+    Produtora produtora = pesq.get();
+
+    return produtora.getEventos();
   }
 
   public Produtora salvar(Produtora produtora) {

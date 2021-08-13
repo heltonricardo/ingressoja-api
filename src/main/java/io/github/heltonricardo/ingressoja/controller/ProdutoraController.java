@@ -1,7 +1,10 @@
 package io.github.heltonricardo.ingressoja.controller;
 
 import io.github.heltonricardo.ingressoja.dto_in.ProdutoraDTO;
+import io.github.heltonricardo.ingressoja.dto_out.EventoDTORespProdutora;
+import io.github.heltonricardo.ingressoja.dto_out.PedidoDTORespComprador;
 import io.github.heltonricardo.ingressoja.dto_out.ProdutoraDTOResp;
+import io.github.heltonricardo.ingressoja.model.Evento;
 import io.github.heltonricardo.ingressoja.model.Produtora;
 import io.github.heltonricardo.ingressoja.service.ProdutoraService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +53,24 @@ public class ProdutoraController {
       return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
     ProdutoraDTOResp resp = ProdutoraDTOResp.paraDTO(pesq.get());
+
+    return new ResponseEntity<>(resp, HttpStatus.OK);
+  }
+
+  /****************************** OBTER EVENTOS *******************************/
+
+  @GetMapping("/{id}/eventos")
+  public ResponseEntity<List<EventoDTORespProdutora>> obterEventos(
+      @PathVariable Long id) {
+
+    List<Evento> eventos = produtoraService.obterEventos(id);
+
+    if (eventos == null)
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+    List<EventoDTORespProdutora> resp = new ArrayList<>();
+
+    eventos.forEach(e -> resp.add(EventoDTORespProdutora.paraDTO(e)));
 
     return new ResponseEntity<>(resp, HttpStatus.OK);
   }
