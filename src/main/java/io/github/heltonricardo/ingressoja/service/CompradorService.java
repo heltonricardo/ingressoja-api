@@ -1,13 +1,12 @@
 package io.github.heltonricardo.ingressoja.service;
 
-import io.github.heltonricardo.ingressoja.dto_out.PedidoDTORespComprador;
 import io.github.heltonricardo.ingressoja.model.Comprador;
 import io.github.heltonricardo.ingressoja.model.Pedido;
 import io.github.heltonricardo.ingressoja.repository.CompradorRepository;
+import io.github.heltonricardo.ingressoja.utils.UsarFiltro;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,15 +23,26 @@ public class CompradorService {
     this.validacaoService = validacaoService;
   }
 
+  /******************************* OBTER TODOS ********************************/
+
   public Iterable<Comprador> obterTodos() {
+
     return compradorRepository.findAll();
   }
 
-  public Optional<Comprador> obterPorId(Long id) {
-    return compradorRepository.findById(id);
+  /******************************* OBTER POR ID *******************************/
+
+  public Optional<Comprador> obterPorId(Long id, boolean usarFiltro) {
+
+    return usarFiltro
+        ? compradorRepository.findByIdAndAtivoTrue(id)
+        : compradorRepository.findById(id);
   }
 
+  /****************************** OBTER POR CPF *******************************/
+
   public Optional<Comprador> obterPorCpf(String cpf) {
+
     return compradorRepository.findByCpf(cpf);
   }
 
@@ -40,7 +50,7 @@ public class CompradorService {
 
   public List<Pedido> obterPedidos(Long id) {
 
-    Optional<Comprador> pesq = obterPorId(id);
+    Optional<Comprador> pesq = obterPorId(id, UsarFiltro.NAO);
 
     if (pesq.isEmpty())
       return null;
@@ -61,5 +71,12 @@ public class CompradorService {
       return null;
 
     return compradorRepository.save(comprador);
+  }
+
+  /********************************* INATIVAR *********************************/
+
+  public void inativar(Comprador comprador) {
+
+    compradorRepository.deleteById(comprador.getId());
   }
 }

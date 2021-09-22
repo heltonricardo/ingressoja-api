@@ -6,6 +6,7 @@ import io.github.heltonricardo.ingressoja.dto_out.PedidoDTORespComprador;
 import io.github.heltonricardo.ingressoja.model.Comprador;
 import io.github.heltonricardo.ingressoja.model.Pedido;
 import io.github.heltonricardo.ingressoja.service.CompradorService;
+import io.github.heltonricardo.ingressoja.utils.UsarFiltro;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,7 +47,7 @@ public class CompradorController {
   @GetMapping("/{id}")
   public ResponseEntity<CompradorDTOResp> obterPorId(@PathVariable Long id) {
 
-    Optional<Comprador> pesq = compradorService.obterPorId(id);
+    Optional<Comprador> pesq = compradorService.obterPorId(id, UsarFiltro.NAO);
 
     if (pesq.isEmpty())
       return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -87,5 +88,20 @@ public class CompradorController {
 
     return new ResponseEntity<>(CompradorDTOResp.paraDTO(resp),
         HttpStatus.CREATED);
+  }
+
+  /********************************* INATIVAR *********************************/
+
+  @DeleteMapping("/{id}")
+  public ResponseEntity<CompradorDTOResp> inativar(@PathVariable Long id) {
+
+    Optional<Comprador> pesq = compradorService.obterPorId(id, UsarFiltro.SIM);
+
+    if (pesq.isEmpty())
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+    compradorService.inativar(pesq.get());
+
+    return new ResponseEntity<>(HttpStatus.OK);
   }
 }

@@ -2,6 +2,7 @@ package io.github.heltonricardo.ingressoja.service;
 
 import io.github.heltonricardo.ingressoja.model.*;
 import io.github.heltonricardo.ingressoja.repository.PedidoRepository;
+import io.github.heltonricardo.ingressoja.utils.UsarFiltro;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,7 +45,7 @@ public class PedidoService {
         eventoService.obterPorId(pedido.getIdEvento());
 
     Optional<Comprador> pesqComprador =
-        compradorService.obterPorId(pedido.getIdComprador());
+        compradorService.obterPorId(pedido.getIdComprador(), UsarFiltro.SIM);
 
     if (pesqEvento.isEmpty() || pesqComprador.isEmpty())
       return null;
