@@ -77,7 +77,7 @@ public class CompradorService {
 
   public Comprador atualizar(Comprador comprador, Long id) {
 
-    Optional<Comprador> pesq = obterPorId(id, UsarFiltro.NAO);
+    Optional<Comprador> pesq = obterPorId(id, UsarFiltro.SIM);
 
     if (pesq.isEmpty())
       return null;

@@ -13,9 +13,15 @@ public class CompradorDTOResp {
   private final String nome;
   private final String email;
   private final String cpf;
+  private final boolean ativo;
 
   public static CompradorDTOResp paraDTO(Comprador comprador) {
-    return new CompradorDTOResp(comprador.getId(), comprador.getNome(),
-        comprador.getUsuario().getEmail(), comprador.getCpf());
+    return new CompradorDTOResp(
+        comprador.getId(),
+        comprador.getNome(),
+        comprador.getUsuario().getEmail(),
+        comprador.getCpf(),
+        comprador.getAtivo()
+    );
   }
 }

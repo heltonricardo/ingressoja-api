@@ -12,9 +12,14 @@ public class AdministradorDTOResp {
   private final Long id;
   private final String nome;
   private final String email;
+  private final boolean ativo;
 
   public static AdministradorDTOResp paraDTO(Administrador administrador) {
-    return new AdministradorDTOResp(administrador.getId(),
-        administrador.getNome(), administrador.getUsuario().getEmail());
+    return new AdministradorDTOResp(
+        administrador.getId(),
+        administrador.getNome(),
+        administrador.getUsuario().getEmail(),
+        administrador.getAtivo()
+    );
   }
 }
