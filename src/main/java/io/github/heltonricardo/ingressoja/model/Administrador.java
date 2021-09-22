@@ -3,6 +3,7 @@ package io.github.heltonricardo.ingressoja.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -12,7 +13,8 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@Where(clause = "ativo")
+@Table(name = "administrador")
+@SQLDelete(sql = "UPDATE administrador SET ativo = false WHERE id = ?")
 public class Administrador {
 
   @Id
@@ -25,10 +27,10 @@ public class Administrador {
   @Column(nullable = false)
   private Boolean ativo = true;
 
-  @OneToOne(cascade = CascadeType.ALL)
+  @OneToOne(cascade = CascadeType.PERSIST)
   private Usuario usuario;
 
-  @OneToMany(cascade = CascadeType.ALL)
+  @OneToMany(cascade = CascadeType.PERSIST)
   List<Saque> saques;
 
   public Administrador(String nome, Usuario usuario) {
