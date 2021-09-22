@@ -90,6 +90,21 @@ public class CompradorController {
         HttpStatus.CREATED);
   }
 
+  /******************************** ATUALIZAR *********************************/
+
+  @PutMapping("/{id}")
+  public ResponseEntity<CompradorDTOResp> atualizar(
+      @RequestBody @Valid CompradorDTO dto, @PathVariable Long id) {
+
+    Comprador resp = compradorService.atualizar(dto.paraObjeto(), id);
+
+    if (resp == null)
+      return new ResponseEntity<>(HttpStatus.CONFLICT);
+
+    return new ResponseEntity<>(CompradorDTOResp.paraDTO(resp),
+        HttpStatus.CREATED);
+  }
+
   /********************************* INATIVAR *********************************/
 
   @DeleteMapping("/{id}")

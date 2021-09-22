@@ -73,6 +73,30 @@ public class CompradorService {
     return compradorRepository.save(comprador);
   }
 
+  /******************************** ATUALIZAR *********************************/
+
+  public Comprador atualizar(Comprador comprador, Long id) {
+
+    Optional<Comprador> pesq = obterPorId(id, UsarFiltro.NAO);
+
+    if (pesq.isEmpty())
+      return null;
+
+    Comprador legado = pesq.get();
+
+    String emailLegado = legado.getUsuario().getEmail();
+
+    // Se deseja atualizar o e-mail, mas esse já existe em outro cadastro
+    if (!emailLegado.equals(comprador.getUsuario().getEmail()) &&
+        validacaoService.emailJaCadastrado(comprador.getUsuario().getEmail()))
+      return null;
+
+    legado.getUsuario().setEmail(comprador.getUsuario().getEmail());
+    legado.getUsuario().setSenha(comprador.getUsuario().getSenha());
+
+    return compradorRepository.save(legado);
+  }
+
   /********************************* INATIVAR *********************************/
 
   public void inativar(Comprador comprador) {
