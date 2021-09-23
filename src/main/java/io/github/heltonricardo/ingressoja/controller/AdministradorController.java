@@ -83,7 +83,7 @@ public class AdministradorController {
       return new ResponseEntity<>(HttpStatus.CONFLICT);
 
     return new ResponseEntity<>(AdministradorDTOResp.paraDTO(resp),
-        HttpStatus.CREATED);
+        HttpStatus.OK);
   }
 
   /********************************* INATIVAR *********************************/

@@ -102,7 +102,7 @@ public class CompradorController {
       return new ResponseEntity<>(HttpStatus.CONFLICT);
 
     return new ResponseEntity<>(CompradorDTOResp.paraDTO(resp),
-        HttpStatus.CREATED);
+        HttpStatus.OK);
   }
 
   /********************************* INATIVAR *********************************/
