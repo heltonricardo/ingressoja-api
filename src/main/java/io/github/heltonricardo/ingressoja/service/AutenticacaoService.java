@@ -30,19 +30,23 @@ public class AutenticacaoService {
 
       if (usuario.getSenha().equals(senha)) {
 
-
-        if (usuario.getComprador() != null) {
+        if (usuario.getComprador() != null
+            && usuario.getComprador().getAtivo()) {
           resposta.put("id", usuario.getComprador().getId());
           resposta.put("tipo", 1L);
         } //
-        else if (usuario.getProdutora() != null) {
+        else if (usuario.getProdutora() != null
+            && usuario.getProdutora().getAtivo()) {
           resposta.put("id", usuario.getProdutora().getId());
           resposta.put("tipo", 2L);
         } //
-        else if (usuario.getAdministrador() != null) {
+        else if (usuario.getAdministrador() != null
+            && usuario.getProdutora().getAtivo()) {
           resposta.put("id", usuario.getAdministrador().getId());
           resposta.put("tipo", 3L);
-        }
+        } //
+        else
+          return null;
 
         return resposta;
       }
