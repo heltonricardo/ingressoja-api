@@ -41,7 +41,7 @@ public class AutenticacaoService {
           resposta.put("tipo", 2L);
         } //
         else if (usuario.getAdministrador() != null
-            && usuario.getProdutora().getAtivo()) {
+            && usuario.getAdministrador().getAtivo()) {
           resposta.put("id", usuario.getAdministrador().getId());
           resposta.put("tipo", 3L);
         } //
