@@ -25,7 +25,7 @@ public class AdministradorService {
 
   public Iterable<Administrador> obterTodos() {
 
-    return administradorRepository.findAll();
+    return administradorRepository.findByAtivoTrue();
   }
 
   /******************************* OBTER POR ID *******************************/
