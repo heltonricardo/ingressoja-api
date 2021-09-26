@@ -2,11 +2,11 @@ package io.github.heltonricardo.ingressoja.controller;
 
 import io.github.heltonricardo.ingressoja.dto_in.ProdutoraDTO;
 import io.github.heltonricardo.ingressoja.dto_out.EventoDTORespProdutora;
-import io.github.heltonricardo.ingressoja.dto_out.PedidoDTORespComprador;
 import io.github.heltonricardo.ingressoja.dto_out.ProdutoraDTOResp;
 import io.github.heltonricardo.ingressoja.model.Evento;
 import io.github.heltonricardo.ingressoja.model.Produtora;
 import io.github.heltonricardo.ingressoja.service.ProdutoraService;
+import io.github.heltonricardo.ingressoja.utils.UsarFiltro;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,7 +47,7 @@ public class ProdutoraController {
   @GetMapping("/{id}")
   public ResponseEntity<ProdutoraDTOResp> obterPorId(@PathVariable Long id) {
 
-    Optional<Produtora> pesq = produtoraService.obterPorId(id);
+    Optional<Produtora> pesq = produtoraService.obterPorId(id, UsarFiltro.SIM);
 
     if (pesq.isEmpty())
       return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -88,5 +88,35 @@ public class ProdutoraController {
 
     return new ResponseEntity<>(ProdutoraDTOResp.paraDTO(resp),
         HttpStatus.CREATED);
+  }
+
+  /******************************** ATUALIZAR *********************************/
+
+  @PutMapping("/{id}")
+  public ResponseEntity<ProdutoraDTOResp> atualizar(
+      @RequestBody @Valid ProdutoraDTO dto, @PathVariable Long id) {
+
+    Produtora resp = produtoraService.atualizar(dto.paraObjeto(), id);
+
+    if (resp == null)
+      return new ResponseEntity<>(HttpStatus.CONFLICT);
+
+    return new ResponseEntity<>(ProdutoraDTOResp.paraDTO(resp),
+        HttpStatus.CREATED);
+  }
+
+  /********************************* INATIVAR *********************************/
+
+  @DeleteMapping("/{id}")
+  public ResponseEntity<ProdutoraDTOResp> inativar(@PathVariable Long id) {
+
+    Optional<Produtora> pesq = produtoraService.obterPorId(id, UsarFiltro.SIM);
+
+    if (pesq.isEmpty())
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+    produtoraService.inativar(pesq.get());
+
+    return new ResponseEntity<>(HttpStatus.OK);
   }
 }

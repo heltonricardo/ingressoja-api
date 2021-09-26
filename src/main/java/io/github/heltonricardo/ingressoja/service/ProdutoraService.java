@@ -3,6 +3,7 @@ package io.github.heltonricardo.ingressoja.service;
 import io.github.heltonricardo.ingressoja.model.Evento;
 import io.github.heltonricardo.ingressoja.model.Produtora;
 import io.github.heltonricardo.ingressoja.repository.ProdutoraRepository;
+import io.github.heltonricardo.ingressoja.utils.UsarFiltro;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,8 +27,10 @@ public class ProdutoraService {
     return produtoraRepository.findAll();
   }
 
-  public Optional<Produtora> obterPorId(Long id) {
-    return produtoraRepository.findById(id);
+  public Optional<Produtora> obterPorId(Long id, boolean usarFiltro) {
+    return usarFiltro
+        ? produtoraRepository.findByIdAndAtivoTrue(id)
+        : produtoraRepository.findById(id);
   }
 
   public Optional<Produtora> obterPorCnpj(String cnpj) {
@@ -36,7 +39,7 @@ public class ProdutoraService {
 
   public List<Evento> obterEventos(Long id) {
 
-    Optional<Produtora> pesq = obterPorId(id);
+    Optional<Produtora> pesq = obterPorId(id, UsarFiltro.NAO);
 
     if (pesq.isEmpty())
       return null;
@@ -54,5 +57,37 @@ public class ProdutoraService {
       return null;
 
     return produtoraRepository.save(produtora);
+  }
+
+  /******************************** ATUALIZAR *********************************/
+
+  public Produtora atualizar(Produtora produtora, Long id) {
+
+    Optional<Produtora> pesq = obterPorId(id, UsarFiltro.NAO);
+
+    if (pesq.isEmpty())
+      return null;
+
+    Produtora legado = pesq.get();
+
+    String emailLegado = legado.getUsuario().getEmail();
+
+    // Se deseja atualizar o e-mail, mas esse já existe em outro cadastro
+    if (!emailLegado.equals(produtora.getUsuario().getEmail()) &&
+        validacaoService.emailJaCadastrado(produtora.getUsuario().getEmail()))
+      return null;
+
+    legado.setNomeFantasia(produtora.getNomeFantasia());
+    legado.getUsuario().setEmail(produtora.getUsuario().getEmail());
+    legado.getUsuario().setSenha(produtora.getUsuario().getSenha());
+
+    return produtoraRepository.save(legado);
+  }
+
+  /********************************* INATIVAR *********************************/
+
+  public void inativar(Produtora produtora) {
+
+    produtoraRepository.deleteById(produtora.getId());
   }
 }

@@ -9,5 +9,7 @@ import java.util.Optional;
 @Repository
 public interface ProdutoraRepository
     extends PagingAndSortingRepository<Produtora, Long> {
+
   Optional<Produtora> findByCnpj(String cnpj);
+  Optional<Produtora> findByIdAndAtivoTrue(Long id);
 }

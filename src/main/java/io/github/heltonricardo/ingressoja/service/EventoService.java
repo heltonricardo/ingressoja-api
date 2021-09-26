@@ -6,6 +6,7 @@ import io.github.heltonricardo.ingressoja.model.Produtora;
 import io.github.heltonricardo.ingressoja.repository.EventoRepository;
 import io.github.heltonricardo.ingressoja.utils.Formatador;
 import io.github.heltonricardo.ingressoja.utils.S3Connector;
+import io.github.heltonricardo.ingressoja.utils.UsarFiltro;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -44,8 +45,8 @@ public class EventoService {
   /********************************** SALVAR **********************************/
 
   public Evento salvar(Evento evento, MultipartFile file) {
-    Optional<Produtora> pesqProdutora = produtoraService
-        .obterPorId(evento.getIdProdutora());
+    Optional<Produtora> pesqProdutora =
+        produtoraService.obterPorId(evento.getIdProdutora(), UsarFiltro.NAO);
 
     Optional<CategoriaEvento> pesqCategoria =
         categoriaEventoService.obterPorId(evento.getIdCategoria());
