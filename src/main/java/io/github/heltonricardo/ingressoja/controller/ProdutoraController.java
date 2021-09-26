@@ -102,7 +102,7 @@ public class ProdutoraController {
       return new ResponseEntity<>(HttpStatus.CONFLICT);
 
     return new ResponseEntity<>(ProdutoraDTOResp.paraDTO(resp),
-        HttpStatus.CREATED);
+        HttpStatus.OK);
   }
 
   /********************************* INATIVAR *********************************/

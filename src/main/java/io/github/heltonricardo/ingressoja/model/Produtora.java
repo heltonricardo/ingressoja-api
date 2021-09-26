@@ -44,13 +44,13 @@ public class Produtora {
   @Column(nullable = false)
   private Boolean ativo = true;
 
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "produtora")
+  @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "produtora")
   private List<Evento> eventos;
 
-  @OneToOne(cascade = CascadeType.ALL)
+  @OneToOne(cascade = CascadeType.PERSIST)
   private Usuario usuario;
 
-  @OneToMany(cascade = CascadeType.ALL)
+  @OneToMany(cascade = CascadeType.PERSIST)
   private List<Saque> saques;
 
   public Produtora(String nomeFantasia, String razaoSocial,

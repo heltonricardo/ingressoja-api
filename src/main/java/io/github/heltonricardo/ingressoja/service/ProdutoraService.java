@@ -77,6 +77,9 @@ public class ProdutoraService {
         validacaoService.emailJaCadastrado(produtora.getUsuario().getEmail()))
       return null;
 
+    legado.setBanco(produtora.getBanco());
+    legado.setConta(produtora.getConta());
+    legado.setAgencia(produtora.getAgencia());
     legado.setNomeFantasia(produtora.getNomeFantasia());
     legado.getUsuario().setEmail(produtora.getUsuario().getEmail());
     legado.getUsuario().setSenha(produtora.getUsuario().getSenha());
