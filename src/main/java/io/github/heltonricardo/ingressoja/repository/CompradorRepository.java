@@ -9,6 +9,7 @@ import java.util.Optional;
 @Repository
 public interface CompradorRepository
     extends PagingAndSortingRepository<Comprador, Long> {
+
   Optional<Comprador> findByIdAndAtivoTrue(Long id);
   Optional<Comprador> findByCpf(String cpf);
 }

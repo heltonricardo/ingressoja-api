@@ -11,6 +11,5 @@ public interface AdministradorRepository
     extends PagingAndSortingRepository<Administrador, Long> {
 
   Optional<Administrador> findByIdAndAtivoTrue(Long id);
-
   Iterable<Administrador> findByAtivoTrue();
 }
