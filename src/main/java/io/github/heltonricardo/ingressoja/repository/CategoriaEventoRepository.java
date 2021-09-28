@@ -11,4 +11,5 @@ public interface CategoriaEventoRepository
     extends PagingAndSortingRepository<CategoriaEvento, Long> {
 
   Optional<CategoriaEvento> findByNome(String nome);
+  Optional<CategoriaEvento> findByIdAndAtivoTrue(Long id);
 }

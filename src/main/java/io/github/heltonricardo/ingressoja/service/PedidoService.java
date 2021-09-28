@@ -42,7 +42,7 @@ public class PedidoService {
   public Pedido salvar(Pedido pedido) {
 
     Optional<Evento> pesqEvento =
-        eventoService.obterPorId(pedido.getIdEvento());
+        eventoService.obterPorId(pedido.getIdEvento(), UsarFiltro.SIM);
 
     Optional<Comprador> pesqComprador =
         compradorService.obterPorId(pedido.getIdComprador(), UsarFiltro.SIM);

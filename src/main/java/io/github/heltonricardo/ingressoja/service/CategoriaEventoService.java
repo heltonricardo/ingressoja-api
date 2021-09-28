@@ -27,7 +27,7 @@ public class CategoriaEventoService {
   }
 
   public Optional<CategoriaEvento> obterPorId(Long id) {
-    return categoriaEventoRepository.findById(id);
+    return categoriaEventoRepository.findByIdAndAtivoTrue(id);
   }
 
   public Optional<CategoriaEvento> obterPorNome(String nome) {

@@ -14,7 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@Where(clause = "ativo")
+@Table(name = "evento")
 @SQLDelete(sql = "UPDATE evento SET ativo = false WHERE id = ?")
 public class Evento {
 
@@ -64,13 +64,13 @@ public class Evento {
   @Column(nullable = false)
   private Boolean ativo = true;
 
-  @ManyToOne(cascade = CascadeType.ALL)
+  @ManyToOne(cascade = CascadeType.PERSIST)
   private Produtora produtora;
 
-  @ManyToOne(cascade = CascadeType.ALL)
+  @ManyToOne(cascade = CascadeType.PERSIST)
   private CategoriaEvento categoriaEvento;
 
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "evento")
+  @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "evento")
   private List<TipoDeIngresso> tiposDeIngresso;
 
   @Transient

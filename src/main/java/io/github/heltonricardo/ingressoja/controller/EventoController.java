@@ -7,6 +7,7 @@ import io.github.heltonricardo.ingressoja.dto_out.EventoDTOResp;
 import io.github.heltonricardo.ingressoja.dto_out.EventoDTORespGrade;
 import io.github.heltonricardo.ingressoja.model.Evento;
 import io.github.heltonricardo.ingressoja.service.EventoService;
+import io.github.heltonricardo.ingressoja.utils.UsarFiltro;
 import io.github.heltonricardo.ingressoja.validator.EventoOnline;
 import io.github.heltonricardo.ingressoja.validator.EventoPresencial;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("evento")
@@ -49,12 +51,12 @@ public class EventoController {
   @GetMapping("/{id}")
   public ResponseEntity<EventoDTOResp> obterPorId(@PathVariable Long id) {
 
-    EventoDTOResp resp;
+    Optional<Evento> pesq = eventoService.obterPorId(id, UsarFiltro.NAO);
 
-    if (eventoService.obterPorId(id).isEmpty())
+    if (pesq.isEmpty())
       return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
-    resp = EventoDTOResp.paraDTO(eventoService.obterPorId(id).get());
+    EventoDTOResp resp = EventoDTOResp.paraDTO(pesq.get());
 
     return new ResponseEntity<>(resp, HttpStatus.OK);
   }

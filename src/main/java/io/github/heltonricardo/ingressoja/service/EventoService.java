@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -33,18 +34,23 @@ public class EventoService {
   /******************************* OBTER TODOS ********************************/
 
   public Iterable<Evento> obterTodos() {
-    return eventoRepository.findAll();
+
+    return eventoRepository.findByAtivoTrue();
   }
 
   /******************************* OBTER POR ID *******************************/
 
-  public Optional<Evento> obterPorId(Long id) {
-    return eventoRepository.findById(id);
+  public Optional<Evento> obterPorId(Long id, boolean usarFiltro) {
+
+    return usarFiltro
+        ? eventoRepository.findByIdAndAtivoTrue(id)
+        : eventoRepository.findById(id);
   }
 
   /********************************** SALVAR **********************************/
 
   public Evento salvar(Evento evento, MultipartFile file) {
+
     Optional<Produtora> pesqProdutora =
         produtoraService.obterPorId(evento.getIdProdutora(), UsarFiltro.NAO);
 
@@ -66,11 +72,60 @@ public class EventoService {
     Long id = eventoRepository.save(evento).getId();
 
     String urlImagem = S3Connector.upload(file,
-        Formatador.nomeArquivo(id, file.getOriginalFilename()));
+        Formatador.nomeArquivo(id,
+            Objects.requireNonNull(file.getOriginalFilename())));
 
     evento.setImagemURL(urlImagem);
     eventoRepository.save(evento);
 
     return evento;
+  }
+
+  /******************************** ATUALIZAR *********************************/
+
+  public Evento atualizar(Evento evento, MultipartFile file, Long id) {
+
+    Optional<Evento> pesqEvento = obterPorId(id, UsarFiltro.SIM);
+
+    Optional<Produtora> pesqProdutora =
+        produtoraService.obterPorId(evento.getIdProdutora(), UsarFiltro.NAO);
+
+    Optional<CategoriaEvento> pesqCategoria =
+        categoriaEventoService.obterPorId(evento.getIdCategoria());
+
+    if (pesqProdutora.isEmpty() || pesqCategoria.isEmpty()
+        || pesqEvento.isEmpty()
+        || !Formatador.isImagem(file.getOriginalFilename()))
+      return null;
+
+    Evento legado = pesqEvento.get();
+
+    legado.setTitulo(evento.getTitulo());
+    legado.setInicio(evento.getInicio());
+    legado.setTermino(evento.getTermino());
+    legado.setDescricao(evento.getDescricao());
+    legado.setOnline(evento.getOnline());
+    legado.setUrl(evento.getUrl());
+    legado.setLogradouro(evento.getLogradouro());
+    legado.setNumero(evento.getNumero());
+    legado.setBairro(evento.getBairro());
+    legado.setCidade(evento.getCidade());
+    legado.setUf(evento.getUf());
+    legado.setCep(evento.getCep());
+
+    legado.setCategoriaEvento(pesqCategoria.get());
+    legado.setTiposDeIngresso(evento.getTiposDeIngresso());
+
+    S3Connector.upload(file, Formatador.nomeArquivo(id,
+        Objects.requireNonNull(file.getOriginalFilename())));
+
+    return eventoRepository.save(legado);
+  }
+
+  /********************************* INATIVAR *********************************/
+
+  public void inativar(Evento evento) {
+
+    eventoRepository.deleteById(evento.getId());
   }
 }
