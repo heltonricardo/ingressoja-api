@@ -64,8 +64,8 @@ public class EventoController {
   /********************************** SALVAR **********************************/
 
   @PostMapping
-  public ResponseEntity<EventoDTOResp> criarEvento(String evento,
-                                                   MultipartFile file) {
+  public ResponseEntity<EventoDTOResp> salvar(String evento,
+                                              MultipartFile file) {
     try {
       if (file == null)
         throw new Exception();
@@ -82,12 +82,12 @@ public class EventoController {
 
       if (validator.validate(dto, online ? EventoOnline.class :
           EventoPresencial.class).size() > 0)
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        throw new Exception();
 
       Evento resp = eventoService.salvar(dto.paraObjeto(), file);
 
       if (resp == null)
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        throw new Exception();
 
       return new ResponseEntity<>(EventoDTOResp.paraDTO(resp),
           HttpStatus.CREATED);
@@ -95,5 +95,57 @@ public class EventoController {
     } catch (Exception e) {
       return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
+  }
+
+  /******************************** ATUALIZAR *********************************/
+
+  @PutMapping("/{id}")
+  public ResponseEntity<EventoDTOResp> atualizar(@PathVariable Long id,
+                                                 String evento,
+                                                 MultipartFile file) {
+    try {
+      if (file == null)
+        throw new Exception();
+
+      Gson gson =
+          new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm").create();
+
+      EventoDTO dto = gson.fromJson(evento, EventoDTO.class);
+
+      boolean online = dto.getOnline();
+
+      Validator validator =
+          Validation.buildDefaultValidatorFactory().getValidator();
+
+      if (validator.validate(dto, online ? EventoOnline.class :
+          EventoPresencial.class).size() > 0)
+        throw new Exception();
+
+      Evento resp = eventoService.atualizar(dto.paraObjeto(), file, id);
+
+      if (resp == null)
+        throw new Exception();
+
+      return new ResponseEntity<>(EventoDTOResp.paraDTO(resp),
+          HttpStatus.OK);
+
+    } catch (Exception e) {
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  /********************************* INATIVAR *********************************/
+
+  @DeleteMapping("/{id}")
+  public ResponseEntity<EventoDTOResp> inativar(@PathVariable Long id) {
+
+    Optional<Evento> pesq = eventoService.obterPorId(id, UsarFiltro.SIM);
+
+    if (pesq.isEmpty())
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+    eventoService.inativar(pesq.get());
+
+    return new ResponseEntity<>(HttpStatus.OK);
   }
 }
