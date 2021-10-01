@@ -21,10 +21,10 @@ public class TipoDeIngressoDTO {
 
   @NotNull
   @Positive
-  Integer quantidadeTotal;
+  Integer quantidadeDisponivel;
 
   public TipoDeIngresso paraObjeto() {
     return new TipoDeIngresso(nome, valor.doubleValue(), descricao,
-        quantidadeTotal);
+        quantidadeDisponivel);
   }
 }

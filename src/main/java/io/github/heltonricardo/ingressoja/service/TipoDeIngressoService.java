@@ -5,6 +5,7 @@ import io.github.heltonricardo.ingressoja.repository.TipoDeIngressoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,5 +25,9 @@ public class TipoDeIngressoService {
 
   public TipoDeIngresso salvar(TipoDeIngresso tipoDeIngresso) {
     return tipoDeIngressoRepository.save(tipoDeIngresso);
+  }
+
+  public void inativarTodos(List<TipoDeIngresso> tiposDeIngresso) {
+    tipoDeIngressoRepository.deleteAll(tiposDeIngresso);
   }
 }

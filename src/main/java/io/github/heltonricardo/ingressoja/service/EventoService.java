@@ -20,6 +20,7 @@ public class EventoService {
   private final EventoRepository eventoRepository;
   private final ProdutoraService produtoraService;
   private final CategoriaEventoService categoriaEventoService;
+  private final TipoDeIngressoService tipoDeIngressoService;
 
   @Autowired
   public EventoService(EventoRepository eventoRepository,
@@ -29,6 +30,7 @@ public class EventoService {
     this.eventoRepository = eventoRepository;
     this.produtoraService = produtoraService;
     this.categoriaEventoService = categoriaEvento;
+    this.tipoDeIngressoService = tipoDeIngressoService;
   }
 
   /******************************* OBTER TODOS ********************************/
@@ -93,31 +95,37 @@ public class EventoService {
     Optional<CategoriaEvento> pesqCategoria =
         categoriaEventoService.obterPorId(evento.getIdCategoria());
 
-    if (pesqProdutora.isEmpty() || pesqCategoria.isEmpty()
-        || pesqEvento.isEmpty()
-        || !Formatador.isImagem(file.getOriginalFilename()))
+    if (pesqEvento.isEmpty() || pesqProdutora.isEmpty()
+        || pesqCategoria.isEmpty())
+      return null;
+
+    if (file != null && !Formatador.isImagem(file.getOriginalFilename()))
       return null;
 
     Evento legado = pesqEvento.get();
 
-    legado.setTitulo(evento.getTitulo());
-    legado.setInicio(evento.getInicio());
-    legado.setTermino(evento.getTermino());
-    legado.setDescricao(evento.getDescricao());
-    legado.setOnline(evento.getOnline());
-    legado.setUrl(evento.getUrl());
-    legado.setLogradouro(evento.getLogradouro());
-    legado.setNumero(evento.getNumero());
-    legado.setBairro(evento.getBairro());
-    legado.setCidade(evento.getCidade());
     legado.setUf(evento.getUf());
     legado.setCep(evento.getCep());
+    legado.setUrl(evento.getUrl());
+    legado.setBairro(evento.getBairro());
+    legado.setCidade(evento.getCidade());
+    legado.setInicio(evento.getInicio());
+    legado.setNumero(evento.getNumero());
+    legado.setOnline(evento.getOnline());
+    legado.setTitulo(evento.getTitulo());
+    legado.setTermino(evento.getTermino());
+    legado.setDescricao(evento.getDescricao());
+    legado.setLogradouro(evento.getLogradouro());
 
     legado.setCategoriaEvento(pesqCategoria.get());
-    legado.setTiposDeIngresso(evento.getTiposDeIngresso());
+    //    legado.setTiposDeIngresso(evento.getTiposDeIngresso());
+    //    legado.getTiposDeIngresso().forEach(t -> t.setEvento(legado));
 
-    S3Connector.upload(file, Formatador.nomeArquivo(id,
-        Objects.requireNonNull(file.getOriginalFilename())));
+    if (file != null) {
+      String urlImagem = S3Connector.upload(file, Formatador.nomeArquivo(id,
+          Objects.requireNonNull(file.getOriginalFilename())));
+      legado.setImagemURL(urlImagem);
+    }
 
     return eventoRepository.save(legado);
   }

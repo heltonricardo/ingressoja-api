@@ -104,9 +104,6 @@ public class EventoController {
                                                  String evento,
                                                  MultipartFile file) {
     try {
-      if (file == null)
-        throw new Exception();
-
       Gson gson =
           new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm").create();
 
