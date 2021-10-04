@@ -23,33 +23,49 @@ public class ProdutoraService {
     this.validacaoService = validacaoService;
   }
 
+  /******************************* OBTER TODAS ********************************/
+
   public Iterable<Produtora> obterTodas() {
+
     return produtoraRepository.findAll();
   }
 
+  /******************************* OBTER POR ID *******************************/
+
   public Optional<Produtora> obterPorId(Long id, boolean usarFiltro) {
+
     return usarFiltro
         ? produtoraRepository.findByIdAndAtivoTrue(id)
         : produtoraRepository.findById(id);
   }
 
+  /****************************** OBTER POR CNPJ ******************************/
+
   public Optional<Produtora> obterPorCnpj(String cnpj) {
+
     return produtoraRepository.findByCnpj(cnpj);
   }
 
-  public List<Evento> obterEventos(Long id) {
+  /****************************** OBTER EVENTOS *******************************/
 
-    Optional<Produtora> pesq = obterPorId(id, UsarFiltro.NAO);
+  public List<Evento> obterEventos(Long id, boolean usarFiltro) {
+
+    Optional<Produtora> pesq = obterPorId(id, UsarFiltro.SIM);
 
     if (pesq.isEmpty())
       return null;
 
     Produtora produtora = pesq.get();
 
-    return produtora.getEventos();
+    return usarFiltro
+        ? produtora.getEventos().stream().filter(e -> e.getAtivo()).toList()
+        : produtora.getEventos();
   }
 
+  /********************************** SALVAR **********************************/
+
   public Produtora salvar(Produtora produtora) {
+
     if (validacaoService.emailJaCadastrado(produtora.getUsuario().getEmail()))
       return null;
 

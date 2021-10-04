@@ -63,7 +63,7 @@ public class ProdutoraController {
   public ResponseEntity<List<EventoDTORespProdutora>> obterEventos(
       @PathVariable Long id) {
 
-    List<Evento> eventos = produtoraService.obterEventos(id);
+    List<Evento> eventos = produtoraService.obterEventos(id, UsarFiltro.SIM);
 
     if (eventos == null)
       return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
