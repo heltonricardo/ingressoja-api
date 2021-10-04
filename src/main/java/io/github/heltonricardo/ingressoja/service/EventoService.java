@@ -33,6 +33,13 @@ public class EventoService {
     this.tipoDeIngressoService = tipoDeIngressoService;
   }
 
+  public boolean possuiIngressosVendidos(Evento evento) {
+
+    return evento.getTiposDeIngresso().stream()
+        .anyMatch(t -> t.getQuantidadeDisponivel().intValue()
+            != t.getQuantidadeTotal().intValue());
+  }
+
   /******************************* OBTER TODOS ********************************/
 
   public Iterable<Evento> obterTodos() {
@@ -133,8 +140,12 @@ public class EventoService {
 
   /********************************* INATIVAR *********************************/
 
-  public void inativar(Evento evento) {
+  public boolean inativar(Evento evento) {
+
+    if (possuiIngressosVendidos(evento))
+      return false;
 
     eventoRepository.deleteById(evento.getId());
+    return true;
   }
 }

@@ -141,7 +141,10 @@ public class EventoController {
     if (pesq.isEmpty())
       return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
-    eventoService.inativar(pesq.get());
+    boolean inativou = eventoService.inativar(pesq.get());
+
+    if (!inativou)
+      return new ResponseEntity<>(HttpStatus.CONFLICT);
 
     return new ResponseEntity<>(HttpStatus.OK);
   }
