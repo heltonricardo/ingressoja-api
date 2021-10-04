@@ -64,7 +64,8 @@ public class EventoService {
         produtoraService.obterPorId(evento.getIdProdutora(), UsarFiltro.NAO);
 
     Optional<CategoriaEvento> pesqCategoria =
-        categoriaEventoService.obterPorId(evento.getIdCategoria());
+        categoriaEventoService.obterPorId(evento.getIdCategoria(),
+            UsarFiltro.SIM);
 
     if (pesqProdutora.isEmpty() || pesqCategoria.isEmpty())
       return null;
@@ -100,7 +101,8 @@ public class EventoService {
         produtoraService.obterPorId(evento.getIdProdutora(), UsarFiltro.NAO);
 
     Optional<CategoriaEvento> pesqCategoria =
-        categoriaEventoService.obterPorId(evento.getIdCategoria());
+        categoriaEventoService.obterPorId(evento.getIdCategoria(),
+            UsarFiltro.SIM);
 
     if (pesqEvento.isEmpty() || pesqProdutora.isEmpty()
         || pesqCategoria.isEmpty())

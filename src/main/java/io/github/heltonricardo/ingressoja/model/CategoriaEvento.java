@@ -3,6 +3,7 @@ package io.github.heltonricardo.ingressoja.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -12,7 +13,8 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@Where(clause = "ativo")
+@Table(name = "categoria_evento")
+@SQLDelete(sql = "UPDATE categoria_evento SET ativo = false WHERE id = ?")
 public class CategoriaEvento {
 
   @Id

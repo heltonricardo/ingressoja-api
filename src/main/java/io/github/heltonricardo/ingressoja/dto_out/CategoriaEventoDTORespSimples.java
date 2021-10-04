@@ -14,6 +14,7 @@ public class CategoriaEventoDTORespSimples {
 
   public static CategoriaEventoDTORespSimples paraDTO(
       CategoriaEvento categoriaEvento) {
+
     return new CategoriaEventoDTORespSimples(categoriaEvento.getId(),
         categoriaEvento.getNome());
   }
