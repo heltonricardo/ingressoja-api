@@ -116,10 +116,11 @@ public class EventoService {
     legado.setTermino(evento.getTermino());
     legado.setDescricao(evento.getDescricao());
     legado.setLogradouro(evento.getLogradouro());
-
     legado.setCategoriaEvento(pesqCategoria.get());
-    //    legado.setTiposDeIngresso(evento.getTiposDeIngresso());
-    //    legado.getTiposDeIngresso().forEach(t -> t.setEvento(legado));
+
+    legado.getTiposDeIngresso().forEach(t -> tipoDeIngressoService.inativarTodos(t));
+    legado.setTiposDeIngresso(evento.getTiposDeIngresso());
+    legado.getTiposDeIngresso().forEach(t -> t.setEvento(legado));
 
     if (file != null) {
       String urlImagem = S3Connector.upload(file, Formatador.nomeArquivo(id,

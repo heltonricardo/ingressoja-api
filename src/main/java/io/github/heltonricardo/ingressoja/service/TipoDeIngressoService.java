@@ -26,8 +26,4 @@ public class TipoDeIngressoService {
   public TipoDeIngresso salvar(TipoDeIngresso tipoDeIngresso) {
     return tipoDeIngressoRepository.save(tipoDeIngresso);
   }
-
-  public void inativarTodos(List<TipoDeIngresso> tiposDeIngresso) {
-    tipoDeIngressoRepository.deleteAll(tiposDeIngresso);
-  }
 }
