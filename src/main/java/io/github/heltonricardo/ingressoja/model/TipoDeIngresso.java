@@ -12,8 +12,6 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "tipo_de_ingresso")
-@SQLDelete(sql = "UPDATE tipo_de_ingresso SET ativo = false WHERE id = ?")
 public class TipoDeIngresso {
 
   @Id

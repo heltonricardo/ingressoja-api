@@ -16,14 +16,23 @@ public class TipoDeIngressoService {
   @Autowired
   public TipoDeIngressoService(
       TipoDeIngressoRepository tipoDeIngressoRepository) {
+
     this.tipoDeIngressoRepository = tipoDeIngressoRepository;
   }
 
   public Optional<TipoDeIngresso> obterPorId(Long id) {
+
     return tipoDeIngressoRepository.findById(id);
   }
 
   public TipoDeIngresso salvar(TipoDeIngresso tipoDeIngresso) {
+
     return tipoDeIngressoRepository.save(tipoDeIngresso);
+  }
+
+  public void remover(TipoDeIngresso tipoDeIngresso) {
+
+    tipoDeIngresso.setEvento(null);
+    tipoDeIngressoRepository.delete(tipoDeIngresso);
   }
 }

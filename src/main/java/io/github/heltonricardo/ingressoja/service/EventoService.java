@@ -118,7 +118,7 @@ public class EventoService {
     legado.setLogradouro(evento.getLogradouro());
     legado.setCategoriaEvento(pesqCategoria.get());
 
-    legado.getTiposDeIngresso().forEach(t -> tipoDeIngressoService.inativarTodos(t));
+    legado.getTiposDeIngresso().forEach(t -> tipoDeIngressoService.remover(t));
     legado.setTiposDeIngresso(evento.getTiposDeIngresso());
     legado.getTiposDeIngresso().forEach(t -> t.setEvento(legado));
 
