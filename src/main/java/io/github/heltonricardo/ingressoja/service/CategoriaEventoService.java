@@ -25,9 +25,11 @@ public class CategoriaEventoService {
 
   /******************************* OBTER TODAS ********************************/
 
-  public Iterable<CategoriaEvento> obterTodas() {
+  public Iterable<CategoriaEvento> obterTodas(boolean usarFiltro) {
 
-    return categoriaEventoRepository.findAll();
+    return usarFiltro ?
+        categoriaEventoRepository.findByAtivoTrue()
+        : categoriaEventoRepository.findAll();
   }
 
   /******************************* OBTER POR ID *******************************/
@@ -59,6 +61,9 @@ public class CategoriaEventoService {
   /******************************** ATUALIZAR *********************************/
 
   public CategoriaEvento atualizar(CategoriaEvento categoriaEvento, Long id) {
+
+    if (validacaoService.categoriaJaCadastrada(categoriaEvento.getNome()))
+      return null;
 
     Optional<CategoriaEvento> pesq = obterPorId(id, UsarFiltro.SIM);
 

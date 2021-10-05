@@ -35,7 +35,7 @@ public class CategoriaEventoController {
 
     List<CategoriaEventoDTORespSimples> resp = new ArrayList<>();
 
-    categoriaEventoService.obterTodas()
+    categoriaEventoService.obterTodas(UsarFiltro.SIM)
         .forEach(c -> resp.add(CategoriaEventoDTORespSimples.paraDTO(c)));
 
     return new ResponseEntity<>(resp, HttpStatus.OK);
