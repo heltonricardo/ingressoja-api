@@ -36,7 +36,7 @@ public class EventoController {
   /******************************* OBTER TODOS ********************************/
 
   @GetMapping
-  public ResponseEntity<List<EventoDTORespGrade>> obterTodas() {
+  public ResponseEntity<List<EventoDTORespGrade>> obterTodos() {
 
     List<EventoDTORespGrade> resp = new ArrayList<>();
 

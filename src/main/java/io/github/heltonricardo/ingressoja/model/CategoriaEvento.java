@@ -27,7 +27,7 @@ public class CategoriaEvento {
   @Column(nullable = false)
   private Boolean ativo = true;
 
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoriaEvento")
+  @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "categoriaEvento")
   private List<Evento> eventos;
 
   public CategoriaEvento(String nome) {
