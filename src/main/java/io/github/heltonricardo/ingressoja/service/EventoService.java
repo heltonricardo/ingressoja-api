@@ -113,6 +113,9 @@ public class EventoService {
 
     Evento legado = pesqEvento.get();
 
+    if (possuiIngressosVendidos(legado))
+      return null;
+
     legado.setUf(evento.getUf());
     legado.setCep(evento.getCep());
     legado.setUrl(evento.getUrl());
@@ -127,7 +130,7 @@ public class EventoService {
     legado.setLogradouro(evento.getLogradouro());
     legado.setCategoriaEvento(pesqCategoria.get());
 
-    legado.getTiposDeIngresso().forEach(t -> tipoDeIngressoService.remover(t));
+    legado.getTiposDeIngresso().forEach(tipoDeIngressoService::remover);
     legado.setTiposDeIngresso(evento.getTiposDeIngresso());
     legado.getTiposDeIngresso().forEach(t -> t.setEvento(legado));
 
