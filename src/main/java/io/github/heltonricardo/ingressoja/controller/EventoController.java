@@ -61,6 +61,23 @@ public class EventoController {
     return new ResponseEntity<>(resp, HttpStatus.OK);
   }
 
+  /************************** PODE ALTERAR/EXCLUIR? ***************************/
+
+  @GetMapping("/alterar/{id}")
+  public ResponseEntity<?> podeAlterar(@PathVariable Long id) {
+
+    Optional<Evento> pesq = eventoService.obterPorId(id, UsarFiltro.SIM);
+
+    if (pesq.isEmpty())
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+    boolean possuiVendidos = eventoService.possuiIngressosVendidos(pesq.get());
+
+    return possuiVendidos
+        ? new ResponseEntity<>(HttpStatus.CONFLICT)
+        : new ResponseEntity<>(HttpStatus.OK);
+  }
+
   /********************************** SALVAR **********************************/
 
   @PostMapping
