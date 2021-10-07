@@ -91,6 +91,7 @@ public class CompradorService {
         validacaoService.emailJaCadastrado(comprador.getUsuario().getEmail()))
       return null;
 
+    legado.setNome(comprador.getNome());
     legado.getUsuario().setEmail(comprador.getUsuario().getEmail());
     legado.getUsuario().setSenha(comprador.getUsuario().getSenha());
 
