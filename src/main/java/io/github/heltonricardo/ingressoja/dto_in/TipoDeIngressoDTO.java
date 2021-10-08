@@ -5,26 +5,35 @@ import lombok.Getter;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
+import java.util.Date;
 
 @Getter
 public class TipoDeIngressoDTO {
 
   @NotBlank
   @Size(max = 30)
-  String nome;
+  private String nome;
 
   @DecimalMin("0.0")
-  BigDecimal valor;
+  private BigDecimal valor;
 
   @Size(max = 50)
-  String descricao;
+  private String descricao;
 
   @NotNull
   @Positive
-  Integer quantidadeDisponivel;
+  private Integer quantidadeDisponivel;
+
+  @Future
+  @NotNull
+  private Date inicio;
+
+  @Future
+  @NotNull
+  private Date termino;
 
   public TipoDeIngresso paraObjeto() {
     return new TipoDeIngresso(nome, valor.doubleValue(), descricao,
-        quantidadeDisponivel);
+        quantidadeDisponivel, inicio, termino);
   }
 }

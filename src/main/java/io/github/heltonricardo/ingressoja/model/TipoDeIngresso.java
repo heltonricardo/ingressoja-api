@@ -7,6 +7,7 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Getter
@@ -34,17 +35,25 @@ public class TipoDeIngresso {
   private Integer quantidadeDisponivel;
 
   @Column(nullable = false)
+  private Date inicio;
+
+  @Column(nullable = false)
+  private Date termino;
+
+  @Column(nullable = false)
   private Boolean ativo = true;
 
   @ManyToOne
   private Evento evento;
 
   public TipoDeIngresso(String nome, Double valor, String descricao,
-                        Integer quantidadeTotal) {
+                        Integer quantidadeTotal, Date inicio, Date termino) {
     this.nome = nome;
     this.valor = valor;
     this.descricao = descricao;
     this.quantidadeTotal = quantidadeTotal;
     this.quantidadeDisponivel = quantidadeTotal;
+    this.inicio = inicio;
+    this.termino = termino;
   }
 }

@@ -5,6 +5,8 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.Date;
+
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class TipoDeIngressoDTOResp {
@@ -14,11 +16,17 @@ public class TipoDeIngressoDTOResp {
   private final Double valor;
   private final String descricao;
   private final Integer quantidadeDisponivel;
+  private final Date inicio;
+  private final Date termino;
 
   public static TipoDeIngressoDTOResp paraDTO(TipoDeIngresso tipoDeIngresso) {
-    return new TipoDeIngressoDTOResp(tipoDeIngresso.getId(),
-        tipoDeIngresso.getNome(), tipoDeIngresso.getValor(),
+    return new TipoDeIngressoDTOResp(
+        tipoDeIngresso.getId(),
+        tipoDeIngresso.getNome(),
+        tipoDeIngresso.getValor(),
         tipoDeIngresso.getDescricao(),
-        tipoDeIngresso.getQuantidadeDisponivel());
+        tipoDeIngresso.getQuantidadeDisponivel(),
+        tipoDeIngresso.getInicio(),
+        tipoDeIngresso.getTermino());
   }
 }
