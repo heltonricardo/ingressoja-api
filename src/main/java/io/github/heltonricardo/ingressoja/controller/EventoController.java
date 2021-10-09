@@ -21,6 +21,7 @@ import javax.validation.Validator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("evento")
@@ -56,7 +57,13 @@ public class EventoController {
     if (pesq.isEmpty())
       return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
-    EventoDTOResp resp = EventoDTOResp.paraDTO(pesq.get());
+    Evento evento = pesq.get();
+
+    evento.setTiposDeIngresso(evento.getTiposDeIngresso().stream()
+        .filter(t -> eventoService.hojeEstaEntre(t.getInicio(),
+            t.getTermino())).collect(Collectors.toList()));
+
+    EventoDTOResp resp = EventoDTOResp.paraDTO(evento);
 
     return new ResponseEntity<>(resp, HttpStatus.OK);
   }
