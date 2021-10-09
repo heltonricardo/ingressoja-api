@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Date;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -44,7 +45,7 @@ public class EventoService {
 
   public Iterable<Evento> obterTodos() {
 
-    return eventoRepository.findByAtivoTrue();
+    return eventoRepository.findByTerminoGreaterThanEqual(new Date());
   }
 
   /******************************* OBTER POR ID *******************************/
