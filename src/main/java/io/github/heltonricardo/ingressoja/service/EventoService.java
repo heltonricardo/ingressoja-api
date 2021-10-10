@@ -34,24 +34,6 @@ public class EventoService {
     this.tipoDeIngressoService = tipoDeIngressoService;
   }
 
-  /***************************** HOJE ESTÁ ENTRE? *****************************/
-
-  public boolean hojeEstaEntre(Date d1, Date d2) {
-
-    Date hoje = new Date();
-
-    return d1.before(hoje) && hoje.before(d2);
-  }
-
-  /************************ POSSUI INGRESSOS VENDIDOS? ************************/
-
-  public boolean possuiIngressosVendidos(Evento evento) {
-
-    return evento.getTiposDeIngresso().stream()
-        .anyMatch(t -> t.getQuantidadeDisponivel().intValue()
-            != t.getQuantidadeTotal().intValue());
-  }
-
   /******************************* OBTER TODOS ********************************/
 
   public Iterable<Evento> obterTodos() {
@@ -125,7 +107,7 @@ public class EventoService {
 
     Evento legado = pesqEvento.get();
 
-    if (possuiIngressosVendidos(legado))
+    if (legado.possuiIngressosVendidos())
       return null;
 
     legado.setUf(evento.getUf());
@@ -159,7 +141,7 @@ public class EventoService {
 
   public boolean inativar(Evento evento) {
 
-    if (possuiIngressosVendidos(evento))
+    if (evento.possuiIngressosVendidos())
       return false;
 
     eventoRepository.deleteById(evento.getId());

@@ -6,6 +6,7 @@ import io.github.heltonricardo.ingressoja.utils.UsarFiltro;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -62,7 +63,8 @@ public class PedidoService {
                 .getTiposDeIngresso()
                 .stream()
                 .noneMatch(tipoDeIngresso ->
-                    tipoDeIngresso.getId() == itemPedido.getIdTipoDeIngresso())
+                    Objects.equals(tipoDeIngresso.getId(),
+                        itemPedido.getIdTipoDeIngresso()))
         );
 
     if (erroTipoIngresso)
@@ -88,8 +90,8 @@ public class PedidoService {
     pedido.setComprador(comprador);
 
     Double total = pedido.getItensPedido().stream()
-        .reduce(0.0, (s, item) -> s + item.getTipoDeIngresso().getValor(),
-            Double::sum);
+        .reduce(0.0, (s, item) ->
+            s + item.getTipoDeIngresso().getValor(), Double::sum);
 
     pedido.setValorTotal(total);
 

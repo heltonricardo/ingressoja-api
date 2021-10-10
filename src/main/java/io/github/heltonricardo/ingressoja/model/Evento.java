@@ -8,6 +8,9 @@ import org.hibernate.annotations.SQLDelete;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static io.github.heltonricardo.ingressoja.utils.Variados.hojeEstaEntre;
 
 @Entity
 @Getter
@@ -99,5 +102,27 @@ public class Evento {
     this.tiposDeIngresso = tiposDeIngresso;
     this.idProdutora = idProdutora;
     this.idCategoria = idCategoria;
+  }
+
+  /************************ POSSUI INGRESSOS VENDIDOS? ************************/
+
+  public boolean possuiIngressosVendidos() {
+
+    return this.getTiposDeIngresso()
+        .stream()
+        .anyMatch(t -> t.getQuantidadeDisponivel().intValue()
+            != t.getQuantidadeTotal().intValue());
+  }
+
+  /************************** SET INGRESSOS VÁLIDOS ***************************/
+
+  public void setIngressosValidos() {
+
+    this.setTiposDeIngresso(
+        this.getTiposDeIngresso()
+            .stream()
+            .filter(t -> hojeEstaEntre(t.getInicio(), t.getTermino())
+                && t.getQuantidadeDisponivel() > 0)
+            .collect(Collectors.toList()));
   }
 }

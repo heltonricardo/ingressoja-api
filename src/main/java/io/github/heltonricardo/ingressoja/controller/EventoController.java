@@ -21,7 +21,6 @@ import javax.validation.Validator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("evento")
@@ -59,9 +58,7 @@ public class EventoController {
 
     Evento evento = pesq.get();
 
-    evento.setTiposDeIngresso(evento.getTiposDeIngresso().stream()
-        .filter(t -> eventoService.hojeEstaEntre(t.getInicio(),
-            t.getTermino())).collect(Collectors.toList()));
+    evento.setIngressosValidos();
 
     EventoDTOResp resp = EventoDTOResp.paraDTO(evento);
 
@@ -78,9 +75,9 @@ public class EventoController {
     if (pesq.isEmpty())
       return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
-    boolean possuiVendidos = eventoService.possuiIngressosVendidos(pesq.get());
+    Evento evento = pesq.get();
 
-    return possuiVendidos
+    return evento.possuiIngressosVendidos()
         ? new ResponseEntity<>(HttpStatus.CONFLICT)
         : new ResponseEntity<>(HttpStatus.OK);
   }

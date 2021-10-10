@@ -3,8 +3,6 @@ package io.github.heltonricardo.ingressoja.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -45,6 +43,8 @@ public class TipoDeIngresso {
 
   @ManyToOne
   private Evento evento;
+
+  /******************************** CONSTRUTOR ********************************/
 
   public TipoDeIngresso(String nome, Double valor, String descricao,
                         Integer quantidadeTotal, Date inicio, Date termino) {
