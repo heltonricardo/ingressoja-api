@@ -8,7 +8,6 @@ import org.hibernate.annotations.SQLDelete;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static io.github.heltonricardo.ingressoja.utils.Variados.hojeEstaEntre;
@@ -131,12 +130,25 @@ public class Evento {
             .collect(Collectors.toList()));
   }
 
-  /******************** TOTAL DE INGRESSOS ESTÁ CONFORME? *********************/
+  /********************** INGRESSOS NÃO ESTÃO CONFORME? ***********************/
 
-  public boolean totalIngressosConforme() {
+  public boolean ingressosNaoConforme() {
 
-    return Objects.equals(this.getTotalIngressos(), this.getTiposDeIngresso()
-        .stream()
-        .reduce(0, (s, t) -> s + t.getQuantidadeTotal(), Integer::sum));
+    int maxGratis = (int) (this.getTotalIngressos() * 0.1);
+
+    boolean gratisConforme = 
+        maxGratis >= this.getTiposDeIngresso()
+            .stream()
+            .filter(t -> t.getValor() == 0.0)
+            .reduce(0, (s, t) ->
+                s + t.getQuantidadeTotal(), Integer::sum);
+
+    boolean totalIngressosConforme =
+        this.getTotalIngressos().equals(this.getTiposDeIngresso()
+            .stream()
+            .reduce(0, (s, t) ->
+                s + t.getQuantidadeTotal(), Integer::sum));
+
+    return !(gratisConforme && totalIngressosConforme);
   }
 }

@@ -67,7 +67,7 @@ public class EventoService {
     if (!Formatador.isImagem(file.getOriginalFilename()))
       return null;
 
-    if (!evento.totalIngressosConforme())
+    if (evento.ingressosNaoConforme())
       return null;
 
     Produtora produtora = pesqProdutora.get();
@@ -107,8 +107,8 @@ public class EventoService {
 
     if (file != null && !Formatador.isImagem(file.getOriginalFilename()))
       return null;
-    
-    if (!evento.totalIngressosConforme())
+
+    if (evento.ingressosNaoConforme())
       return null;
 
     Evento legado = pesqEvento.get();
