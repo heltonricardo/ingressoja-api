@@ -67,6 +67,7 @@ public class AdministradorService {
             .emailJaCadastrado(administrador.getUsuario().getEmail()))
       return null;
 
+    legado.setNome(administrador.getNome());
     legado.getUsuario().setEmail(administrador.getUsuario().getEmail());
     legado.getUsuario().setSenha(administrador.getUsuario().getSenha());
 
