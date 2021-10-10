@@ -65,6 +65,23 @@ public class EventoController {
     return new ResponseEntity<>(resp, HttpStatus.OK);
   }
 
+  /************************* OBTER POR ID PARA EDIÇÃO *************************/
+
+  @GetMapping("paraEdicao/{id}")
+  public ResponseEntity<EventoDTOResp> obterPorIdEdicao(@PathVariable Long id) {
+
+    Optional<Evento> pesq = eventoService.obterPorId(id, UsarFiltro.NAO);
+
+    if (pesq.isEmpty())
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+    Evento evento = pesq.get();
+
+    EventoDTOResp resp = EventoDTOResp.paraDTO(evento);
+
+    return new ResponseEntity<>(resp, HttpStatus.OK);
+  }
+
   /************************** PODE ALTERAR/EXCLUIR? ***************************/
 
   @GetMapping("/alterar/{id}")
