@@ -65,6 +65,10 @@ public class EventoDTO {
   @Size(max = 8, groups = EventoPresencial.class)
   private String cep;
 
+  @NotBlank(groups = Default.class)
+  @Positive(groups = Default.class)
+  private Integer totalIngressos;
+
   @NotNull(groups = Default.class)
   @PositiveOrZero(groups = Default.class)
   private Long idProdutora;
@@ -84,7 +88,7 @@ public class EventoDTO {
     tiposDeIngresso.forEach(t -> tipos.add(t.paraObjeto()));
 
     return new Evento(titulo, inicio, termino, descricao, online,
-        url, logradouro, numero, bairro, cidade, uf, cep, tipos, idProdutora,
-        idCategoria);
+        url, logradouro, numero, bairro, cidade, uf, cep, totalIngressos, tipos,
+        idProdutora, idCategoria);
   }
 }
