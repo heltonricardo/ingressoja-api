@@ -129,6 +129,7 @@ public class EventoService {
     legado.setDescricao(evento.getDescricao());
     legado.setLogradouro(evento.getLogradouro());
     legado.setCategoriaEvento(pesqCategoria.get());
+    legado.setTotalIngressos(evento.getTotalIngressos());
 
     legado.getTiposDeIngresso().forEach(tipoDeIngressoService::remover);
     legado.setTiposDeIngresso(evento.getTiposDeIngresso());
