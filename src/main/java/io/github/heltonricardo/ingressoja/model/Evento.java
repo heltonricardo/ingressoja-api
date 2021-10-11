@@ -66,6 +66,9 @@ public class Evento {
   @Column(nullable = false)
   private Boolean ativo = true;
 
+  @Column(nullable = false)
+  private Integer totalIngressos;
+
   @ManyToOne(cascade = CascadeType.PERSIST)
   private Produtora produtora;
 
@@ -85,8 +88,8 @@ public class Evento {
   public Evento(String titulo, Date inicio, Date termino, String descricao,
                 Boolean online, String url, String logradouro, String numero,
                 String bairro, String cidade, String uf, String cep,
-                List<TipoDeIngresso> tiposDeIngresso, Long idProdutora,
-                Long idCategoria) {
+                Integer totalIngressos, List<TipoDeIngresso> tiposDeIngresso,
+                Long idProdutora, Long idCategoria) {
     this.titulo = titulo;
     this.inicio = inicio;
     this.termino = termino;
@@ -99,6 +102,7 @@ public class Evento {
     this.cidade = cidade;
     this.uf = uf;
     this.cep = cep;
+    this.totalIngressos = totalIngressos;
     this.tiposDeIngresso = tiposDeIngresso;
     this.idProdutora = idProdutora;
     this.idCategoria = idCategoria;
@@ -124,5 +128,27 @@ public class Evento {
             .filter(t -> hojeEstaEntre(t.getInicio(), t.getTermino())
                 && t.getQuantidadeDisponivel() > 0)
             .collect(Collectors.toList()));
+  }
+
+  /********************** INGRESSOS NÃO ESTÃO CONFORME? ***********************/
+
+  public boolean ingressosNaoConforme() {
+
+    int maxGratis = (int) (this.getTotalIngressos() * 0.1);
+
+    boolean gratisConforme =
+        maxGratis >= this.getTiposDeIngresso()
+            .stream()
+            .filter(t -> t.getValor() == 0.0)
+            .reduce(0, (s, t) ->
+                s + t.getQuantidadeTotal(), Integer::sum);
+
+    boolean totalIngressosConforme =
+        this.getTotalIngressos().equals(this.getTiposDeIngresso()
+            .stream()
+            .reduce(0, (s, t) ->
+                s + t.getQuantidadeTotal(), Integer::sum));
+
+    return !(gratisConforme && totalIngressosConforme);
   }
 }

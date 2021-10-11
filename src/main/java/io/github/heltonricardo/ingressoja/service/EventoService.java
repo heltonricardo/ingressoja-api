@@ -38,7 +38,8 @@ public class EventoService {
 
   public Iterable<Evento> obterTodos() {
 
-    return eventoRepository.findByTerminoGreaterThanEqual(new Date());
+    return eventoRepository
+        .findByTerminoGreaterThanEqualOrderByInicioAsc(new Date());
   }
 
   /******************************* OBTER POR ID *******************************/
@@ -65,6 +66,9 @@ public class EventoService {
       return null;
 
     if (!Formatador.isImagem(file.getOriginalFilename()))
+      return null;
+
+    if (evento.ingressosNaoConforme())
       return null;
 
     Produtora produtora = pesqProdutora.get();
@@ -105,6 +109,9 @@ public class EventoService {
     if (file != null && !Formatador.isImagem(file.getOriginalFilename()))
       return null;
 
+    if (evento.ingressosNaoConforme())
+      return null;
+
     Evento legado = pesqEvento.get();
 
     if (legado.possuiIngressosVendidos())
@@ -123,6 +130,7 @@ public class EventoService {
     legado.setDescricao(evento.getDescricao());
     legado.setLogradouro(evento.getLogradouro());
     legado.setCategoriaEvento(pesqCategoria.get());
+    legado.setTotalIngressos(evento.getTotalIngressos());
 
     legado.getTiposDeIngresso().forEach(tipoDeIngressoService::remover);
     legado.setTiposDeIngresso(evento.getTiposDeIngresso());
