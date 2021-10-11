@@ -136,7 +136,7 @@ public class Evento {
 
     int maxGratis = (int) (this.getTotalIngressos() * 0.1);
 
-    boolean gratisConforme = 
+    boolean gratisConforme =
         maxGratis >= this.getTiposDeIngresso()
             .stream()
             .filter(t -> t.getValor() == 0.0)

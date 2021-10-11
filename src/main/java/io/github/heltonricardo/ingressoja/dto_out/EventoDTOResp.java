@@ -27,6 +27,7 @@ public class EventoDTOResp {
   private final String cidade;
   private final String uf;
   private final String cep;
+  private final Integer totalIngressos;
   private final ProdutoraDTORespEvento produtora;
   private final CategoriaEventoDTORespSimples categoriaEvento;
   private final List<TipoDeIngressoDTOResp> tiposDeIngresso;
@@ -42,6 +43,7 @@ public class EventoDTOResp {
         evento.getDescricao(), evento.getOnline(), evento.getUrl(),
         evento.getLogradouro(), evento.getNumero(), evento.getBairro(),
         evento.getCidade(), evento.getUf(), evento.getCep(),
+        evento.getTotalIngressos(),
         ProdutoraDTORespEvento.paraDTO(evento.getProdutora()),
         CategoriaEventoDTORespSimples.paraDTO(evento.getCategoriaEvento()),
         tipos);

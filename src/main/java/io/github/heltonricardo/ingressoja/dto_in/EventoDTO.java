@@ -65,7 +65,7 @@ public class EventoDTO {
   @Size(max = 8, groups = EventoPresencial.class)
   private String cep;
 
-  @NotBlank(groups = Default.class)
+  @NotNull(groups = Default.class)
   @Positive(groups = Default.class)
   private Integer totalIngressos;
 
