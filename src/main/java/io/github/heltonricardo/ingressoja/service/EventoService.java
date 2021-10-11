@@ -38,7 +38,8 @@ public class EventoService {
 
   public Iterable<Evento> obterTodos() {
 
-    return eventoRepository.findByTerminoGreaterThanEqual(new Date());
+    return eventoRepository
+        .findByTerminoGreaterThanEqualOrderByInicioAsc(new Date());
   }
 
   /******************************* OBTER POR ID *******************************/
