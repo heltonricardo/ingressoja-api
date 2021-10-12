@@ -7,17 +7,19 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class ItemPedidoDTORespPedido {
+public class ItemPedidoDTOResp {
 
   private final Long id;
   private final String ingressante;
   private final String cpf;
+  private final Boolean utilizado;
   private final TipoDeIngressoDTORespItemPedido tipoDeIngresso;
 
-  public static ItemPedidoDTORespPedido paraDTO(ItemPedido itemPedido) {
-    return new ItemPedidoDTORespPedido(itemPedido.getId(),
-        itemPedido.getIngressante(), itemPedido.getCpf(),
-        TipoDeIngressoDTORespItemPedido.paraDTO(
+  public static ItemPedidoDTOResp paraDTO(ItemPedido itemPedido) {
+
+    return new ItemPedidoDTOResp(
+        itemPedido.getId(), itemPedido.getIngressante(), itemPedido.getCpf(),
+        itemPedido.getUtilizado(), TipoDeIngressoDTORespItemPedido.paraDTO(
             itemPedido.getTipoDeIngresso()));
   }
 }

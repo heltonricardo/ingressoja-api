@@ -22,6 +22,9 @@ public class ItemPedido {
   @Column(length = 11, nullable = false)
   private String cpf;
 
+  @Column(nullable = false)
+  private Boolean utilizado = false;
+
   @ManyToOne
   private TipoDeIngresso tipoDeIngresso;
 
@@ -33,5 +36,15 @@ public class ItemPedido {
     this.ingressante = ingressante;
     this.cpf = cpf;
     this.idTipoDeIngresso = idTipoDeIngresso;
+  }
+
+  public void utilizar() {
+
+    this.setUtilizado(true);
+  }
+
+  public boolean cpfPertenceAoItem(String cpf) {
+
+    return this.getCpf().equals(cpf);
   }
 }

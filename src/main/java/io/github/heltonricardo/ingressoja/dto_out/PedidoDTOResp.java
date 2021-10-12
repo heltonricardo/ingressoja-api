@@ -18,14 +18,14 @@ public class PedidoDTOResp {
   private final String numeroCartao;
   private final Double valorTotal;
   private final EventoDTOResp evento;
-  private final List<ItemPedidoDTORespPedido> itensPedido;
+  private final List<ItemPedidoDTOResp> itensPedido;
 
   public static PedidoDTOResp paraDTO(Pedido pedido) {
 
-    List<ItemPedidoDTORespPedido> itens = new ArrayList<>();
+    List<ItemPedidoDTOResp> itens = new ArrayList<>();
 
     pedido.getItensPedido()
-        .forEach(i -> itens.add(ItemPedidoDTORespPedido.paraDTO(i)));
+        .forEach(i -> itens.add(ItemPedidoDTOResp.paraDTO(i)));
 
     return new PedidoDTOResp(
         pedido.getId(),
