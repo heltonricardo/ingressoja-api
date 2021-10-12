@@ -24,10 +24,10 @@ public class ItemPedidoController {
     this.itemPedidoService = itemPedidoService;
   }
 
-  /******************************** VERIFICAR *********************************/
+  /********************************* VALIDAR **********************************/
 
-  @GetMapping("/verificar")
-  public ResponseEntity<ItemPedidoDTORespVerificar> verificar(
+  @PutMapping("/validar")
+  public ResponseEntity<ItemPedidoDTORespVerificar> validar(
       @RequestBody ObjectNode obj) {
 
     try {
