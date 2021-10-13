@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import io.github.heltonricardo.ingressoja.dto_in.EventoDTO;
 import io.github.heltonricardo.ingressoja.dto_out.EventoDTOResp;
 import io.github.heltonricardo.ingressoja.dto_out.EventoDTORespGrade;
+import io.github.heltonricardo.ingressoja.dto_out.EventoDTORespVendas;
 import io.github.heltonricardo.ingressoja.model.Evento;
 import io.github.heltonricardo.ingressoja.service.EventoService;
 import io.github.heltonricardo.ingressoja.utils.UsarFiltro;
@@ -78,6 +79,24 @@ public class EventoController {
     Evento evento = pesq.get();
 
     EventoDTOResp resp = EventoDTOResp.paraDTO(evento);
+
+    return new ResponseEntity<>(resp, HttpStatus.OK);
+  }
+
+  /*************************** OBTER ITENS VENDIDOS ***************************/
+
+  @GetMapping("/{id}/itens-vendidos")
+  public ResponseEntity<EventoDTORespVendas> obterItensVendidos(
+      @PathVariable Long id) {
+
+    Optional<Evento> pesq = eventoService.obterPorId(id, UsarFiltro.NAO);
+
+    if (pesq.isEmpty())
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+    Evento evento = pesq.get();
+
+    EventoDTORespVendas resp = EventoDTORespVendas.paraDTO(evento);
 
     return new ResponseEntity<>(resp, HttpStatus.OK);
   }
