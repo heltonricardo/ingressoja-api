@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -40,6 +41,9 @@ public class TipoDeIngresso {
 
   @Column(nullable = false)
   private Boolean ativo = true;
+
+  @OneToMany(mappedBy = "tipoDeIngresso")
+  private List<ItemPedido> itensPedido;
 
   @ManyToOne
   private Evento evento;
