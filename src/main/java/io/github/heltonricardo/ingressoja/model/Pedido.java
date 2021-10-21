@@ -21,18 +21,6 @@ public class Pedido {
   @Column(nullable = false)
   private Date dataHora;
 
-  @Column(length = 19, nullable = false)
-  private String numeroCartao;
-
-  @Column(length = 4, nullable = false)
-  private String codigoCartao;
-
-  @Column(nullable = false)
-  private String nomeTitular;
-
-  @Column(length = 11, nullable = false)
-  private String cpfTitular;
-
   @Column(nullable = false)
   private Double valorTotal;
 
@@ -51,15 +39,9 @@ public class Pedido {
   @Transient
   private Long idComprador;
 
-  public Pedido(Date dataHora, String numeroCartao,
-                String codigoCartao, String nomeTitular,
-                String cpfTitular, List<ItemPedido> itensPedido,
+  public Pedido(Date dataHora, List<ItemPedido> itensPedido,
                 Long idComprador, Long idEvento) {
     this.dataHora = dataHora;
-    this.numeroCartao = numeroCartao;
-    this.codigoCartao = codigoCartao;
-    this.nomeTitular = nomeTitular;
-    this.cpfTitular = cpfTitular;
     this.itensPedido = itensPedido;
     this.idComprador = idComprador;
     this.idEvento = idEvento;
