@@ -41,9 +41,6 @@ public class Produtora {
   @OneToOne(cascade = CascadeType.PERSIST)
   private Usuario usuario;
 
-  @OneToMany(cascade = CascadeType.PERSIST)
-  private List<Saque> saques;
-
   public Produtora(String nomeFantasia, String razaoSocial,
                    String cnpj, String publicToken, Usuario usuario) {
     this.nomeFantasia = nomeFantasia;

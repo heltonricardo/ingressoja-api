@@ -29,9 +29,6 @@ public class Administrador {
   @OneToOne(cascade = CascadeType.PERSIST)
   private Usuario usuario;
 
-  @OneToMany(cascade = CascadeType.PERSIST)
-  List<Saque> saques;
-
   public Administrador(String nome, Usuario usuario) {
     this.nome = nome;
     this.usuario = usuario;
