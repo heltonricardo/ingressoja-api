@@ -99,8 +99,8 @@ public class PedidoService {
     Produtora produtora = evento.getProdutora();
     produtora.setValorCarteira(produtora.getValorCarteira() + total);
 
+    pedido.setUrlPagamento("");
     Pedido pedidoSalvo = pedidoRepository.save(pedido);
-
     String urlPagamento = Pagamento.gerarUrlPagamento(pedidoSalvo);
 
     if (urlPagamento == null) {
@@ -108,6 +108,8 @@ public class PedidoService {
       System.out.println("Ocorreu um erro!");
     }
 
+    pedido.setUrlPagamento(urlPagamento);
+    pedidoRepository.save(pedido);
     return urlPagamento;
   }
 }

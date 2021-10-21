@@ -24,6 +24,9 @@ public class Pedido {
   @Column(nullable = false)
   private Double valorTotal;
 
+  @Column(length = 1000, nullable = false)
+  private String urlPagamento;
+
   @ManyToOne(cascade = CascadeType.ALL)
   private Evento evento;
 

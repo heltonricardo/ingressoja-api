@@ -22,11 +22,13 @@ public abstract class Pagamento {
 
       pedido.getItensPedido().forEach(i -> itensPagamento.add(
           new Item()
-              .setTitle(i.getTipoDeIngresso().getNome())
               .setQuantity(1)
+              .setTitle(i.getTipoDeIngresso().getEvento().getTitulo() + " - " +
+                  i.getIngressante())
               .setUnitPrice(i.getTipoDeIngresso().getValor().floatValue())));
 
       Preference preference = new Preference();
+      preference.setExternalReference(pedido.getId().toString());
       itensPagamento.forEach(preference::appendItem);
       preference.save();
       return preference.getSandboxInitPoint();

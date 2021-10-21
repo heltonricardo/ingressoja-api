@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("pedido")
@@ -53,12 +55,16 @@ public class PedidoController {
   /********************************** SALVAR **********************************/
 
   @PostMapping
-  public ResponseEntity<String> salvar(@RequestBody @Valid PedidoDTO dto) {
+  public ResponseEntity<Map<String, String>> salvar(
+      @RequestBody @Valid PedidoDTO dto) {
 
-    String resp = pedidoService.salvar(dto.paraObjeto());
+    String url = pedidoService.salvar(dto.paraObjeto());
 
-    if (resp == null)
+    if (url == null)
       return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+    Map<String, String> resp = new HashMap<>();
+    resp.put("urlPagamento", url);
 
     return new ResponseEntity<>(resp, HttpStatus.CREATED);
   }
