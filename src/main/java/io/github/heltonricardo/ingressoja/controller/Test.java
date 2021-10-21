@@ -1,7 +1,8 @@
 package io.github.heltonricardo.ingressoja.controller;
 
-import com.mercadopago.exceptions.MPConfException;
 import io.github.heltonricardo.ingressoja.utils.Pagamento;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,9 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class Test {
 
   @GetMapping
-  public void pagseguro() throws Exception {
+  public ResponseEntity<String> pagamento() {
 
-    //MercadoPago.autorizaaekkk();
-    Pagamento.gerarLinkPagamento(null);
+    String resp = Pagamento.gerarUrlPagamento(null);
+
+    if (resp == null)
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+    return new ResponseEntity<>(resp, HttpStatus.OK);
   }
 }

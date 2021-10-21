@@ -2,7 +2,6 @@ package io.github.heltonricardo.ingressoja.controller;
 
 import io.github.heltonricardo.ingressoja.dto_in.PedidoDTO;
 import io.github.heltonricardo.ingressoja.dto_out.PedidoDTOResp;
-import io.github.heltonricardo.ingressoja.model.Pedido;
 import io.github.heltonricardo.ingressoja.service.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -54,15 +53,13 @@ public class PedidoController {
   /********************************** SALVAR **********************************/
 
   @PostMapping
-  public ResponseEntity<PedidoDTOResp> salvar(@RequestBody @Valid PedidoDTO dto) {
+  public ResponseEntity<String> salvar(@RequestBody @Valid PedidoDTO dto) {
 
-    Pedido resp = pedidoService.salvar(dto.paraObjeto());
+    String resp = pedidoService.salvar(dto.paraObjeto());
 
     if (resp == null)
       return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
-    PedidoDTOResp dtoResp = PedidoDTOResp.paraDTO(resp);
-
-    return new ResponseEntity<>(dtoResp, HttpStatus.CREATED);
+    return new ResponseEntity<>(resp, HttpStatus.CREATED);
   }
 }

@@ -2,6 +2,7 @@ package io.github.heltonricardo.ingressoja.service;
 
 import io.github.heltonricardo.ingressoja.model.*;
 import io.github.heltonricardo.ingressoja.repository.PedidoRepository;
+import io.github.heltonricardo.ingressoja.utils.Pagamento;
 import io.github.heltonricardo.ingressoja.utils.UsarFiltro;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,7 +41,7 @@ public class PedidoService {
 
   /********************************** SALVAR **********************************/
 
-  public Pedido salvar(Pedido pedido) {
+  public String salvar(Pedido pedido) {
 
     Optional<Evento> pesqEvento =
         eventoService.obterPorId(pedido.getIdEvento(), UsarFiltro.SIM);
@@ -98,6 +99,15 @@ public class PedidoService {
     Produtora produtora = evento.getProdutora();
     produtora.setValorCarteira(produtora.getValorCarteira() + total);
 
-    return pedidoRepository.save(pedido);
+    Pedido pedidoSalvo = pedidoRepository.save(pedido);
+
+    String urlPagamento = Pagamento.gerarUrlPagamento(pedidoSalvo);
+
+    if (urlPagamento == null) {
+      // TODO
+      System.out.println("Ocorreu um erro!");
+    }
+
+    return urlPagamento;
   }
 }
