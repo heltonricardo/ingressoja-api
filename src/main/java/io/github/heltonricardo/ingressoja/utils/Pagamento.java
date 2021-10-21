@@ -28,8 +28,8 @@ public abstract class Pagamento {
               .setUnitPrice(i.getTipoDeIngresso().getValor().floatValue())));
 
       Preference preference = new Preference();
-      preference.setExternalReference(pedido.getId().toString());
       itensPagamento.forEach(preference::appendItem);
+      preference.setExternalReference(pedido.getId().toString());
       preference.save();
       return preference.getSandboxInitPoint();
     } //

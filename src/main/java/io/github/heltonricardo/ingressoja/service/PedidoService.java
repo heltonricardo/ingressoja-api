@@ -1,6 +1,9 @@
 package io.github.heltonricardo.ingressoja.service;
 
-import io.github.heltonricardo.ingressoja.model.*;
+import io.github.heltonricardo.ingressoja.model.Comprador;
+import io.github.heltonricardo.ingressoja.model.Evento;
+import io.github.heltonricardo.ingressoja.model.Pedido;
+import io.github.heltonricardo.ingressoja.model.TipoDeIngresso;
 import io.github.heltonricardo.ingressoja.repository.PedidoRepository;
 import io.github.heltonricardo.ingressoja.utils.Pagamento;
 import io.github.heltonricardo.ingressoja.utils.UsarFiltro;
@@ -37,6 +40,14 @@ public class PedidoService {
 
   public Optional<Pedido> obterPorId(Long id) {
     return pedidoRepository.findById(id);
+  }
+
+  /***************************** CANCELAR PEDIDO ******************************/
+
+  public void cancelar(Pedido pedido) {
+    pedido.devolverIngressos();
+    pedido.desvincularEntidades();
+    pedidoRepository.delete(pedido);
   }
 
   /********************************** SALVAR **********************************/
@@ -78,38 +89,35 @@ public class PedidoService {
       Optional<TipoDeIngresso> pesqTipoDeIngresso =
           tipoDeIngressoService.obterPorId(pesqId);
 
-      TipoDeIngresso tipoDeIngresso = pesqTipoDeIngresso.get();
-
-      tipoDeIngresso.setQuantidadeDisponivel(
-          tipoDeIngresso.getQuantidadeDisponivel() - 1);
-
-      item.setTipoDeIngresso(tipoDeIngresso);
+      if (pesqTipoDeIngresso.isPresent()) {
+        TipoDeIngresso tipoDeIngresso = pesqTipoDeIngresso.get();
+        tipoDeIngresso.decrementarQntDisp();
+        item.setTipoDeIngresso(tipoDeIngresso);
+      }
     });
 
     Comprador comprador = pesqComprador.get();
-
     pedido.setComprador(comprador);
 
-    Double total = pedido.getItensPedido().stream()
-        .reduce(0.0, (s, item) ->
-            s + item.getTipoDeIngresso().getValor(), Double::sum);
-
-    pedido.setValorTotal(total);
-
-    Produtora produtora = evento.getProdutora();
-    produtora.setValorCarteira(produtora.getValorCarteira() + total);
-
+    pedido.setValorTotal(pedido.calcularTotal());
     pedido.setUrlPagamento("");
     Pedido pedidoSalvo = pedidoRepository.save(pedido);
-    String urlPagamento = Pagamento.gerarUrlPagamento(pedidoSalvo);
 
-    if (urlPagamento == null) {
-      // TODO
-      System.out.println("Ocorreu um erro!");
+    String urlPagamento = "";
+
+    if (pedido.getValorTotal() != 0) {
+
+      urlPagamento = Pagamento.gerarUrlPagamento(pedidoSalvo);
+
+      if (urlPagamento == null) {
+        this.cancelar(pedido);
+        return null;
+      }
+
+      pedido.setUrlPagamento(urlPagamento);
+      pedidoRepository.save(pedido);
     }
 
-    pedido.setUrlPagamento(urlPagamento);
-    pedidoRepository.save(pedido);
     return urlPagamento;
   }
 }

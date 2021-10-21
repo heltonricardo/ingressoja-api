@@ -60,4 +60,16 @@ public class TipoDeIngresso {
     this.inicio = inicio;
     this.termino = termino;
   }
+
+  public void incrementarQntDisp() {
+    this.setQuantidadeDisponivel(
+        Math.min(this.getQuantidadeDisponivel() + 1,
+            this.getQuantidadeTotal()));
+  }
+
+  public void decrementarQntDisp() {
+    this.setQuantidadeDisponivel(
+        Math.max(this.getQuantidadeDisponivel() - 1,
+            1));
+  }
 }

@@ -27,10 +27,10 @@ public class Pedido {
   @Column(length = 1000, nullable = false)
   private String urlPagamento;
 
-  @ManyToOne(cascade = CascadeType.ALL)
+  @ManyToOne
   private Evento evento;
 
-  @ManyToOne(cascade = CascadeType.ALL)
+  @ManyToOne
   private Comprador comprador;
 
   @OneToMany(cascade = CascadeType.ALL)
@@ -48,5 +48,21 @@ public class Pedido {
     this.itensPedido = itensPedido;
     this.idComprador = idComprador;
     this.idEvento = idEvento;
+  }
+
+  public Double calcularTotal() {
+    return this.getItensPedido().stream()
+        .reduce(0.0, (s, item) ->
+            s + item.getTipoDeIngresso().getValor(), Double::sum);
+  }
+
+  public void devolverIngressos() {
+    this.getItensPedido()
+        .forEach(i -> i.getTipoDeIngresso().incrementarQntDisp());
+  }
+
+  public void desvincularEntidades() {
+    this.setEvento(null);
+    this.setComprador(null);
   }
 }

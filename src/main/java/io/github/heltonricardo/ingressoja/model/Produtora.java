@@ -30,16 +30,7 @@ public class Produtora {
   private String cnpj;
 
   @Column(length = 50, nullable = false)
-  private String banco;
-
-  @Column(length = 20, nullable = false)
-  private String agencia;
-
-  @Column(length = 20, nullable = false)
-  private String conta;
-
-  @Column(nullable = false)
-  private Double valorCarteira = 0.0;
+  private String publicToken;
 
   @Column(nullable = false)
   private Boolean ativo = true;
@@ -54,14 +45,11 @@ public class Produtora {
   private List<Saque> saques;
 
   public Produtora(String nomeFantasia, String razaoSocial,
-                   String cnpj, String banco, String agencia, String conta,
-                   Usuario usuario) {
+                   String cnpj, String publicToken, Usuario usuario) {
     this.nomeFantasia = nomeFantasia;
     this.razaoSocial = razaoSocial;
     this.cnpj = cnpj;
-    this.banco = banco;
-    this.agencia = agencia;
-    this.conta = conta;
+    this.publicToken = publicToken;
     this.usuario = usuario;
   }
 }
