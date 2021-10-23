@@ -1,8 +1,5 @@
 package io.github.heltonricardo.ingressoja.utils;
 
-import java.util.Arrays;
-import java.util.List;
-
 public abstract class StatusPedido {
 
   public static final String PROCESSADO = "Processado";

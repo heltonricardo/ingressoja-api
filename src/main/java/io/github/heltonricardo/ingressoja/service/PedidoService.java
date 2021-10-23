@@ -37,7 +37,7 @@ public class PedidoService {
 
   private void atualizarStatus(Pedido pedido) {
     if (pedido.isStatusPgtoPendente()) {
-      pedido.atualizaStatusPagamento();
+      pedido.atualizarStatusPagamento();
       if (pedido.isStatusPgtoAprovado()) {
         pedido.setStatusPedido(StatusPedido.PROCESSADO);
       } //

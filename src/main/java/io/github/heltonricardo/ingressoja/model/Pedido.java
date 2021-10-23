@@ -82,7 +82,12 @@ public class Pedido {
     return this.getStatusPagamento().equals(StatusPgto.RECUSADO);
   }
 
-  public void atualizaStatusPagamento() {
-      this.statusPagamento = Pagamento.consultarPagamento(this);
+  public void atualizarStatusPagamento() {
+
+    String res = Pagamento.consultarPagamento(this);
+
+    if (res != null) {
+      this.statusPagamento = res;
+    }
   }
 }

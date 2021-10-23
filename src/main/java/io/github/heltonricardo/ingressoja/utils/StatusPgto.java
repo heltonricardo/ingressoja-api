@@ -13,6 +13,7 @@ public abstract class StatusPgto {
       PENDENTE);
 
   public static final String PESQ_APPROVED = converterParaPesquisa(APROVADO);
+  public static final String PESQ_RECUSADO = converterParaPesquisa(RECUSADO);
   public static final String PESQ_IN_PROGRESS =
       converterParaPesquisa(PENDENTE);
 

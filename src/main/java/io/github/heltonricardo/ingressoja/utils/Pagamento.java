@@ -25,32 +25,40 @@ public abstract class Pagamento {
   private static final String URL_CONSULTA_PAGAMENTO =
       "https://api.mercadopago.com/v1/payments/search?external_reference=";
 
-  /*************************** CONSULTAR PAGAMENTO ****************************/
+  /***************************** FAZER REQUISIÇÃO *****************************/
 
-  public static String consultarPagamento(Pedido pedido) {
-
-    String idPedido = pedido.getId().toString();
+  public static String fazerRequisicao(String url) {
 
     try {
-      HttpGet request = new HttpGet(URL_CONSULTA_PAGAMENTO + idPedido);
+      HttpGet request = new HttpGet(url);
       request.setHeader(HttpHeaders.AUTHORIZATION,
           "Bearer " + ACCESS_TOKEN);
       CloseableHttpClient client = HttpClients.createDefault();
       CloseableHttpResponse response = client.execute(request);
       HttpEntity entity = response.getEntity();
-      String result = EntityUtils.toString(entity);
-
-      if (result.contains(StatusPgto.PESQ_APPROVED)) {
-        return StatusPgto.APROVADO;
-      } //
-      else if (result.contains(StatusPgto.PESQ_IN_PROGRESS)) {
-        return StatusPgto.PENDENTE;
-      }
-
-      throw new Exception();
-    } catch (Exception ignored) {
-      return StatusPgto.RECUSADO;
+      return EntityUtils.toString(entity);
+    } catch (Exception e) {
+      return null;
     }
+  }
+
+  /*************************** CONSULTAR PAGAMENTO ****************************/
+
+  public static String consultarPagamento(Pedido pedido) {
+
+    String idPedido = pedido.getId().toString();
+    String resposta = fazerRequisicao(URL_CONSULTA_PAGAMENTO + idPedido);
+
+    if (resposta == null)
+      return null;
+    if (resposta.contains(StatusPgto.PESQ_APPROVED))
+      return StatusPgto.APROVADO;
+    if (resposta.contains(StatusPgto.PESQ_IN_PROGRESS))
+      return StatusPgto.PENDENTE;
+    if (resposta.contains(StatusPgto.PESQ_RECUSADO))
+      return StatusPgto.RECUSADO;
+
+    return null;
   }
 
   /************************** GERAR URL DE PAGAMENTO **************************/
