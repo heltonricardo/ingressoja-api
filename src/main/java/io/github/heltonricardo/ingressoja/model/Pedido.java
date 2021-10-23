@@ -1,6 +1,7 @@
 package io.github.heltonricardo.ingressoja.model;
 
 import io.github.heltonricardo.ingressoja.utils.Pagamento;
+import io.github.heltonricardo.ingressoja.utils.StatusPedido;
 import io.github.heltonricardo.ingressoja.utils.StatusPgto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,7 +31,10 @@ public class Pedido {
   private String urlPagamento;
 
   @Column(length = 10, nullable = false)
-  private String statusPagamento = StatusPgto.IN_PROGRESS;
+  private String statusPagamento = StatusPgto.PENDENTE;
+
+  @Column(length = 50, nullable = false)
+  private String statusPedido = StatusPedido.AGUARDANDO_PGTO;
 
   @ManyToOne
   private Evento evento;
@@ -67,11 +71,11 @@ public class Pedido {
   }
 
   public boolean isStatusPgtoPendente() {
-    return this.getStatusPagamento().equals(StatusPgto.IN_PROGRESS);
+    return this.getStatusPagamento().equals(StatusPgto.PENDENTE);
   }
 
   public boolean isStatusPgtoRejeitado() {
-    return this.getStatusPagamento().equals(StatusPgto.REJECTED);
+    return this.getStatusPagamento().equals(StatusPgto.RECUSADO);
   }
 
   public void atualizaStatusPagamento() {

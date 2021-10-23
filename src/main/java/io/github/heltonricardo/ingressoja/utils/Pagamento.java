@@ -39,16 +39,16 @@ public abstract class Pagamento {
       String result = EntityUtils.toString(entity);
 
       if (result.contains(StatusPgto.PESQ_APPROVED)) {
-        return StatusPgto.APPROVED;
+        return StatusPgto.APROVADO;
       } //
       else if (result.contains(StatusPgto.PESQ_IN_PROGRESS)) {
-        return StatusPgto.IN_PROGRESS;
+        return StatusPgto.PENDENTE;
       }
 
       throw new Exception();
     } catch (
         Exception ignored) {
-      return StatusPgto.REJECTED;
+      return StatusPgto.RECUSADO;
     }
 
   }

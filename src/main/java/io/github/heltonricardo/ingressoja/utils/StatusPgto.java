@@ -5,16 +5,16 @@ import java.util.List;
 
 public abstract class StatusPgto {
 
-  public static final String APPROVED = "approved";
-  public static final String REJECTED = "rejected";
-  public static final String IN_PROGRESS = "in_process";
+  public static final String APROVADO = "approved";
+  public static final String RECUSADO = "rejected";
+  public static final String PENDENTE = "in_process";
 
-  private static final List<String> TODOS = Arrays.asList(APPROVED, REJECTED,
-      IN_PROGRESS);
+  private static final List<String> TODOS = Arrays.asList(APROVADO, RECUSADO,
+      PENDENTE);
 
-  public static final String PESQ_APPROVED = converterParaPesquisa(APPROVED);
+  public static final String PESQ_APPROVED = converterParaPesquisa(APROVADO);
   public static final String PESQ_IN_PROGRESS =
-      converterParaPesquisa(IN_PROGRESS);
+      converterParaPesquisa(PENDENTE);
 
   public static String converterParaPesquisa(String termo) {
     return "\"" + termo + "\"";
