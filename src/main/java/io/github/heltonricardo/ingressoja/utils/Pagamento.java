@@ -12,7 +12,6 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,21 +25,32 @@ public abstract class Pagamento {
 
   /*************************** CONSULTAR PAGAMENTO ****************************/
 
-  public static void consultarPagamento(String idPedido/*Pedido pedido*/) {
+  public static String consultarPagamento(String idPedido/*Pedido pedido*/) {
 
     //String idPedido = pedido.getId().toString();
 
     try {
       HttpGet request = new HttpGet(URL_CONSULTA_PAGAMENTO + idPedido);
-      request.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + ACCESS_TOKEN);
+      request.setHeader(HttpHeaders.AUTHORIZATION,
+          "Bearer " + ACCESS_TOKEN);
       CloseableHttpClient client = HttpClients.createDefault();
       CloseableHttpResponse response = client.execute(request);
       HttpEntity entity = response.getEntity();
       String result = EntityUtils.toString(entity);
-      System.out.println(result);
-    } catch (IOException e) {
-      e.printStackTrace();
+
+      if (result.contains(StatusPgto.PESQ_APPROVED)) {
+        return StatusPgto.APPROVED;
+      } //
+      else if (result.contains(StatusPgto.PESQ_IN_PROGRESS)) {
+        return StatusPgto.IN_PROGRESS;
+      }
+
+      throw new Exception();
+    } catch (
+        Exception ignored) {
+      return StatusPgto.REJECTED;
     }
+
   }
 
   /************************** GERAR URL DE PAGAMENTO **************************/

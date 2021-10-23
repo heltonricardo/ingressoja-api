@@ -26,9 +26,9 @@ public class PedidoController {
     this.pedidoService = pedidoService;
   }
 
-  @GetMapping("/teste")
-  public void teste() {
-    Pagamento.consultarPagamento("21");
+  @GetMapping("/teste/{n}")
+  public void teste(@PathVariable String n) {
+    Pagamento.consultarPagamento(n);
   }
 
   /******************************* OBTER TODOS ********************************/
