@@ -39,8 +39,13 @@ public class PedidoService {
     Iterable<Pedido> resp = pedidoRepository.findAll();
 
     resp.forEach(p -> {
-      p.setStatusPagamento();
-      pedidoRepository.save(p);
+      if (p.isStatusPgtoPendente()) {
+        p.atualizaStatusPagamento();
+        if (p.isStatusPgtoRejeitado()) {
+          p.devolverIngressos();
+        }
+        pedidoRepository.save(p);
+      }
     });
 
     return resp;
@@ -54,19 +59,18 @@ public class PedidoService {
 
     if (resp.isPresent()) {
       Pedido pedido = resp.get();
-      pedido.setStatusPagamento();
+
+      if (pedido.isStatusPgtoPendente()) {
+        pedido.atualizaStatusPagamento();
+        if (pedido.isStatusPgtoRejeitado()) {
+          pedido.devolverIngressos();
+        }
+      }
+
       pedidoRepository.save(pedido);
     }
 
     return resp;
-  }
-
-  /***************************** CANCELAR PEDIDO ******************************/
-
-  public void cancelar(Pedido pedido) {
-    pedido.devolverIngressos();
-    pedido.desvincularEntidades();
-    pedidoRepository.delete(pedido);
   }
 
   /********************************** SALVAR **********************************/

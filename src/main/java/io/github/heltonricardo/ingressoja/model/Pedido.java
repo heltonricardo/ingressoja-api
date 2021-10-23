@@ -66,17 +66,15 @@ public class Pedido {
         .forEach(i -> i.getTipoDeIngresso().incrementarQntDisp());
   }
 
-  public void desvincularEntidades() {
-    this.setEvento(null);
-    this.setComprador(null);
-  }
-
   public boolean isStatusPgtoPendente() {
     return this.getStatusPagamento().equals(StatusPgto.IN_PROGRESS);
   }
 
-  public void setStatusPagamento() {
-    if (this.isStatusPgtoPendente())
+  public boolean isStatusPgtoRejeitado() {
+    return this.getStatusPagamento().equals(StatusPgto.REJECTED);
+  }
+
+  public void atualizaStatusPagamento() {
       this.statusPagamento = Pagamento.consultarPagamento(this);
   }
 }
