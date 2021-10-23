@@ -70,11 +70,15 @@ public class Pedido {
         .forEach(i -> i.getTipoDeIngresso().incrementarQntDisp());
   }
 
+  public boolean isStatusPgtoAprovado() {
+    return this.getStatusPagamento().equals(StatusPgto.APROVADO);
+  }
+
   public boolean isStatusPgtoPendente() {
     return this.getStatusPagamento().equals(StatusPgto.PENDENTE);
   }
 
-  public boolean isStatusPgtoRejeitado() {
+  public boolean isStatusPgtoRecusado() {
     return this.getStatusPagamento().equals(StatusPgto.RECUSADO);
   }
 

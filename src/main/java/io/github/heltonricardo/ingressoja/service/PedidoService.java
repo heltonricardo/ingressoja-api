@@ -6,6 +6,7 @@ import io.github.heltonricardo.ingressoja.model.Pedido;
 import io.github.heltonricardo.ingressoja.model.TipoDeIngresso;
 import io.github.heltonricardo.ingressoja.repository.PedidoRepository;
 import io.github.heltonricardo.ingressoja.utils.Pagamento;
+import io.github.heltonricardo.ingressoja.utils.StatusPedido;
 import io.github.heltonricardo.ingressoja.utils.UsarFiltro;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,22 +33,28 @@ public class PedidoService {
     this.tipoDeIngressoService = tipoDeIngressoService;
   }
 
+  /***************************** ATUALIZAR STATUS *****************************/
+
+  private void atualizarStatus(Pedido pedido) {
+    if (pedido.isStatusPgtoPendente()) {
+      pedido.atualizaStatusPagamento();
+      if (pedido.isStatusPgtoAprovado()) {
+        pedido.setStatusPedido(StatusPedido.PROCESSADO);
+      } //
+      else if (pedido.isStatusPgtoRecusado()) {
+        pedido.devolverIngressos();
+        pedido.setStatusPedido(StatusPedido.CANC_FALTA_PGTO);
+      }
+    }
+    pedidoRepository.save(pedido);
+  }
+
   /******************************* OBTER TODOS ********************************/
 
   public Iterable<Pedido> obterTodos() {
 
     Iterable<Pedido> resp = pedidoRepository.findAll();
-
-    resp.forEach(p -> {
-      if (p.isStatusPgtoPendente()) {
-        p.atualizaStatusPagamento();
-        if (p.isStatusPgtoRejeitado()) {
-          p.devolverIngressos();
-        }
-        pedidoRepository.save(p);
-      }
-    });
-
+    resp.forEach(this::atualizarStatus);
     return resp;
   }
 
@@ -59,15 +66,7 @@ public class PedidoService {
 
     if (resp.isPresent()) {
       Pedido pedido = resp.get();
-
-      if (pedido.isStatusPgtoPendente()) {
-        pedido.atualizaStatusPagamento();
-        if (pedido.isStatusPgtoRejeitado()) {
-          pedido.devolverIngressos();
-        }
-      }
-
-      pedidoRepository.save(pedido);
+      this.atualizarStatus(pedido);
     }
 
     return resp;
