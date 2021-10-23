@@ -17,6 +17,8 @@ import java.util.List;
 
 public abstract class Pagamento {
 
+  /******************************** CONSTANTES ********************************/
+
   private static final String ACCESS_TOKEN =
       "TEST-7436017717495917-102123-f03839ba0f06c99772d08f139537fb65-599638185";
 
@@ -46,11 +48,9 @@ public abstract class Pagamento {
       }
 
       throw new Exception();
-    } catch (
-        Exception ignored) {
+    } catch (Exception ignored) {
       return StatusPgto.RECUSADO;
     }
-
   }
 
   /************************** GERAR URL DE PAGAMENTO **************************/
