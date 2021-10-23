@@ -25,9 +25,9 @@ public abstract class Pagamento {
 
   /*************************** CONSULTAR PAGAMENTO ****************************/
 
-  public static String consultarPagamento(String idPedido/*Pedido pedido*/) {
+  public static String consultarPagamento(Pedido pedido) {
 
-    //String idPedido = pedido.getId().toString();
+    String idPedido = pedido.getId().toString();
 
     try {
       HttpGet request = new HttpGet(URL_CONSULTA_PAGAMENTO + idPedido);

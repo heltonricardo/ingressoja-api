@@ -3,7 +3,6 @@ package io.github.heltonricardo.ingressoja.controller;
 import io.github.heltonricardo.ingressoja.dto_in.PedidoDTO;
 import io.github.heltonricardo.ingressoja.dto_out.PedidoDTOResp;
 import io.github.heltonricardo.ingressoja.service.PedidoService;
-import io.github.heltonricardo.ingressoja.utils.Pagamento;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,11 +23,6 @@ public class PedidoController {
   @Autowired
   public PedidoController(PedidoService pedidoService) {
     this.pedidoService = pedidoService;
-  }
-
-  @GetMapping("/teste/{n}")
-  public void teste(@PathVariable String n) {
-    Pagamento.consultarPagamento(n);
   }
 
   /******************************* OBTER TODOS ********************************/

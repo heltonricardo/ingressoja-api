@@ -18,6 +18,7 @@ public class PedidoDTOResp {
   private final Double valorTotal;
   private final String urlPagamento;
   private final EventoDTOResp evento;
+  private final String statusPagamento;
   private final List<ItemPedidoDTOResp> itensPedido;
 
   public static PedidoDTOResp paraDTO(Pedido pedido) {
@@ -32,6 +33,7 @@ public class PedidoDTOResp {
         pedido.getDataHora(),
         pedido.getValorTotal(),
         pedido.getUrlPagamento(),
-        EventoDTOResp.paraDTO(pedido.getEvento()), itens);
+        EventoDTOResp.paraDTO(pedido.getEvento()),
+        pedido.getStatusPagamento(), itens);
   }
 }

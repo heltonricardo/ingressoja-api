@@ -35,11 +35,30 @@ public class PedidoService {
   /******************************* OBTER TODOS ********************************/
 
   public Iterable<Pedido> obterTodos() {
-    return pedidoRepository.findAll();
+
+    Iterable<Pedido> resp = pedidoRepository.findAll();
+
+    resp.forEach(p -> {
+      p.setStatusPagamento();
+      pedidoRepository.save(p);
+    });
+
+    return resp;
   }
 
+  /******************************* OBTER POR ID *******************************/
+
   public Optional<Pedido> obterPorId(Long id) {
-    return pedidoRepository.findById(id);
+
+    Optional<Pedido> resp = pedidoRepository.findById(id);
+
+    if (resp.isPresent()) {
+      Pedido pedido = resp.get();
+      pedido.setStatusPagamento();
+      pedidoRepository.save(pedido);
+    }
+
+    return resp;
   }
 
   /***************************** CANCELAR PEDIDO ******************************/
