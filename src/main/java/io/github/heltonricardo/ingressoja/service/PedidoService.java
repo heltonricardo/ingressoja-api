@@ -133,7 +133,7 @@ public class PedidoService {
       urlPagamento = Pagamento.gerarUrlPagamento(pedidoSalvo);
 
       if (urlPagamento == null) {
-        this.cancelar(pedido);
+        pedido.devolverIngressos();
         return null;
       }
 
