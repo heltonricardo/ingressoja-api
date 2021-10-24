@@ -69,6 +69,9 @@ public class Evento {
   @Column(nullable = false)
   private Integer totalIngressos;
 
+  @Column(nullable = false)
+  private Boolean vendaPausada = false;
+
   @ManyToOne(cascade = CascadeType.PERSIST)
   private Produtora produtora;
 

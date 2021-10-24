@@ -155,4 +155,20 @@ public class EventoService {
     eventoRepository.deleteById(evento.getId());
     return true;
   }
+
+  /******************************* PAUSAR VENDA *******************************/
+
+  public void pausarVenda(Evento evento) {
+
+    evento.setVendaPausada(true);
+    eventoRepository.save(evento);
+  }
+
+  /***************************** DESPAUSAR VENDA ******************************/
+
+  public void despausarVenda(Evento evento) {
+
+    evento.setVendaPausada(false);
+    eventoRepository.save(evento);
+  }
 }
