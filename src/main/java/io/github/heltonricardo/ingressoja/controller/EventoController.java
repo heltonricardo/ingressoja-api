@@ -209,7 +209,8 @@ public class EventoController {
   /******************************* PAUSAR VENDA *******************************/
 
   @PatchMapping("/{id}/pausar-venda/{pausar}")
-  public ResponseEntity<?> pausarVenda(@PathVariable Long id, Boolean pausar) {
+  public ResponseEntity<?> pausarVenda(@PathVariable Long id,
+                                       @PathVariable Boolean pausar) {
 
     Optional<Evento> pesq = eventoService.obterPorId(id, UsarFiltro.SIM);
 
