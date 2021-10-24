@@ -2,6 +2,7 @@ package io.github.heltonricardo.ingressoja.utils;
 
 import com.mercadopago.MercadoPago;
 import com.mercadopago.resources.Preference;
+import com.mercadopago.resources.datastructures.advancedpayment.Payment;
 import com.mercadopago.resources.datastructures.preference.Item;
 import io.github.heltonricardo.ingressoja.model.Pedido;
 import org.apache.http.HttpEntity;
@@ -11,6 +12,8 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,8 +76,8 @@ public abstract class Pagamento {
       pedido.getItensPedido().forEach(i -> itensPagamento.add(
           new Item()
               .setQuantity(1)
-              .setTitle(i.getTipoDeIngresso().getEvento().getTitulo() + " - " +
-                  i.getIngressante())
+              .setTitle(i.getTipoDeIngresso().getEvento()
+                  .getTitulo() + " - " + i.getIngressante())
               .setUnitPrice(i.getTipoDeIngresso().getValor().floatValue())));
 
       Preference preference = new Preference();
@@ -85,6 +88,27 @@ public abstract class Pagamento {
     } //
     catch (Exception e) {
       return null;
+    }
+  }
+
+  /************************** REALIZAR CANCELAMENTO ***************************/
+
+  public static void realizarCancelamento(Pedido pedido) {
+
+    String idPedido = pedido.getId().toString();
+    String resposta = fazerRequisicao(URL_CONSULTA_PAGAMENTO + idPedido);
+
+    try {
+      JSONObject jsonObject = new JSONObject(resposta);
+      JSONArray results = jsonObject.getJSONArray("results");
+      int idUltimoPagamento =
+          results.getJSONObject(results.length() - 1).getInt("id");
+
+      Payment payment = new Payment();
+      payment.setId(idUltimoPagamento);
+      payment.getCapture();
+    } //
+    catch (Exception ignored) {
     }
   }
 }

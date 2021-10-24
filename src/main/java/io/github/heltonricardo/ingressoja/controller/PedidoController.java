@@ -2,6 +2,7 @@ package io.github.heltonricardo.ingressoja.controller;
 
 import io.github.heltonricardo.ingressoja.dto_in.PedidoDTO;
 import io.github.heltonricardo.ingressoja.dto_out.PedidoDTOResp;
+import io.github.heltonricardo.ingressoja.model.Pedido;
 import io.github.heltonricardo.ingressoja.service.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,10 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("pedido")
@@ -67,5 +65,24 @@ public class PedidoController {
     resp.put("urlPagamento", url);
 
     return new ResponseEntity<>(resp, HttpStatus.CREATED);
+  }
+
+  /********************************* CANCELAR *********************************/
+
+  @PutMapping("/{id}/cancelar")
+  public ResponseEntity<?> utilizar(@PathVariable Long id) {
+
+    Optional<Pedido> pesq = pedidoService.obterPorId(id);
+
+    if (pesq.isEmpty())
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+    Pedido pedido = pesq.get();
+
+    boolean sucesso = pedidoService.cancelar(pedido);
+
+    return sucesso
+        ? new ResponseEntity<>(HttpStatus.OK)
+        : new ResponseEntity<>(HttpStatus.CONFLICT);
   }
 }
