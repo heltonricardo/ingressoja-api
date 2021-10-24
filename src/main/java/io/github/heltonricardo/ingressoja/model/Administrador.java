@@ -6,7 +6,6 @@ import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Getter
@@ -28,9 +27,6 @@ public class Administrador {
 
   @OneToOne(cascade = CascadeType.PERSIST)
   private Usuario usuario;
-
-  @OneToMany(cascade = CascadeType.PERSIST)
-  List<Saque> saques;
 
   public Administrador(String nome, Usuario usuario) {
     this.nome = nome;

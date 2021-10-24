@@ -24,22 +24,14 @@ public class ProdutoraDTO {
 
   @NotBlank
   @Size(max = 50)
-  private String banco;
-
-  @NotBlank
-  @Size(max = 20)
-  private String agencia;
-
-  @NotBlank
-  @Size(max = 20)
-  private String conta;
+  private String publicToken;
 
   @Valid
   private UsuarioDTO usuario;
 
   public Produtora paraObjeto() {
-    return new Produtora(nomeFantasia, razaoSocial, cnpj, banco,
-        agencia, conta, usuario.paraObjeto());
+    return new Produtora(nomeFantasia, razaoSocial, cnpj, publicToken,
+        usuario.paraObjeto());
   }
 
 }

@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class EventoDTORespVendas {
 
-  private final Long id;
   private final String titulo;
   private final Date inicio;
   private final Date termino;
@@ -28,8 +27,7 @@ public class EventoDTORespVendas {
             .map(ItemPedidoDTOResp::paraDTO)
             .collect(Collectors.toList());
 
-    return new EventoDTORespVendas(evento.getId(), evento.getTitulo(),
-        evento.getInicio(), evento.getTermino(), evento.getTotalIngressos(),
-        itens);
+    return new EventoDTORespVendas(evento.getTitulo(), evento.getInicio(),
+        evento.getTermino(), evento.getTotalIngressos(), itens);
   }
 }

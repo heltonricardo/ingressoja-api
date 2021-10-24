@@ -1,5 +1,8 @@
 package io.github.heltonricardo.ingressoja.model;
 
+import io.github.heltonricardo.ingressoja.utils.Pagamento;
+import io.github.heltonricardo.ingressoja.utils.StatusPedido;
+import io.github.heltonricardo.ingressoja.utils.StatusPgto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,25 +24,22 @@ public class Pedido {
   @Column(nullable = false)
   private Date dataHora;
 
-  @Column(length = 19, nullable = false)
-  private String numeroCartao;
-
-  @Column(length = 4, nullable = false)
-  private String codigoCartao;
-
-  @Column(nullable = false)
-  private String nomeTitular;
-
-  @Column(length = 11, nullable = false)
-  private String cpfTitular;
-
   @Column(nullable = false)
   private Double valorTotal;
 
-  @ManyToOne(cascade = CascadeType.ALL)
+  @Column(length = 1000, nullable = false)
+  private String urlPagamento;
+
+  @Column(length = 10, nullable = false)
+  private String statusPagamento = StatusPgto.PENDENTE;
+
+  @Column(length = 50, nullable = false)
+  private String statusPedido = StatusPedido.AGUARDANDO_PGTO;
+
+  @ManyToOne
   private Evento evento;
 
-  @ManyToOne(cascade = CascadeType.ALL)
+  @ManyToOne
   private Comprador comprador;
 
   @OneToMany(cascade = CascadeType.ALL)
@@ -51,17 +51,43 @@ public class Pedido {
   @Transient
   private Long idComprador;
 
-  public Pedido(Date dataHora, String numeroCartao,
-                String codigoCartao, String nomeTitular,
-                String cpfTitular, List<ItemPedido> itensPedido,
+  public Pedido(Date dataHora, List<ItemPedido> itensPedido,
                 Long idComprador, Long idEvento) {
     this.dataHora = dataHora;
-    this.numeroCartao = numeroCartao;
-    this.codigoCartao = codigoCartao;
-    this.nomeTitular = nomeTitular;
-    this.cpfTitular = cpfTitular;
     this.itensPedido = itensPedido;
     this.idComprador = idComprador;
     this.idEvento = idEvento;
+  }
+
+  public Double calcularTotal() {
+    return this.getItensPedido().stream()
+        .reduce(0.0, (s, item) ->
+            s + item.getTipoDeIngresso().getValor(), Double::sum);
+  }
+
+  public void devolverIngressos() {
+    this.getItensPedido()
+        .forEach(i -> i.getTipoDeIngresso().incrementarQntDisp());
+  }
+
+  public boolean isStatusPgtoAprovado() {
+    return this.getStatusPagamento().equals(StatusPgto.APROVADO);
+  }
+
+  public boolean isStatusPgtoPendente() {
+    return this.getStatusPagamento().equals(StatusPgto.PENDENTE);
+  }
+
+  public boolean isStatusPgtoRecusado() {
+    return this.getStatusPagamento().equals(StatusPgto.RECUSADO);
+  }
+
+  public void atualizarStatusPagamento() {
+
+    String res = Pagamento.consultarPagamento(this);
+
+    if (res != null) {
+      this.statusPagamento = res;
+    }
   }
 }

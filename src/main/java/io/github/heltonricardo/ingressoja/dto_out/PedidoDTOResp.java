@@ -15,9 +15,11 @@ public class PedidoDTOResp {
 
   private final Long id;
   private final Date dataHora;
-  private final String numeroCartao;
   private final Double valorTotal;
+  private final String urlPagamento;
   private final EventoDTOResp evento;
+  private final String statusPagamento;
+  private final String statusPedido;
   private final List<ItemPedidoDTOResp> itensPedido;
 
   public static PedidoDTOResp paraDTO(Pedido pedido) {
@@ -30,9 +32,10 @@ public class PedidoDTOResp {
     return new PedidoDTOResp(
         pedido.getId(),
         pedido.getDataHora(),
-        pedido.getNumeroCartao().
-            substring(pedido.getNumeroCartao().length() - 4),
         pedido.getValorTotal(),
-        EventoDTOResp.paraDTO(pedido.getEvento()), itens);
+        pedido.getUrlPagamento(),
+        EventoDTOResp.paraDTO(pedido.getEvento()),
+        pedido.getStatusPagamento(),
+        pedido.getStatusPedido(), itens);
   }
 }

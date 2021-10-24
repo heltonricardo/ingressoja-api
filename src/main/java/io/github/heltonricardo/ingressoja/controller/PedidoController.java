@@ -10,8 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping("pedido")
@@ -54,15 +53,36 @@ public class PedidoController {
   /********************************** SALVAR **********************************/
 
   @PostMapping
-  public ResponseEntity<PedidoDTOResp> salvar(@RequestBody @Valid PedidoDTO dto) {
+  public ResponseEntity<Map<String, String>> salvar(
+      @RequestBody @Valid PedidoDTO dto) {
 
-    Pedido resp = pedidoService.salvar(dto.paraObjeto());
+    String url = pedidoService.salvar(dto.paraObjeto());
 
-    if (resp == null)
+    if (url == null)
       return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
-    PedidoDTOResp dtoResp = PedidoDTOResp.paraDTO(resp);
+    Map<String, String> resp = new HashMap<>();
+    resp.put("urlPagamento", url);
 
-    return new ResponseEntity<>(dtoResp, HttpStatus.CREATED);
+    return new ResponseEntity<>(resp, HttpStatus.CREATED);
+  }
+
+  /********************************* CANCELAR *********************************/
+
+  @PutMapping("/{id}/cancelar")
+  public ResponseEntity<?> utilizar(@PathVariable Long id) {
+
+    Optional<Pedido> pesq = pedidoService.obterPorId(id);
+
+    if (pesq.isEmpty())
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+    Pedido pedido = pesq.get();
+
+    boolean sucesso = pedidoService.cancelar(pedido);
+
+    return sucesso
+        ? new ResponseEntity<>(HttpStatus.OK)
+        : new ResponseEntity<>(HttpStatus.CONFLICT);
   }
 }

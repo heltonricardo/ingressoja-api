@@ -2,10 +2,15 @@ package io.github.heltonricardo.ingressoja.service;
 
 import io.github.heltonricardo.ingressoja.model.*;
 import io.github.heltonricardo.ingressoja.repository.PedidoRepository;
+import io.github.heltonricardo.ingressoja.utils.Pagamento;
+import io.github.heltonricardo.ingressoja.utils.StatusPedido;
+import io.github.heltonricardo.ingressoja.utils.StatusPgto;
 import io.github.heltonricardo.ingressoja.utils.UsarFiltro;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -28,19 +33,76 @@ public class PedidoService {
     this.tipoDeIngressoService = tipoDeIngressoService;
   }
 
+  /***************************** ATUALIZAR STATUS *****************************/
+
+  private void atualizarStatus(Pedido pedido) {
+    if (pedido.isStatusPgtoPendente()) {
+      pedido.atualizarStatusPagamento();
+      if (pedido.isStatusPgtoAprovado()) {
+        pedido.setStatusPedido(StatusPedido.PROCESSADO);
+      } //
+      else if (pedido.isStatusPgtoRecusado()) {
+        pedido.devolverIngressos();
+        pedido.setStatusPedido(StatusPedido.CANC_FALTA_PGTO);
+      }
+    }
+    pedidoRepository.save(pedido);
+  }
+
   /******************************* OBTER TODOS ********************************/
 
   public Iterable<Pedido> obterTodos() {
-    return pedidoRepository.findAll();
+
+    Iterable<Pedido> resp = pedidoRepository.findAll();
+    resp.forEach(this::atualizarStatus);
+    return resp;
   }
 
+  /******************************* OBTER POR ID *******************************/
+
   public Optional<Pedido> obterPorId(Long id) {
-    return pedidoRepository.findById(id);
+
+    Optional<Pedido> resp = pedidoRepository.findById(id);
+
+    if (resp.isPresent()) {
+      Pedido pedido = resp.get();
+      this.atualizarStatus(pedido);
+    }
+
+    return resp;
+  }
+
+  /********************************* CANCELAR *********************************/
+
+  public boolean cancelar(Pedido pedido) {
+
+    if (!Objects.equals(pedido.getStatusPedido(), StatusPedido.PROCESSADO))
+      return false;
+
+    if (pedido.getItensPedido().stream().anyMatch(ItemPedido::getUtilizado))
+      return false;
+
+    Calendar somaSeteDias = Calendar.getInstance();
+    somaSeteDias.setTime(pedido.getDataHora());
+    somaSeteDias.add(Calendar.DAY_OF_MONTH, 7);
+    Date prazoMaxCanc = somaSeteDias.getTime();
+    Date hoje = new Date();
+
+    if (hoje.compareTo(prazoMaxCanc) > 0)
+      return false;
+
+    pedido.devolverIngressos();
+    pedido.setStatusPagamento(StatusPgto.REEMBOLSADO);
+    pedido.setStatusPedido(StatusPedido.CANC_ARREPEND);
+    pedidoRepository.save(pedido);
+
+    Pagamento.realizarCancelamento(pedido);
+    return true;
   }
 
   /********************************** SALVAR **********************************/
 
-  public Pedido salvar(Pedido pedido) {
+  public String salvar(Pedido pedido) {
 
     Optional<Evento> pesqEvento =
         eventoService.obterPorId(pedido.getIdEvento(), UsarFiltro.SIM);
@@ -77,27 +139,35 @@ public class PedidoService {
       Optional<TipoDeIngresso> pesqTipoDeIngresso =
           tipoDeIngressoService.obterPorId(pesqId);
 
-      TipoDeIngresso tipoDeIngresso = pesqTipoDeIngresso.get();
-
-      tipoDeIngresso.setQuantidadeDisponivel(
-          tipoDeIngresso.getQuantidadeDisponivel() - 1);
-
-      item.setTipoDeIngresso(tipoDeIngresso);
+      if (pesqTipoDeIngresso.isPresent()) {
+        TipoDeIngresso tipoDeIngresso = pesqTipoDeIngresso.get();
+        tipoDeIngresso.decrementarQntDisp();
+        item.setTipoDeIngresso(tipoDeIngresso);
+      }
     });
 
     Comprador comprador = pesqComprador.get();
-
     pedido.setComprador(comprador);
 
-    Double total = pedido.getItensPedido().stream()
-        .reduce(0.0, (s, item) ->
-            s + item.getTipoDeIngresso().getValor(), Double::sum);
+    pedido.setValorTotal(pedido.calcularTotal());
+    pedido.setUrlPagamento("");
+    Pedido pedidoSalvo = pedidoRepository.save(pedido);
 
-    pedido.setValorTotal(total);
+    String urlPagamento = "";
 
-    Produtora produtora = evento.getProdutora();
-    produtora.setValorCarteira(produtora.getValorCarteira() + total);
+    if (pedido.getValorTotal() != 0) {
 
-    return pedidoRepository.save(pedido);
+      urlPagamento = Pagamento.gerarUrlPagamento(pedidoSalvo);
+
+      if (urlPagamento == null) {
+        pedido.devolverIngressos();
+        return null;
+      }
+
+      pedido.setUrlPagamento(urlPagamento);
+      pedidoRepository.save(pedido);
+    }
+
+    return urlPagamento;
   }
 }

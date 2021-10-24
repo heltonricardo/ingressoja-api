@@ -3,32 +3,18 @@ package io.github.heltonricardo.ingressoja.dto_in;
 import io.github.heltonricardo.ingressoja.model.ItemPedido;
 import io.github.heltonricardo.ingressoja.model.Pedido;
 import lombok.Getter;
-import org.hibernate.validator.constraints.CreditCardNumber;
-import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.OneToMany;
 import javax.validation.Valid;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Getter
 public class PedidoDTO {
-
-  @CreditCardNumber
-  private String numeroCartao;
-
-  @NotBlank
-  @Size(max = 4)
-  private String codigoCartao;
-
-  @NotBlank
-  @Size(max = 255)
-  private String nomeTitular;
-
-  @CPF
-  private String cpfTitular;
 
   @NotNull
   @PositiveOrZero
@@ -47,7 +33,6 @@ public class PedidoDTO {
 
     itensPedido.forEach(i -> itens.add(i.paraObjeto()));
 
-    return new Pedido(new Date(), numeroCartao, codigoCartao,
-        nomeTitular, cpfTitular, itens, idComprador, idEvento);
+    return new Pedido(new Date(), itens, idComprador, idEvento);
   }
 }
