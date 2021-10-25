@@ -13,6 +13,7 @@ public class ItemPedidoDTORespVerificar {
   private final Boolean utilizado;
   private final String nomeTipoDeIngresso;
   private final String tituloEvento;
+  private final Boolean valido;
 
   public static ItemPedidoDTORespVerificar paraDTO(ItemPedido itemPedido) {
 
@@ -20,7 +21,8 @@ public class ItemPedidoDTORespVerificar {
         itemPedido.getIngressante(),
         itemPedido.getUtilizado(),
         itemPedido.getTipoDeIngresso().getNome(),
-        itemPedido.getTipoDeIngresso().getEvento().getTitulo()
+        itemPedido.getTipoDeIngresso().getEvento().getTitulo(),
+        itemPedido.getPedido().isStatusPedidoProcessado()
     );
   }
 }

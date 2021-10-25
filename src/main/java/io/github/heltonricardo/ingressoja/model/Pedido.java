@@ -42,7 +42,7 @@ public class Pedido {
   @ManyToOne
   private Comprador comprador;
 
-  @OneToMany(cascade = CascadeType.ALL)
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "pedido")
   private List<ItemPedido> itensPedido;
 
   @Transient
@@ -70,6 +70,9 @@ public class Pedido {
         .forEach(i -> i.getTipoDeIngresso().incrementarQntDisp());
   }
 
+  public boolean isStatusPedidoProcessado() {
+    return this.getStatusPedido().equals(StatusPedido.PROCESSADO);
+  }
   public boolean isStatusPgtoAprovado() {
     return this.getStatusPagamento().equals(StatusPgto.APROVADO);
   }
