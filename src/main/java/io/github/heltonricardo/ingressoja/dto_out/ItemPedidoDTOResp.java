@@ -13,13 +13,18 @@ public class ItemPedidoDTOResp {
   private final String ingressante;
   private final String cpf;
   private final Boolean utilizado;
+  private final Boolean valido;
   private final TipoDeIngressoDTORespItemPedido tipoDeIngresso;
 
   public static ItemPedidoDTOResp paraDTO(ItemPedido itemPedido) {
 
     return new ItemPedidoDTOResp(
-        itemPedido.getId(), itemPedido.getIngressante(), itemPedido.getCpf(),
-        itemPedido.getUtilizado(), TipoDeIngressoDTORespItemPedido.paraDTO(
-            itemPedido.getTipoDeIngresso()));
+        itemPedido.getId(),
+        itemPedido.getIngressante(),
+        itemPedido.getCpf(),
+        itemPedido.getUtilizado(),
+        itemPedido.getPedido().isStatusPedidoProcessado(),
+        TipoDeIngressoDTORespItemPedido
+            .paraDTO(itemPedido.getTipoDeIngresso()));
   }
 }

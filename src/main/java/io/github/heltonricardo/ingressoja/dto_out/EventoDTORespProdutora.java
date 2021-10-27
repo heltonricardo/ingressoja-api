@@ -15,14 +15,13 @@ public class EventoDTORespProdutora {
   private final String titulo;
   private final Date inicio;
   private final Boolean online;
+  private final Boolean vendaPausada;
   private final CategoriaEventoDTORespSimples categoriaEvento;
 
   public static EventoDTORespProdutora paraDTO(Evento evento) {
     return new EventoDTORespProdutora(
-        evento.getId(),
-        evento.getTitulo(),
-        evento.getInicio(),
-        evento.getOnline(),
+        evento.getId(), evento.getTitulo(), evento.getInicio(),
+        evento.getOnline(), evento.getVendaPausada(),
         CategoriaEventoDTORespSimples.paraDTO(evento.getCategoriaEvento())
     );
   }

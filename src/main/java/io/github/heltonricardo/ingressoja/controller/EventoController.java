@@ -205,4 +205,25 @@ public class EventoController {
 
     return new ResponseEntity<>(HttpStatus.OK);
   }
+
+  /******************************* PAUSAR VENDA *******************************/
+
+  @PatchMapping("/{id}/pausar-venda/{pausar}")
+  public ResponseEntity<?> pausarVenda(@PathVariable Long id,
+                                       @PathVariable Boolean pausar) {
+
+    Optional<Evento> pesq = eventoService.obterPorId(id, UsarFiltro.SIM);
+
+    if (pesq.isEmpty())
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+    Evento evento = pesq.get();
+
+    if (pausar)
+      eventoService.pausarVenda(evento);
+    else
+      eventoService.despausarVenda(evento);
+
+    return new ResponseEntity<>(HttpStatus.OK);
+  }
 }

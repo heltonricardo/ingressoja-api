@@ -69,6 +69,9 @@ public class Evento {
   @Column(nullable = false)
   private Integer totalIngressos;
 
+  @Column(nullable = false)
+  private Boolean vendaPausada = false;
+
   @ManyToOne(cascade = CascadeType.PERSIST)
   private Produtora produtora;
 
@@ -150,5 +153,31 @@ public class Evento {
                 s + t.getQuantidadeTotal(), Integer::sum));
 
     return !(gratisConforme && totalIngressosConforme);
+  }
+
+  /**************** CALCULAR QUANTIDADE DE INGRESSOS VENDIDOS *****************/
+
+  public Integer calcularQntIngressosVendidos() {
+
+    return this.getTiposDeIngresso().stream().reduce(0,
+        (s, t) -> s + t.calcularQntVendida(), Integer::sum);
+  }
+
+  /**************** CALCULAR PORCENTAGEM DE INGRESSOS VENDIDOS ****************/
+
+  public Double calcularPorcentagemIngressosVendidos() {
+
+    return
+        this.calcularQntIngressosVendidos() * 100. / this.getTotalIngressos();
+  }
+
+  /************************* CALCULAR RECEITA LÍQUIDA *************************/
+
+  public Double calcularReceitaLiquida() {
+
+    return this.getTiposDeIngresso()
+        .stream()
+        .reduce(.0, (acc, curr) -> acc + curr.calcularReceitaGerada(),
+            Double::sum);
   }
 }

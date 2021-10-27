@@ -58,7 +58,7 @@ public class ProdutoraService {
     Produtora produtora = pesq.get();
 
     return usarFiltro
-        ? produtora.getEventos().stream().filter(e -> e.getAtivo()).toList()
+        ? produtora.getEventos().stream().filter(Evento::getAtivo).toList()
         : produtora.getEventos();
   }
 

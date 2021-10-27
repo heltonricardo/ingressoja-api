@@ -72,4 +72,16 @@ public class TipoDeIngresso {
         Math.max(this.getQuantidadeDisponivel() - 1,
             1));
   }
+
+  public Integer calcularQntVendida() {
+    return this.getQuantidadeTotal() - this.getQuantidadeDisponivel();
+  }
+
+  public Double calcularPorcentagemVendida() {
+    return this.calcularQntVendida() * 100. / this.getQuantidadeTotal();
+  }
+
+  public Double calcularReceitaGerada() {
+    return this.getValor() * this.calcularQntVendida();
+  }
 }

@@ -44,6 +44,9 @@ public class ItemPedidoController {
       if (!itemPedido.cpfPertenceAoItem(cpf))
         throw new Exception();
 
+      if (!itemPedido.getPedido().isStatusPedidoProcessado())
+        throw new Exception();
+
       return new ResponseEntity<>(
           ItemPedidoDTORespVerificar.paraDTO(itemPedido), HttpStatus.OK);
     } //

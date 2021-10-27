@@ -28,6 +28,9 @@ public class ItemPedido {
   @ManyToOne
   private TipoDeIngresso tipoDeIngresso;
 
+  @ManyToOne
+  private Pedido pedido;
+
   @Transient
   private Long idTipoDeIngresso;
 
