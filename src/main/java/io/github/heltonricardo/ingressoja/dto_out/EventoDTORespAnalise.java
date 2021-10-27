@@ -28,7 +28,8 @@ public class EventoDTORespAnalise {
             .collect(Collectors.toList());
 
     return new EventoDTORespAnalise(
-        evento.getTitulo(), evento.getOnline(),
+        evento.getTitulo(),
+        evento.getOnline(),
         evento.getTotalIngressos(),
         evento.calcularQntIngressosVendidos(),
         evento.calcularPorcentagemIngressosVendidos(),

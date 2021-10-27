@@ -78,9 +78,12 @@ public class Evento {
   @ManyToOne(cascade = CascadeType.PERSIST)
   private CategoriaEvento categoriaEvento;
 
-  @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy =
-      "evento")
+  @OneToMany(mappedBy = "evento",
+      cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   private List<TipoDeIngresso> tiposDeIngresso;
+
+  @OneToMany(mappedBy = "evento")
+  private List<Despesa> despesas;
 
   @Transient
   private Long idProdutora;
