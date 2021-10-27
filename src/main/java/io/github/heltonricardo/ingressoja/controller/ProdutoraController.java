@@ -3,6 +3,7 @@ package io.github.heltonricardo.ingressoja.controller;
 import io.github.heltonricardo.ingressoja.dto_in.ProdutoraDTO;
 import io.github.heltonricardo.ingressoja.dto_out.EventoDTORespProdutora;
 import io.github.heltonricardo.ingressoja.dto_out.ProdutoraDTOResp;
+import io.github.heltonricardo.ingressoja.dto_out.ProdutoraDTORespAnalise;
 import io.github.heltonricardo.ingressoja.model.Evento;
 import io.github.heltonricardo.ingressoja.model.Produtora;
 import io.github.heltonricardo.ingressoja.service.ProdutoraService;
@@ -53,6 +54,22 @@ public class ProdutoraController {
       return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
     ProdutoraDTOResp resp = ProdutoraDTOResp.paraDTO(pesq.get());
+
+    return new ResponseEntity<>(resp, HttpStatus.OK);
+  }
+
+  /********************************* ANÁLISE **********************************/
+
+  @GetMapping("/{id}/analise")
+  public ResponseEntity<ProdutoraDTORespAnalise> analise(
+      @PathVariable Long id) {
+
+    Optional<Produtora> pesq = produtoraService.obterPorId(id, UsarFiltro.SIM);
+
+    if (pesq.isEmpty())
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+    ProdutoraDTORespAnalise resp = ProdutoraDTORespAnalise.paraDTO(pesq.get());
 
     return new ResponseEntity<>(resp, HttpStatus.OK);
   }

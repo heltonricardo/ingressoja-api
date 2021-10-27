@@ -154,4 +154,30 @@ public class Evento {
 
     return !(gratisConforme && totalIngressosConforme);
   }
+
+  /**************** CALCULAR QUANTIDADE DE INGRESSOS VENDIDOS *****************/
+
+  public Integer calcularQntIngressosVendidos() {
+
+    return this.getTiposDeIngresso().stream().reduce(0,
+        (s, t) -> s + t.calcularQntVendida(), Integer::sum);
+  }
+
+  /**************** CALCULAR PORCENTAGEM DE INGRESSOS VENDIDOS ****************/
+
+  public Double calcularPorcentagemIngressosVendidos() {
+
+    return
+        this.calcularQntIngressosVendidos() * 100. / this.getTotalIngressos();
+  }
+
+  /************************* CALCULAR RECEITA LÍQUIDA *************************/
+
+  public Double calcularReceitaLiquida() {
+
+    return this.getTiposDeIngresso()
+        .stream()
+        .reduce(.0, (acc, curr) -> acc + curr.calcularReceitaGerada(),
+            Double::sum);
+  }
 }
