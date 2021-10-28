@@ -183,4 +183,11 @@ public class Evento {
         .reduce(.0, (acc, curr) -> acc + curr.calcularReceitaGerada(),
             Double::sum);
   }
+
+  /**************************** ADICIONAR DESPESA *****************************/
+
+  public void adicionarDespesa(Despesa despesa) {
+
+    this.despesas.add(despesa);
+  }
 }

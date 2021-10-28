@@ -2,6 +2,7 @@ package io.github.heltonricardo.ingressoja.service;
 
 import io.github.heltonricardo.ingressoja.model.CategoriaEvento;
 import io.github.heltonricardo.ingressoja.model.Despesa;
+import io.github.heltonricardo.ingressoja.model.Evento;
 import io.github.heltonricardo.ingressoja.repository.DespesaRepository;
 import io.github.heltonricardo.ingressoja.utils.UsarFiltro;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,14 @@ public class DespesaService {
   @Autowired
   public DespesaService(DespesaRepository despesaRepository) {
     this.despesaRepository = despesaRepository;
+  }
+
+  /********************************** SALVAR **********************************/
+
+  public Despesa salvar(Despesa despesa, Evento evento) {
+
+    despesa.setEvento(evento);
+    return despesaRepository.save(despesa);
   }
 
   /******************************** ATUALIZAR *********************************/
