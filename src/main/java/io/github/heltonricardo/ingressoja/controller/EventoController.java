@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import io.github.heltonricardo.ingressoja.dto_in.DespesaDTO;
 import io.github.heltonricardo.ingressoja.dto_in.EventoDTO;
 import io.github.heltonricardo.ingressoja.dto_out.EventoDTOResp;
+import io.github.heltonricardo.ingressoja.dto_out.EventoDTORespDespesa;
 import io.github.heltonricardo.ingressoja.dto_out.EventoDTORespGrade;
 import io.github.heltonricardo.ingressoja.dto_out.EventoDTORespVendas;
 import io.github.heltonricardo.ingressoja.model.Evento;
@@ -231,7 +232,7 @@ public class EventoController {
 
   /**************************** CADASTRAR DESPESA *****************************/
 
-  @PostMapping
+  @PostMapping("/{id}/despesas")
   public ResponseEntity<?> cadastrarDespesa(
       @PathVariable Long eventoId, @RequestBody @Valid DespesaDTO dto) {
 
@@ -245,5 +246,23 @@ public class EventoController {
     boolean resp = eventoService.adicionarDespesa(evento, dto.paraObjeto());
 
     return new ResponseEntity<>(resp ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
+  }
+
+  /****************************** OBTER DESPESAS ******************************/
+
+  @GetMapping("/{id}/despesas")
+  public ResponseEntity<EventoDTORespDespesa> obterDespesas(
+      @PathVariable Long id) {
+
+    Optional<Evento> pesq = eventoService.obterPorId(id, UsarFiltro.NAO);
+
+    if (pesq.isEmpty())
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+    Evento evento = pesq.get();
+
+    EventoDTORespDespesa resp = EventoDTORespDespesa.paraDTO(evento);
+
+    return new ResponseEntity<>(resp, HttpStatus.OK);
   }
 }
