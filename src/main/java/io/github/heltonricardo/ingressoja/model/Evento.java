@@ -190,4 +190,11 @@ public class Evento {
 
     this.despesas.add(despesa);
   }
+
+  /************************* CALCULAR TOTAL DESPESAS **************************/
+  public Double calcularTotalDespesas() {
+
+    return this.getDespesas().stream().reduce(.0,
+        (acc, curr) -> acc + curr.getValor(), Double::sum);
+  }
 }

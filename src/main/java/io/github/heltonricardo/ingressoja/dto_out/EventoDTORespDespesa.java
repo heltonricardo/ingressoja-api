@@ -14,6 +14,7 @@ public class EventoDTORespDespesa {
 
   private final Long id;
   private final String titulo;
+  private Double totalDespesas;
   private final List<DespesaDTOResp> despesas;
 
   public static EventoDTORespDespesa paraDTO(Evento evento) {
@@ -23,6 +24,7 @@ public class EventoDTORespDespesa {
             .collect(Collectors.toList());
 
     return new EventoDTORespDespesa(
-        evento.getId(), evento.getTitulo(), despesas);
+        evento.getId(), evento.getTitulo(),
+        evento.calcularTotalDespesas(), despesas);
   }
 }

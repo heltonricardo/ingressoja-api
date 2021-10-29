@@ -18,6 +18,13 @@ public class DespesaService {
     this.despesaRepository = despesaRepository;
   }
 
+  /******************************* OBTER POR ID *******************************/
+
+  public Optional<Despesa> obterPorId(Long id) {
+
+    return despesaRepository.findById(id);
+  }
+
   /********************************** SALVAR **********************************/
 
   public Despesa salvar(Despesa despesa, Evento evento) {
@@ -30,7 +37,7 @@ public class DespesaService {
 
   public Despesa atualizar(Despesa despesa, Long id) {
 
-    Optional<Despesa> pesq = despesaRepository.findById(id);
+    Optional<Despesa> pesq = obterPorId(id);
 
     if (pesq.isEmpty())
       return null;
@@ -45,7 +52,7 @@ public class DespesaService {
 
   /********************************* EXCLUIR **********************************/
 
-  public void inativar(Despesa despesa) {
+  public void excluir(Despesa despesa) {
 
     despesaRepository.deleteById(despesa.getId());
   }

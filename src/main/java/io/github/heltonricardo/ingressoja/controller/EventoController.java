@@ -232,7 +232,7 @@ public class EventoController {
 
   /**************************** CADASTRAR DESPESA *****************************/
 
-  @PostMapping("/{id}/despesas")
+  @PostMapping("/{eventoId}/despesas")
   public ResponseEntity<?> cadastrarDespesa(
       @PathVariable Long eventoId, @RequestBody @Valid DespesaDTO dto) {
 
@@ -245,7 +245,8 @@ public class EventoController {
 
     boolean resp = eventoService.adicionarDespesa(evento, dto.paraObjeto());
 
-    return new ResponseEntity<>(resp ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
+    return new ResponseEntity<>(resp ? HttpStatus.CREATED :
+        HttpStatus.BAD_REQUEST);
   }
 
   /****************************** OBTER DESPESAS ******************************/
