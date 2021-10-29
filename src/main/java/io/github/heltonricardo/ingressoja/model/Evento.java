@@ -78,9 +78,12 @@ public class Evento {
   @ManyToOne(cascade = CascadeType.PERSIST)
   private CategoriaEvento categoriaEvento;
 
-  @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy =
-      "evento")
+  @OneToMany(mappedBy = "evento",
+      cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   private List<TipoDeIngresso> tiposDeIngresso;
+
+  @OneToMany(mappedBy = "evento")
+  private List<Despesa> despesas;
 
   @Transient
   private Long idProdutora;
@@ -179,5 +182,19 @@ public class Evento {
         .stream()
         .reduce(.0, (acc, curr) -> acc + curr.calcularReceitaGerada(),
             Double::sum);
+  }
+
+  /**************************** ADICIONAR DESPESA *****************************/
+
+  public void adicionarDespesa(Despesa despesa) {
+
+    this.despesas.add(despesa);
+  }
+
+  /************************* CALCULAR TOTAL DESPESAS **************************/
+  public Double calcularTotalDespesas() {
+
+    return this.getDespesas().stream().reduce(.0,
+        (acc, curr) -> acc + curr.getValor(), Double::sum);
   }
 }

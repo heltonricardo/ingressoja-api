@@ -1,6 +1,7 @@
 package io.github.heltonricardo.ingressoja.service;
 
 import io.github.heltonricardo.ingressoja.model.CategoriaEvento;
+import io.github.heltonricardo.ingressoja.model.Despesa;
 import io.github.heltonricardo.ingressoja.model.Evento;
 import io.github.heltonricardo.ingressoja.model.Produtora;
 import io.github.heltonricardo.ingressoja.repository.EventoRepository;
@@ -22,16 +23,19 @@ public class EventoService {
   private final ProdutoraService produtoraService;
   private final CategoriaEventoService categoriaEventoService;
   private final TipoDeIngressoService tipoDeIngressoService;
+  private final DespesaService despesaService;
 
   @Autowired
   public EventoService(EventoRepository eventoRepository,
                        ProdutoraService produtoraService,
                        CategoriaEventoService categoriaEvento,
-                       TipoDeIngressoService tipoDeIngressoService) {
+                       TipoDeIngressoService tipoDeIngressoService,
+                       DespesaService despesaService) {
     this.eventoRepository = eventoRepository;
     this.produtoraService = produtoraService;
     this.categoriaEventoService = categoriaEvento;
     this.tipoDeIngressoService = tipoDeIngressoService;
+    this.despesaService = despesaService;
   }
 
   /******************************* OBTER TODOS ********************************/
@@ -170,5 +174,19 @@ public class EventoService {
 
     evento.setVendaPausada(false);
     eventoRepository.save(evento);
+  }
+
+  /**************************** ADICIONAR DESPESA *****************************/
+
+  public boolean adicionarDespesa(Evento evento, Despesa despesa) {
+
+    Despesa novaDespesa = despesaService.salvar(despesa, evento);
+
+    if (novaDespesa == null)
+      return false;
+
+    evento.adicionarDespesa(despesa);
+    eventoRepository.save(evento);
+    return true;
   }
 }

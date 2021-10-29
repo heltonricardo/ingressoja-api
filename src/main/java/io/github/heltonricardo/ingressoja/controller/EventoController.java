@@ -2,8 +2,10 @@ package io.github.heltonricardo.ingressoja.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import io.github.heltonricardo.ingressoja.dto_in.DespesaDTO;
 import io.github.heltonricardo.ingressoja.dto_in.EventoDTO;
 import io.github.heltonricardo.ingressoja.dto_out.EventoDTOResp;
+import io.github.heltonricardo.ingressoja.dto_out.EventoDTORespDespesa;
 import io.github.heltonricardo.ingressoja.dto_out.EventoDTORespGrade;
 import io.github.heltonricardo.ingressoja.dto_out.EventoDTORespVendas;
 import io.github.heltonricardo.ingressoja.model.Evento;
@@ -17,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import java.util.ArrayList;
@@ -225,5 +228,42 @@ public class EventoController {
       eventoService.despausarVenda(evento);
 
     return new ResponseEntity<>(HttpStatus.OK);
+  }
+
+  /**************************** CADASTRAR DESPESA *****************************/
+
+  @PostMapping("/{eventoId}/despesas")
+  public ResponseEntity<?> cadastrarDespesa(
+      @PathVariable Long eventoId, @RequestBody @Valid DespesaDTO dto) {
+
+    Optional<Evento> pesq = eventoService.obterPorId(eventoId, UsarFiltro.SIM);
+
+    if (pesq.isEmpty())
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+    Evento evento = pesq.get();
+
+    boolean resp = eventoService.adicionarDespesa(evento, dto.paraObjeto());
+
+    return new ResponseEntity<>(resp ? HttpStatus.CREATED :
+        HttpStatus.BAD_REQUEST);
+  }
+
+  /****************************** OBTER DESPESAS ******************************/
+
+  @GetMapping("/{id}/despesas")
+  public ResponseEntity<EventoDTORespDespesa> obterDespesas(
+      @PathVariable Long id) {
+
+    Optional<Evento> pesq = eventoService.obterPorId(id, UsarFiltro.NAO);
+
+    if (pesq.isEmpty())
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+    Evento evento = pesq.get();
+
+    EventoDTORespDespesa resp = EventoDTORespDespesa.paraDTO(evento);
+
+    return new ResponseEntity<>(resp, HttpStatus.OK);
   }
 }
