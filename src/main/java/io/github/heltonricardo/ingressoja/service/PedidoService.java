@@ -37,16 +37,21 @@ public class PedidoService {
 
   private void atualizarStatus(Pedido pedido) {
     if (pedido.isStatusPgtoPendente()) {
-      pedido.atualizarStatusPagamento();
-      if (pedido.isStatusPgtoAprovado()) {
+      if (!pedido.isPedidoGratis()) {
+        pedido.atualizarStatusPagamento();
+        if (pedido.isStatusPgtoAprovado()) {
+          pedido.setStatusPedido(StatusPedido.PROCESSADO);
+        } //
+        else if (pedido.isStatusPgtoRecusado()) {
+          pedido.devolverIngressos();
+          pedido.setStatusPedido(StatusPedido.CANC_FALTA_PGTO);
+        }
+      } else {
         pedido.setStatusPedido(StatusPedido.PROCESSADO);
-      } //
-      else if (pedido.isStatusPgtoRecusado()) {
-        pedido.devolverIngressos();
-        pedido.setStatusPedido(StatusPedido.CANC_FALTA_PGTO);
+        pedido.setStatusPagamento(StatusPgto.NAO_SE_APLICA);
       }
+      pedidoRepository.save(pedido);
     }
-    pedidoRepository.save(pedido);
   }
 
   /******************************* OBTER TODOS ********************************/
@@ -143,6 +148,7 @@ public class PedidoService {
         TipoDeIngresso tipoDeIngresso = pesqTipoDeIngresso.get();
         tipoDeIngresso.decrementarQntDisp();
         item.setTipoDeIngresso(tipoDeIngresso);
+        item.setPedido(pedido);
       }
     });
 

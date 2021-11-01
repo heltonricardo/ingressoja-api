@@ -3,6 +3,7 @@ package io.github.heltonricardo.ingressoja.utils;
 public abstract class StatusPgto {
 
   public static final String APROVADO = "approved";
+  public static final String NAO_SE_APLICA= "none";
   public static final String RECUSADO = "rejected";
   public static final String PENDENTE = "in_process";
   public static final String REEMBOLSADO = "refunded";
