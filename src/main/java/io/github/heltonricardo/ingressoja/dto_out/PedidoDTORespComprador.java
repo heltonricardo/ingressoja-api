@@ -22,9 +22,7 @@ public class PedidoDTORespComprador {
   public static PedidoDTORespComprador paraDTO(Pedido pedido) {
     return new PedidoDTORespComprador(
         pedido.getId(), pedido.getDataHora(), pedido.getValorTotal(),
-        pedido.getItensPedido().get(0).getTipoDeIngresso().getEvento().getId(),
-        pedido.getStatusPagamento(), pedido.getStatusPedido(),
-        pedido.getItensPedido().get(0).getTipoDeIngresso().getEvento()
-            .getTitulo());
+        pedido.getEvento().getId(), pedido.getStatusPagamento(),
+        pedido.getStatusPedido(), pedido.getEvento().getTitulo());
   }
 }

@@ -85,6 +85,11 @@ public class Pedido {
     return this.getStatusPagamento().equals(StatusPgto.RECUSADO);
   }
 
+  public boolean isPedidoGratis() {
+
+    return this.calcularTotal().equals(0.0);
+  }
+
   public void atualizarStatusPagamento() {
 
     String res = Pagamento.consultarPagamento(this);
