@@ -99,6 +99,8 @@ public class EventoController {
 
     Evento evento = pesq.get();
 
+    eventoService.atualizarStatusPedidosEvento(evento);
+
     EventoDTORespVendas resp = EventoDTORespVendas.paraDTO(evento);
 
     return new ResponseEntity<>(resp, HttpStatus.OK);

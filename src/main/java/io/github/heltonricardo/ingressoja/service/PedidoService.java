@@ -35,7 +35,7 @@ public class PedidoService {
 
   /***************************** ATUALIZAR STATUS *****************************/
 
-  private void atualizarStatus(Pedido pedido) {
+  public void atualizarStatus(Pedido pedido) {
 
     if (!pedido.isStatusPgtoPendente())
       return;

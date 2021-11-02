@@ -100,6 +100,9 @@ public class Evento {
   @OneToMany(mappedBy = "evento")
   private List<Despesa> despesas;
 
+  @OneToMany(mappedBy = "evento")
+  private List<Pedido> pedidos;
+
   @Transient
   private Long idProdutora;
 
