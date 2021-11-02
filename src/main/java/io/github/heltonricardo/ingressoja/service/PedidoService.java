@@ -36,22 +36,33 @@ public class PedidoService {
   /***************************** ATUALIZAR STATUS *****************************/
 
   private void atualizarStatus(Pedido pedido) {
-    if (pedido.isStatusPgtoPendente()) {
-      if (!pedido.isPedidoGratis()) {
-        pedido.atualizarStatusPagamento();
-        if (pedido.isStatusPgtoAprovado()) {
-          pedido.setStatusPedido(StatusPedido.PROCESSADO);
-        } //
-        else if (pedido.isStatusPgtoRecusado()) {
-          pedido.devolverIngressos();
-          pedido.setStatusPedido(StatusPedido.CANC_FALTA_PGTO);
-        }
-      } else {
+
+    if (!pedido.isStatusPgtoPendente())
+      return;
+
+    if (pedido.isPedidoGratis()) {
+      pedido.getEvento().diminuirVendasPendentes();
+      pedido.getEvento().aumentarVendasProcessadas();
+      pedido.setStatusPedido(StatusPedido.PROCESSADO);
+      pedido.setStatusPagamento(StatusPgto.NAO_SE_APLICA);
+    } //
+    else {
+      pedido.atualizarStatusPagamento();
+
+      if (pedido.isStatusPgtoAprovado()) {
+        pedido.getEvento().diminuirVendasPendentes();
+        pedido.getEvento().aumentarVendasProcessadas();
         pedido.setStatusPedido(StatusPedido.PROCESSADO);
-        pedido.setStatusPagamento(StatusPgto.NAO_SE_APLICA);
+      } //
+      else if (pedido.isStatusPgtoRecusado()) {
+        pedido.devolverIngressos();
+        pedido.getEvento().diminuirVendasPendentes();
+        pedido.getEvento().aumentarVendasCanceladasPgto();
+        pedido.setStatusPedido(StatusPedido.CANC_FALTA_PGTO);
       }
-      pedidoRepository.save(pedido);
     }
+    eventoService.salvarAtualizacao(pedido.getEvento());
+    pedidoRepository.save(pedido);
   }
 
   /******************************* OBTER TODOS ********************************/
@@ -97,10 +108,13 @@ public class PedidoService {
       return false;
 
     pedido.devolverIngressos();
+    pedido.getEvento().diminuirVendasProcessadas();
     pedido.setStatusPagamento(StatusPgto.REEMBOLSADO);
+    pedido.getEvento().aumentarVendasCanceladasSolic();
     pedido.setStatusPedido(StatusPedido.CANC_ARREPEND);
-    pedidoRepository.save(pedido);
 
+    pedidoRepository.save(pedido);
+    eventoService.salvarAtualizacao(pedido.getEvento());
     Pagamento.realizarCancelamento(pedido);
     return true;
   }
@@ -155,14 +169,12 @@ public class PedidoService {
     Comprador comprador = pesqComprador.get();
     pedido.setComprador(comprador);
 
-    pedido.setValorTotal(pedido.calcularTotal());
     pedido.setUrlPagamento("");
+    pedido.setValorTotal(pedido.calcularTotal());
     Pedido pedidoSalvo = pedidoRepository.save(pedido);
-
     String urlPagamento = "";
 
-    if (pedido.getValorTotal() != 0) {
-
+    if (!pedido.isPedidoGratis()) {
       urlPagamento = Pagamento.gerarUrlPagamento(pedidoSalvo);
 
       if (urlPagamento == null) {
@@ -174,6 +186,9 @@ public class PedidoService {
       pedidoRepository.save(pedido);
     }
 
+    pedido.getEvento().aumentarTotalVendas();
+    pedido.getEvento().aumentarVendasPendentes();
+    eventoService.salvarAtualizacao(pedido.getEvento());
     return urlPagamento;
   }
 }

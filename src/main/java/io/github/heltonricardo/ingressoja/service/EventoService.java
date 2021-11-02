@@ -55,6 +55,11 @@ public class EventoService {
         : eventoRepository.findById(id);
   }
 
+  public void salvarAtualizacao(Evento evento) {
+
+    eventoRepository.save(evento);
+  }
+
   /********************************** SALVAR **********************************/
 
   public Evento salvar(Evento evento, MultipartFile file) {
