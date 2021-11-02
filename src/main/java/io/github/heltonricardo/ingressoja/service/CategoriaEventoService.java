@@ -83,4 +83,12 @@ public class CategoriaEventoService {
 
     categoriaEventoRepository.deleteById(categoriaEvento.getId());
   }
+
+  /********************************* REATIVAR *********************************/
+
+  public void reativar(CategoriaEvento categoriaEvento) {
+
+    categoriaEvento.setAtivo(true);
+    categoriaEventoRepository.save(categoriaEvento);
+  }
 }
