@@ -29,7 +29,7 @@ public class CategoriaEventoService {
 
     return usarFiltro ?
         categoriaEventoRepository.findByAtivoTrue()
-        : categoriaEventoRepository.findAll();
+        : categoriaEventoRepository.findAllByOrderByAtivoDescIdAsc();
   }
 
   /******************************* OBTER POR ID *******************************/
