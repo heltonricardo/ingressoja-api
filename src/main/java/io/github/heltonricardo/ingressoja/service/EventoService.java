@@ -9,6 +9,7 @@ import io.github.heltonricardo.ingressoja.utils.Formatador;
 import io.github.heltonricardo.ingressoja.utils.S3Connector;
 import io.github.heltonricardo.ingressoja.utils.UsarFiltro;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,18 +25,21 @@ public class EventoService {
   private final CategoriaEventoService categoriaEventoService;
   private final TipoDeIngressoService tipoDeIngressoService;
   private final DespesaService despesaService;
+  private final PedidoService pedidoService;
 
   @Autowired
   public EventoService(EventoRepository eventoRepository,
                        ProdutoraService produtoraService,
                        CategoriaEventoService categoriaEvento,
                        TipoDeIngressoService tipoDeIngressoService,
-                       DespesaService despesaService) {
+                       DespesaService despesaService,
+                       @Lazy PedidoService pedidoService) {
     this.eventoRepository = eventoRepository;
     this.produtoraService = produtoraService;
     this.categoriaEventoService = categoriaEvento;
     this.tipoDeIngressoService = tipoDeIngressoService;
     this.despesaService = despesaService;
+    this.pedidoService = pedidoService;
   }
 
   /******************************* OBTER TODOS ********************************/
@@ -53,6 +57,11 @@ public class EventoService {
     return usarFiltro
         ? eventoRepository.findByIdAndAtivoTrue(id)
         : eventoRepository.findById(id);
+  }
+
+  public void salvarAtualizacao(Evento evento) {
+
+    eventoRepository.save(evento);
   }
 
   /********************************** SALVAR **********************************/
@@ -188,5 +197,10 @@ public class EventoService {
     evento.adicionarDespesa(despesa);
     eventoRepository.save(evento);
     return true;
+  }
+
+  public void atualizarStatusPedidosEvento(Evento evento) {
+
+    evento.getPedidos().forEach(pedidoService::atualizarStatus);
   }
 }

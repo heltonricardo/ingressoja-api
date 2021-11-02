@@ -17,8 +17,8 @@ import java.util.List;
 @Getter
 public class EventoDTO {
 
-  @Size(max = 255)
   @NotBlank(groups = Default.class)
+  @Size(max = 255, groups = Default.class)
   private String titulo;
 
   @Future(groups = Default.class)

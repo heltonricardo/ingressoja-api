@@ -23,7 +23,7 @@ public abstract class Pagamento {
   /******************************** CONSTANTES ********************************/
 
   private static final String ACCESS_TOKEN =
-      "TEST-7436017717495917-102123-f03839ba0f06c99772d08f139537fb65-599638185";
+      "TEST-2088817281218652-110202-9ae38e7a8b94f9ecaacbafba2319975d-599638185";
 
   private static final String URL_CONSULTA_PAGAMENTO =
       "https://api.mercadopago.com/v1/payments/search?external_reference=";

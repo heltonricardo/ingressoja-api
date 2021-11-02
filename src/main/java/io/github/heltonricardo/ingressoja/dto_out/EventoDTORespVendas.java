@@ -1,6 +1,7 @@
 package io.github.heltonricardo.ingressoja.dto_out;
 
 import io.github.heltonricardo.ingressoja.model.Evento;
+import io.github.heltonricardo.ingressoja.model.Pedido;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,10 +21,11 @@ public class EventoDTORespVendas {
   private final List<ItemPedidoDTOResp> itensPedido;
 
   public static EventoDTORespVendas paraDTO(Evento evento) {
+
     List<ItemPedidoDTOResp> itens =
-        evento.getTiposDeIngresso()
-            .stream()
-            .flatMap(tipo -> tipo.getItensPedido().stream())
+        evento.getPedidos().stream()
+            .filter(Pedido::isStatusPedidoProcessado)
+            .flatMap(p -> p.getItensPedido().stream())
             .map(ItemPedidoDTOResp::paraDTO)
             .collect(Collectors.toList());
 

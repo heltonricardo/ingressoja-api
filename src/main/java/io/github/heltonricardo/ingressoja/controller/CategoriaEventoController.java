@@ -41,6 +41,19 @@ public class CategoriaEventoController {
     return new ResponseEntity<>(resp, HttpStatus.OK);
   }
 
+  /**************************** OBTER TODAS: ADMIN ****************************/
+
+  @GetMapping("/admin")
+  public ResponseEntity<List<CategoriaEventoDTORespSimples>> obterTodasAdmin() {
+
+    List<CategoriaEventoDTORespSimples> resp = new ArrayList<>();
+
+    categoriaEventoService.obterTodas(UsarFiltro.NAO)
+        .forEach(c -> resp.add(CategoriaEventoDTORespSimples.paraDTO(c)));
+
+    return new ResponseEntity<>(resp, HttpStatus.OK);
+  }
+
   /******************************* OBTER POR ID *******************************/
 
   @GetMapping("/{id}")
@@ -103,6 +116,24 @@ public class CategoriaEventoController {
       return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
     categoriaEventoService.inativar(pesq.get());
+
+    return new ResponseEntity<>(HttpStatus.OK);
+  }
+
+
+  /********************************* REATIVAR *********************************/
+
+  @PatchMapping("/{id}")
+  public ResponseEntity<CategoriaEventoDTORespSimples> reativar(
+      @PathVariable Long id) {
+
+    Optional<CategoriaEvento> pesq = categoriaEventoService.obterPorId(id,
+        UsarFiltro.NAO);
+
+    if (pesq.isEmpty())
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+    categoriaEventoService.reativar(pesq.get());
 
     return new ResponseEntity<>(HttpStatus.OK);
   }

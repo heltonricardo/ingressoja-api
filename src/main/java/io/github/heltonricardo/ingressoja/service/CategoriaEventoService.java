@@ -29,7 +29,7 @@ public class CategoriaEventoService {
 
     return usarFiltro ?
         categoriaEventoRepository.findByAtivoTrue()
-        : categoriaEventoRepository.findAll();
+        : categoriaEventoRepository.findAllByOrderByAtivoDescIdAsc();
   }
 
   /******************************* OBTER POR ID *******************************/
@@ -82,5 +82,13 @@ public class CategoriaEventoService {
   public void inativar(CategoriaEvento categoriaEvento) {
 
     categoriaEventoRepository.deleteById(categoriaEvento.getId());
+  }
+
+  /********************************* REATIVAR *********************************/
+
+  public void reativar(CategoriaEvento categoriaEvento) {
+
+    categoriaEvento.setAtivo(true);
+    categoriaEventoRepository.save(categoriaEvento);
   }
 }

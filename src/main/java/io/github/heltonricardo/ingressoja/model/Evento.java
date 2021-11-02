@@ -72,6 +72,21 @@ public class Evento {
   @Column(nullable = false)
   private Boolean vendaPausada = false;
 
+  @Column(nullable = false)
+  private Integer qntTotalVendas = 0;
+
+  @Column(nullable = false)
+  private Integer qntVendasProcessadas = 0;
+
+  @Column(nullable = false)
+  private Integer qntVendasPendentes = 0;
+
+  @Column(nullable = false)
+  private Integer qntVendasCanceladasPgto = 0;
+
+  @Column(nullable = false)
+  private Integer qntVendasCanceladasSolic = 0;
+
   @ManyToOne(cascade = CascadeType.PERSIST)
   private Produtora produtora;
 
@@ -84,6 +99,9 @@ public class Evento {
 
   @OneToMany(mappedBy = "evento")
   private List<Despesa> despesas;
+
+  @OneToMany(mappedBy = "evento")
+  private List<Pedido> pedidos;
 
   @Transient
   private Long idProdutora;
@@ -196,5 +214,35 @@ public class Evento {
 
     return this.getDespesas().stream().reduce(.0,
         (acc, curr) -> acc + curr.getValor(), Double::sum);
+  }
+
+  /*********************** CONTROLE DO NÚMERO DE VENDAS ***********************/
+
+  public void aumentarTotalVendas() {
+    ++this.qntTotalVendas;
+  }
+
+  public void aumentarVendasProcessadas() {
+    ++this.qntVendasProcessadas;
+  }
+
+  public void diminuirVendasProcessadas() {
+    --this.qntVendasProcessadas;
+  }
+
+  public void aumentarVendasPendentes() {
+    ++this.qntVendasPendentes;
+  }
+
+  public void diminuirVendasPendentes() {
+    --this.qntVendasPendentes;
+  }
+
+  public void aumentarVendasCanceladasPgto() {
+    ++this.qntVendasCanceladasPgto;
+  }
+
+  public void aumentarVendasCanceladasSolic() {
+    ++this.qntVendasCanceladasSolic;
   }
 }

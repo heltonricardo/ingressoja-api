@@ -11,11 +11,12 @@ public class CategoriaEventoDTORespSimples {
 
   private final Long id;
   private final String nome;
+  private final Boolean ativo;
 
   public static CategoriaEventoDTORespSimples paraDTO(
       CategoriaEvento categoriaEvento) {
 
     return new CategoriaEventoDTORespSimples(categoriaEvento.getId(),
-        categoriaEvento.getNome());
+        categoriaEvento.getNome(), categoriaEvento.getAtivo());
   }
 }

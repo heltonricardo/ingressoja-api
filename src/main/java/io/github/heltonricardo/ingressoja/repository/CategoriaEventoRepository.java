@@ -13,4 +13,5 @@ public interface CategoriaEventoRepository
   Optional<CategoriaEvento> findByNome(String nome);
   Optional<CategoriaEvento> findByIdAndAtivoTrue(Long id);
   Iterable<CategoriaEvento> findByAtivoTrue();
+  Iterable<CategoriaEvento> findAllByOrderByAtivoDescIdAsc();
 }
