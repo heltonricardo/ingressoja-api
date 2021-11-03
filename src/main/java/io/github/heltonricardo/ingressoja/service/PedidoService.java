@@ -136,16 +136,11 @@ public class PedidoService {
 
     pedido.setEvento(evento);
 
-    boolean erroTipoIngresso = pedido
-        .getItensPedido()
-        .stream()
-        .anyMatch(itemPedido ->
-            evento
-                .getTiposDeIngresso()
-                .stream()
-                .noneMatch(tipoDeIngresso ->
-                    Objects.equals(tipoDeIngresso.getId(),
-                        itemPedido.getIdTipoDeIngresso()))
+    boolean erroTipoIngresso = pedido.getItensPedido().stream()
+        .anyMatch(itemPedido -> evento.getTiposDeIngresso().stream()
+            .noneMatch(tipoDeIngresso ->
+                Objects.equals(tipoDeIngresso.getId(),
+                    itemPedido.getIdTipoDeIngresso()))
         );
 
     if (erroTipoIngresso)

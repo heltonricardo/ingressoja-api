@@ -136,22 +136,19 @@ public class Evento {
 
   public boolean possuiIngressosVendidos() {
 
-    return this.getTiposDeIngresso()
-        .stream()
+    return this.getTiposDeIngresso().stream()
         .anyMatch(t -> t.getQuantidadeDisponivel().intValue()
             != t.getQuantidadeTotal().intValue());
   }
 
   /************************** SET INGRESSOS VÁLIDOS ***************************/
 
-  public void setIngressosValidos() {
+  public List<TipoDeIngresso> getIngressosValidos() {
 
-    this.setTiposDeIngresso(
-        this.getTiposDeIngresso()
-            .stream()
-            .filter(t -> hojeEstaEntre(t.getInicio(), t.getTermino())
-                && t.getQuantidadeDisponivel() > 0)
-            .collect(Collectors.toList()));
+    return this.getTiposDeIngresso().stream()
+        .filter(t -> hojeEstaEntre(t.getInicio(), t.getTermino())
+            && t.getQuantidadeDisponivel() > 0)
+        .collect(Collectors.toList());
   }
 
   /********************** INGRESSOS NÃO ESTÃO CONFORME? ***********************/
@@ -161,15 +158,12 @@ public class Evento {
     int maxGratis = (int) (this.getTotalIngressos() * 0.1);
 
     boolean gratisConforme =
-        maxGratis >= this.getTiposDeIngresso()
-            .stream()
+        maxGratis >= this.getTiposDeIngresso().stream()
             .filter(t -> t.getValor() == 0.0)
-            .reduce(0, (s, t) ->
-                s + t.getQuantidadeTotal(), Integer::sum);
+            .reduce(0, (s, t) ->s + t.getQuantidadeTotal(), Integer::sum);
 
     boolean totalIngressosConforme =
-        this.getTotalIngressos().equals(this.getTiposDeIngresso()
-            .stream()
+        this.getTotalIngressos().equals(this.getTiposDeIngresso().stream()
             .reduce(0, (s, t) ->
                 s + t.getQuantidadeTotal(), Integer::sum));
 
@@ -248,7 +242,7 @@ public class Evento {
 
   /***************************** EVENTO EXCLUÍDO? *****************************/
 
-  public boolean excluido() {
+  public boolean isExcluido() {
 
     return !this.getAtivo();
   }
@@ -257,6 +251,14 @@ public class Evento {
 
   public boolean jaAcabou() {
 
-    return excluido() || (new Date()).compareTo(this.termino) > 0;
+    return isExcluido() || (new Date()).compareTo(this.termino) > 0;
+  }
+
+  /**************************** VENDAS ESGOTADAS? *****************************/
+
+  public boolean isIngressosEsgotados() {
+
+    return this.getTiposDeIngresso().stream()
+        .allMatch(TipoDeIngresso::isEsgotado);
   }
 }

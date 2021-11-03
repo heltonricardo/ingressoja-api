@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class EventoDTOResp {
+public class EventoDTORespEdicao {
 
   private final Long id;
   private final String titulo;
@@ -29,25 +29,22 @@ public class EventoDTOResp {
   private final String cep;
   private final Integer totalIngressos;
   private final Boolean vendaPausada;
-  private final Boolean ingressosEsgotados;
   private final ProdutoraDTORespEvento produtora;
   private final CategoriaEventoDTORespSimples categoriaEvento;
   private final List<TipoDeIngressoDTOResp> tiposDeIngresso;
 
-  public static EventoDTOResp paraDTO(Evento evento) {
+  public static EventoDTORespEdicao paraDTO(Evento evento) {
 
-    boolean ingEsgotados = evento.isIngressosEsgotados();
-
-    List<TipoDeIngressoDTOResp> tipos = evento.getIngressosValidos().stream()
+    List<TipoDeIngressoDTOResp> tipos = evento.getTiposDeIngresso().stream()
         .map(TipoDeIngressoDTOResp::paraDTO).collect(Collectors.toList());
 
-    return new EventoDTOResp(evento.getId(), evento.getTitulo(),
+    return new EventoDTORespEdicao(evento.getId(), evento.getTitulo(),
         evento.getImagemURL(), evento.getInicio(), evento.getTermino(),
         evento.getDescricao(), evento.getOnline(), evento.getUrl(),
         evento.getLogradouro(), evento.getNumero(), evento.getBairro(),
         evento.getCidade(), evento.getUf(), evento.getCep(),
         evento.getTotalIngressos(), evento.getVendaPausada(),
-        ingEsgotados, ProdutoraDTORespEvento.paraDTO(evento.getProdutora()),
+        ProdutoraDTORespEvento.paraDTO(evento.getProdutora()),
         CategoriaEventoDTORespSimples.paraDTO(evento.getCategoriaEvento()),
         tipos);
   }
