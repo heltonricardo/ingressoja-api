@@ -132,8 +132,14 @@ public class ProdutoraController {
     if (pesq.isEmpty())
       return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
-    produtoraService.inativar(pesq.get());
+    Produtora produtora = pesq.get();
 
+    boolean podeInativar = !produtora.possuiEventosEmAberto();
+
+    if (!podeInativar)
+      return new ResponseEntity<>(HttpStatus.CONFLICT);
+
+    produtoraService.inativar(produtora);
     return new ResponseEntity<>(HttpStatus.OK);
   }
 }

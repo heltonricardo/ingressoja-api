@@ -105,6 +105,7 @@ public class ProdutoraService {
 
   public void inativar(Produtora produtora) {
 
-    produtoraRepository.deleteById(produtora.getId());
+    produtora.setAtivo(false);
+    produtoraRepository.save(produtora);
   }
 }

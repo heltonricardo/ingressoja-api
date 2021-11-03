@@ -12,5 +12,7 @@ public interface EventoRepository
     extends PagingAndSortingRepository<Evento, Long> {
 
   Optional<Evento> findByIdAndAtivoTrue(Long id);
-  Iterable<Evento> findByTerminoGreaterThanEqualOrderByInicioAsc(Date date);
+
+  Iterable<Evento> findByAtivoTrueAndTerminoGreaterThanEqualOrderByInicioAsc(
+      Date date);
 }

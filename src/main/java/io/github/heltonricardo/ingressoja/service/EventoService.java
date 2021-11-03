@@ -47,7 +47,7 @@ public class EventoService {
   public Iterable<Evento> obterTodos() {
 
     return eventoRepository
-        .findByTerminoGreaterThanEqualOrderByInicioAsc(new Date());
+        .findByAtivoTrueAndTerminoGreaterThanEqualOrderByInicioAsc(new Date());
   }
 
   /******************************* OBTER POR ID *******************************/
@@ -198,6 +198,8 @@ public class EventoService {
     eventoRepository.save(evento);
     return true;
   }
+
+  /**************** ATUALIZAR STATUS DOS PEDIDOS DE UM EVENTO *****************/
 
   public void atualizarStatusPedidosEvento(Evento evento) {
 
