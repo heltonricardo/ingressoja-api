@@ -136,22 +136,19 @@ public class Evento {
 
   public boolean possuiIngressosVendidos() {
 
-    return this.getTiposDeIngresso()
-        .stream()
+    return this.getTiposDeIngresso().stream()
         .anyMatch(t -> t.getQuantidadeDisponivel().intValue()
             != t.getQuantidadeTotal().intValue());
   }
 
   /************************** SET INGRESSOS VÁLIDOS ***************************/
 
-  public void setIngressosValidos() {
+  public List<TipoDeIngresso> getIngressosValidos() {
 
-    this.setTiposDeIngresso(
-        this.getTiposDeIngresso()
-            .stream()
-            .filter(t -> hojeEstaEntre(t.getInicio(), t.getTermino())
-                && t.getQuantidadeDisponivel() > 0)
-            .collect(Collectors.toList()));
+    return this.getTiposDeIngresso().stream()
+        .filter(t -> hojeEstaEntre(t.getInicio(), t.getTermino())
+            && t.getQuantidadeDisponivel() > 0)
+        .collect(Collectors.toList());
   }
 
   /********************** INGRESSOS NÃO ESTÃO CONFORME? ***********************/
@@ -248,7 +245,7 @@ public class Evento {
 
   /***************************** EVENTO EXCLUÍDO? *****************************/
 
-  public boolean excluido() {
+  public boolean isExcluido() {
 
     return !this.getAtivo();
   }
@@ -257,6 +254,14 @@ public class Evento {
 
   public boolean jaAcabou() {
 
-    return excluido() || (new Date()).compareTo(this.termino) > 0;
+    return isExcluido() || (new Date()).compareTo(this.termino) > 0;
+  }
+
+  /**************************** VENDAS ESGOTADAS? *****************************/
+
+  public boolean isIngressosEsgotados() {
+
+    return this.getTiposDeIngresso().stream()
+        .allMatch(TipoDeIngresso::isEsgotado);
   }
 }

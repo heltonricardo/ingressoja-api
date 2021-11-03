@@ -61,27 +61,44 @@ public class TipoDeIngresso {
     this.termino = termino;
   }
 
+  /******************** INCREMENTAR QUANTIDADE DISPONÍVEL *********************/
+
   public void incrementarQntDisp() {
+
     this.setQuantidadeDisponivel(
         Math.min(this.getQuantidadeDisponivel() + 1,
             this.getQuantidadeTotal()));
   }
 
+  /******************** DECREMENTAR QUANTIDADE DISPONÍVEL *********************/
+
   public void decrementarQntDisp() {
+
     this.setQuantidadeDisponivel(
-        Math.max(this.getQuantidadeDisponivel() - 1,
-            1));
+        Math.max(this.getQuantidadeDisponivel() - 1, 0));
   }
+
+  /*********************** CALCULAR QUANTIDADE VENDIDA ************************/
 
   public Integer calcularQntVendida() {
     return this.getQuantidadeTotal() - this.getQuantidadeDisponivel();
   }
 
+  /*********************** CALCULAR PORCENTAGEM VENDIDA ***********************/
+
   public Double calcularPorcentagemVendida() {
     return this.calcularQntVendida() * 100. / this.getQuantidadeTotal();
   }
 
+  /************************* CALCULAR RECEITA GERADA **************************/
+
   public Double calcularReceitaGerada() {
     return this.getValor() * this.calcularQntVendida();
+  }
+
+  /******************************** ESGOTADO? *********************************/
+
+  public boolean isEsgotado() {
+    return this.quantidadeDisponivel == 0;
   }
 }

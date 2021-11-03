@@ -4,10 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import io.github.heltonricardo.ingressoja.dto_in.DespesaDTO;
 import io.github.heltonricardo.ingressoja.dto_in.EventoDTO;
-import io.github.heltonricardo.ingressoja.dto_out.EventoDTOResp;
-import io.github.heltonricardo.ingressoja.dto_out.EventoDTORespDespesa;
-import io.github.heltonricardo.ingressoja.dto_out.EventoDTORespGrade;
-import io.github.heltonricardo.ingressoja.dto_out.EventoDTORespVendas;
+import io.github.heltonricardo.ingressoja.dto_out.*;
 import io.github.heltonricardo.ingressoja.model.Evento;
 import io.github.heltonricardo.ingressoja.service.EventoService;
 import io.github.heltonricardo.ingressoja.utils.UsarFiltro;
@@ -62,8 +59,6 @@ public class EventoController {
 
     Evento evento = pesq.get();
 
-    evento.setIngressosValidos();
-
     EventoDTOResp resp = EventoDTOResp.paraDTO(evento);
 
     return new ResponseEntity<>(resp, HttpStatus.OK);
@@ -72,7 +67,8 @@ public class EventoController {
   /************************* OBTER POR ID PARA EDIÇÃO *************************/
 
   @GetMapping("paraEdicao/{id}")
-  public ResponseEntity<EventoDTOResp> obterPorIdEdicao(@PathVariable Long id) {
+  public ResponseEntity<EventoDTORespEdicao> obterPorIdEdicao(
+      @PathVariable Long id) {
 
     Optional<Evento> pesq = eventoService.obterPorId(id, UsarFiltro.NAO);
 
@@ -81,7 +77,7 @@ public class EventoController {
 
     Evento evento = pesq.get();
 
-    EventoDTOResp resp = EventoDTOResp.paraDTO(evento);
+    EventoDTORespEdicao resp = EventoDTORespEdicao.paraDTO(evento);
 
     return new ResponseEntity<>(resp, HttpStatus.OK);
   }
