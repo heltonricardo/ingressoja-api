@@ -49,4 +49,11 @@ public class Produtora {
     this.publicToken = publicToken;
     this.usuario = usuario;
   }
+
+  /************************* POSSUI EVENTOS EM ABERTO *************************/
+
+  public boolean possuiEventosEmAberto() {
+
+    return !this.getEventos().stream().allMatch(Evento::jaAcabou);
+  }
 }

@@ -245,4 +245,18 @@ public class Evento {
   public void aumentarVendasCanceladasSolic() {
     ++this.qntVendasCanceladasSolic;
   }
+
+  /***************************** EVENTO EXCLUÍDO? *****************************/
+
+  public boolean excluido() {
+
+    return !this.getAtivo();
+  }
+
+  /**************************** EVENTO JÁ ACABOU? *****************************/
+
+  public boolean jaAcabou() {
+
+    return excluido() || (new Date()).compareTo(this.termino) > 0;
+  }
 }
