@@ -158,15 +158,12 @@ public class Evento {
     int maxGratis = (int) (this.getTotalIngressos() * 0.1);
 
     boolean gratisConforme =
-        maxGratis >= this.getTiposDeIngresso()
-            .stream()
+        maxGratis >= this.getTiposDeIngresso().stream()
             .filter(t -> t.getValor() == 0.0)
-            .reduce(0, (s, t) ->
-                s + t.getQuantidadeTotal(), Integer::sum);
+            .reduce(0, (s, t) ->s + t.getQuantidadeTotal(), Integer::sum);
 
     boolean totalIngressosConforme =
-        this.getTotalIngressos().equals(this.getTiposDeIngresso()
-            .stream()
+        this.getTotalIngressos().equals(this.getTiposDeIngresso().stream()
             .reduce(0, (s, t) ->
                 s + t.getQuantidadeTotal(), Integer::sum));
 
