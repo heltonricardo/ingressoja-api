@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -38,8 +39,12 @@ public class EventoDTOResp {
 
     boolean ingEsgotados = evento.isIngressosEsgotados();
 
-    List<TipoDeIngressoDTOResp> tipos = evento.getIngressosValidos().stream()
-        .map(TipoDeIngressoDTOResp::paraDTO).collect(Collectors.toList());
+    List<TipoDeIngressoDTOResp> tiposDeIngresso =
+        evento.getVendaPausada()
+            ? Collections.emptyList()
+            : evento.getIngressosValidos().stream()
+                  .map(TipoDeIngressoDTOResp::paraDTO)
+                  .collect(Collectors.toList());
 
     return new EventoDTOResp(evento.getId(), evento.getTitulo(),
         evento.getImagemURL(), evento.getInicio(), evento.getTermino(),
@@ -49,6 +54,6 @@ public class EventoDTOResp {
         evento.getTotalIngressos(), evento.getVendaPausada(),
         ingEsgotados, ProdutoraDTORespEvento.paraDTO(evento.getProdutora()),
         CategoriaEventoDTORespSimples.paraDTO(evento.getCategoriaEvento()),
-        tipos);
+        tiposDeIngresso);
   }
 }
