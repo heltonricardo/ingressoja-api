@@ -29,4 +29,10 @@ public class Despesa {
     this.descricao = descricao;
     this.valor = valor;
   }
+
+  /***************************** SOMAR NA DESPESA *****************************/
+
+  public void somarNaDespesa(Double valor) {
+    this.setValor(this.getValor() + valor);
+  }
 }

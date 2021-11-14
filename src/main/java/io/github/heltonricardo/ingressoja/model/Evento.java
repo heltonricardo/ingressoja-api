@@ -97,7 +97,7 @@ public class Evento {
       cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   private List<TipoDeIngresso> tiposDeIngresso;
 
-  @OneToMany(mappedBy = "evento")
+  @OneToMany(mappedBy = "evento", cascade = CascadeType.PERSIST)
   private List<Despesa> despesas;
 
   @OneToMany(mappedBy = "evento")
@@ -141,7 +141,7 @@ public class Evento {
             != t.getQuantidadeTotal().intValue());
   }
 
-  /************************** SET INGRESSOS VÁLIDOS ***************************/
+  /************************** GET INGRESSOS VÁLIDOS ***************************/
 
   public List<TipoDeIngresso> getIngressosValidos() {
 
@@ -186,9 +186,9 @@ public class Evento {
         this.calcularQntIngressosVendidos() * 100. / this.getTotalIngressos();
   }
 
-  /************************* CALCULAR RECEITA LÍQUIDA *************************/
+  /************************** CALCULAR RECEITA BRUTA **************************/
 
-  public Double calcularReceitaLiquida() {
+  public Double calcularReceitaBruta() {
 
     return this.getTiposDeIngresso()
         .stream()
@@ -208,6 +208,13 @@ public class Evento {
 
     return this.getDespesas().stream().reduce(.0,
         (acc, curr) -> acc + curr.getValor(), Double::sum);
+  }
+
+  /************************* CALCULAR RECEITA LÍQUIDA *************************/
+
+  public Double calcularReceitaLiquida() {
+
+    return this.calcularReceitaBruta() - this.calcularTotalDespesas();
   }
 
   /*********************** CONTROLE DO NÚMERO DE VENDAS ***********************/

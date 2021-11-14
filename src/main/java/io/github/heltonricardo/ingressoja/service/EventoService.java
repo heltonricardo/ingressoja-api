@@ -97,8 +97,14 @@ public class EventoService {
             Objects.requireNonNull(file.getOriginalFilename())));
 
     evento.setImagemURL(urlImagem);
-    eventoRepository.save(evento);
 
+    Despesa despesa = new Despesa(
+        "Taxa fixa de 10% sobre vendas IngressoJá!",
+        0.0);
+    despesa.setEvento(evento);
+    evento.adicionarDespesa(despesa);
+
+    eventoRepository.save(evento);
     return evento;
   }
 
