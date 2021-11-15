@@ -99,7 +99,7 @@ public class EventoService {
     evento.setImagemURL(urlImagem);
 
     Despesa despesa = new Despesa(
-        "Taxa fixa de 10% sobre vendas IngressoJá!",
+        "Taxa de serviços IngressoJá!",
         0.0);
     despesa.setEvento(evento);
     evento.adicionarDespesa(despesa);
