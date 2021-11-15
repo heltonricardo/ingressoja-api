@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class EventoDTORespAnalise {
 
+  private final Long id;
   private final String titulo;
   private final Boolean online;
   private final Integer totalIngressos;
@@ -35,6 +36,7 @@ public class EventoDTORespAnalise {
             .collect(Collectors.toList());
 
     return new EventoDTORespAnalise(
+        evento.getId(),
         evento.getTitulo(),
         evento.getOnline(),
         evento.getTotalIngressos(),
