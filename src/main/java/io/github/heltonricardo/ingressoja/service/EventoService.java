@@ -102,7 +102,7 @@ public class EventoService {
         "Taxa de serviços IngressoJá!",
         0.0);
     despesa.setEvento(evento);
-    evento.adicionarDespesa(despesa);
+    despesaService.salvar(despesa);
 
     eventoRepository.save(evento);
     return evento;

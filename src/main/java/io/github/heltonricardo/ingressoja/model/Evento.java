@@ -6,6 +6,7 @@ import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -130,6 +131,7 @@ public class Evento {
     this.tiposDeIngresso = tiposDeIngresso;
     this.idProdutora = idProdutora;
     this.idCategoria = idCategoria;
+    this.despesas = new ArrayList<>();
   }
 
   /************************ POSSUI INGRESSOS VENDIDOS? ************************/
