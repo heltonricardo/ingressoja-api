@@ -116,6 +116,11 @@ public class PedidoService {
     pedido.getEvento().aumentarVendasCanceladasSolic();
     pedido.setStatusPedido(StatusPedido.CANC_ARREPEND);
 
+    Despesa despesaFixa = pedido.getEvento().getDespesas().get(0);
+    Double taxa = pedido.calcularTaxaPlataforma();
+    despesaFixa.subtrairDaDespesa(taxa);
+    despesaService.salvar(despesaFixa);
+
     pedidoRepository.save(pedido);
     eventoService.salvarAtualizacao(pedido.getEvento());
     Pagamento.realizarCancelamento(pedido);

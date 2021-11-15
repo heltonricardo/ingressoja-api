@@ -35,4 +35,10 @@ public class Despesa {
   public void somarNaDespesa(Double valor) {
     this.setValor(this.getValor() + valor);
   }
+
+  /*************************** SUBTRAIR DA DESPESA ****************************/
+
+  public void subtrairDaDespesa(Double valor) {
+    this.setValor(Math.max(this.getValor() - valor, 0.0));
+  }
 }
