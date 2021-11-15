@@ -3,6 +3,7 @@ package io.github.heltonricardo.ingressoja.model;
 import io.github.heltonricardo.ingressoja.utils.Pagamento;
 import io.github.heltonricardo.ingressoja.utils.StatusPedido;
 import io.github.heltonricardo.ingressoja.utils.StatusPgto;
+import io.github.heltonricardo.ingressoja.utils.Variados;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -116,6 +117,7 @@ public class Pedido {
   /************************* CALCULAR TAXA PLATAFORMA *************************/
 
   public Double calcularTaxaPlataforma() {
-    return this.calcularTotal() * 0.1;
+
+    return Variados.round2(this.calcularTotal() * 0.1);
   }
 }
