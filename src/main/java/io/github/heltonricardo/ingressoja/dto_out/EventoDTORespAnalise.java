@@ -12,13 +12,17 @@ import java.util.stream.Collectors;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class EventoDTORespAnalise {
 
+  private final Long id;
   private final String titulo;
   private final Boolean online;
   private final Integer totalIngressos;
   private final Integer qntIngressosVendidos;
   private final Double porcentagemIngressosVendidos;
   private final Double receitaLiquida;
+  private final Double receitaBruta;
+  private final Double totalDespesas;
   private final List<TipoDeIngressoDTORespAnalise> tiposDeIngresso;
+  private final List<DespesaDTORespAnalise> despesas;
 
   public static EventoDTORespAnalise paraDTO(Evento evento) {
 
@@ -27,14 +31,21 @@ public class EventoDTORespAnalise {
             .map(TipoDeIngressoDTORespAnalise::paraDTO)
             .collect(Collectors.toList());
 
+    List<DespesaDTORespAnalise> despesas =
+        evento.getDespesas().stream().map(DespesaDTORespAnalise::paraDTO)
+            .collect(Collectors.toList());
+
     return new EventoDTORespAnalise(
+        evento.getId(),
         evento.getTitulo(),
         evento.getOnline(),
         evento.getTotalIngressos(),
         evento.calcularQntIngressosVendidos(),
         evento.calcularPorcentagemIngressosVendidos(),
         evento.calcularReceitaLiquida(),
-        tiposDeIngresso
+        evento.calcularReceitaBruta(),
+        evento.calcularTotalDespesas(),
+        tiposDeIngresso, despesas
     );
   }
 }

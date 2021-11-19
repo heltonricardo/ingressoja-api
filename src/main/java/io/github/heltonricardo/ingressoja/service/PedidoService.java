@@ -21,16 +21,19 @@ public class PedidoService {
   private final EventoService eventoService;
   private final CompradorService compradorService;
   private final TipoDeIngressoService tipoDeIngressoService;
+  private final DespesaService despesaService;
 
   @Autowired
   public PedidoService(PedidoRepository pedidoRepository,
                        EventoService eventoService,
                        CompradorService compradorService,
-                       TipoDeIngressoService tipoDeIngressoService) {
+                       TipoDeIngressoService tipoDeIngressoService,
+                       DespesaService despesaService) {
     this.pedidoRepository = pedidoRepository;
     this.eventoService = eventoService;
     this.compradorService = compradorService;
     this.tipoDeIngressoService = tipoDeIngressoService;
+    this.despesaService = despesaService;
   }
 
   /***************************** ATUALIZAR STATUS *****************************/
@@ -113,6 +116,11 @@ public class PedidoService {
     pedido.getEvento().aumentarVendasCanceladasSolic();
     pedido.setStatusPedido(StatusPedido.CANC_ARREPEND);
 
+    Despesa despesaFixa = pedido.getEvento().getDespesas().get(0);
+    Double taxa = pedido.calcularTaxaPlataforma();
+    despesaFixa.subtrairDaDespesa(taxa);
+    despesaService.salvar(despesaFixa);
+
     pedidoRepository.save(pedido);
     eventoService.salvarAtualizacao(pedido.getEvento());
     Pagamento.realizarCancelamento(pedido);
@@ -179,6 +187,11 @@ public class PedidoService {
 
       pedido.setUrlPagamento(urlPagamento);
       pedidoRepository.save(pedido);
+
+      Despesa despesaFixa = pedido.getEvento().getDespesas().get(0);
+      Double taxa = pedido.calcularTaxaPlataforma();
+      despesaFixa.somarNaDespesa(taxa);
+      despesaService.salvar(despesaFixa);
     }
 
     pedido.getEvento().aumentarTotalVendas();

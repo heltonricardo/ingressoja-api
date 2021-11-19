@@ -3,6 +3,7 @@ package io.github.heltonricardo.ingressoja.model;
 import io.github.heltonricardo.ingressoja.utils.Pagamento;
 import io.github.heltonricardo.ingressoja.utils.StatusPedido;
 import io.github.heltonricardo.ingressoja.utils.StatusPgto;
+import io.github.heltonricardo.ingressoja.utils.Variados;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -59,43 +60,64 @@ public class Pedido {
     this.idEvento = idEvento;
   }
 
+  /****************************** CALCULAR TOTAL ******************************/
+
   public Double calcularTotal() {
     return this.getItensPedido().stream()
         .reduce(0.0, (s, item) ->
             s + item.getTipoDeIngresso().getValor(), Double::sum);
   }
 
+  /**************************** DEVOLVER INGRESSOS ****************************/
+
   public void devolverIngressos() {
     this.getItensPedido()
         .forEach(i -> i.getTipoDeIngresso().incrementarQntDisp());
   }
 
+  /*********************** IS STATUS PEDIDO PROCESSADO ************************/
+
   public boolean isStatusPedidoProcessado() {
     return this.getStatusPedido().equals(StatusPedido.PROCESSADO);
   }
+
+  /************************* IS STATUS PGTO APROVADO **************************/
   public boolean isStatusPgtoAprovado() {
     return this.getStatusPagamento().equals(StatusPgto.APROVADO);
   }
+
+  /************************* IS STATUS PGTO PENDENTE **************************/
 
   public boolean isStatusPgtoPendente() {
     return this.getStatusPagamento().equals(StatusPgto.PENDENTE);
   }
 
+  /************************* IS STATUS PGTO RECUSADO **************************/
+
   public boolean isStatusPgtoRecusado() {
     return this.getStatusPagamento().equals(StatusPgto.RECUSADO);
   }
 
-  public boolean isPedidoGratis() {
+  /***************************** IS PEDIDO GRATIS *****************************/
 
+  public boolean isPedidoGratis() {
     return this.calcularTotal().equals(0.0);
   }
 
-  public void atualizarStatusPagamento() {
+  /************************ ATUALIZAR STATUS PAGAMENTO ************************/
 
+  public void atualizarStatusPagamento() {
     String res = Pagamento.consultarPagamento(this);
 
     if (res != null) {
       this.statusPagamento = res;
     }
+  }
+
+  /************************* CALCULAR TAXA PLATAFORMA *************************/
+
+  public Double calcularTaxaPlataforma() {
+
+    return Variados.round2(this.calcularTotal() * 0.1);
   }
 }

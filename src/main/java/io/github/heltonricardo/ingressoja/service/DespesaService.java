@@ -33,6 +33,11 @@ public class DespesaService {
     return despesaRepository.save(despesa);
   }
 
+  public Despesa salvar(Despesa despesa) {
+
+    return despesaRepository.save(despesa);
+  }
+
   /******************************** ATUALIZAR *********************************/
 
   public Despesa atualizar(Despesa despesa, Long id) {
