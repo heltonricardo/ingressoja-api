@@ -194,7 +194,7 @@ public class Evento {
 
     return this.getTiposDeIngresso()
         .stream()
-        .reduce(.0, (acc, curr) -> acc + curr.calcularReceitaGerada(),
+        .reduce(0.0, (acc, curr) -> acc + curr.calcularReceitaGerada(),
             Double::sum);
   }
 
