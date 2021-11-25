@@ -2,15 +2,19 @@ package io.github.heltonricardo.ingressoja.controller;
 
 import io.github.heltonricardo.ingressoja.dto_in.PedidoDTO;
 import io.github.heltonricardo.ingressoja.dto_out.PedidoDTOResp;
+import io.github.heltonricardo.ingressoja.dto_out.PedidoDTORespAnalise;
+import io.github.heltonricardo.ingressoja.dto_out.PedidoDTORespPagina;
 import io.github.heltonricardo.ingressoja.model.Pedido;
 import io.github.heltonricardo.ingressoja.service.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("pedido")
@@ -25,13 +29,13 @@ public class PedidoController {
 
   /******************************* OBTER TODOS ********************************/
 
-  @GetMapping
-  public ResponseEntity<List<PedidoDTOResp>> obterTodos() {
+  @GetMapping("/pagina/{numeroPagina}")
+  public ResponseEntity<PedidoDTORespPagina> obterTodosPorPagina(
+      @PathVariable Integer numeroPagina) {
 
-    List<PedidoDTOResp> resp = new ArrayList<>();
+    Page<Pedido> pagina = pedidoService.obterTodos(numeroPagina);
 
-    pedidoService.obterTodos()
-        .forEach(p -> resp.add(PedidoDTOResp.paraDTO(p)));
+    PedidoDTORespPagina resp = PedidoDTORespPagina.paraDTO(pagina);
 
     return new ResponseEntity<>(resp, HttpStatus.OK);
   }
