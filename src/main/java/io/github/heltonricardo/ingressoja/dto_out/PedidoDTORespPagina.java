@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 public class PedidoDTORespPagina {
 
   private final Integer ultimaPagina;
-  private final Long totalElementos;
+  private final Long totalPedidos;
   private final List<PedidoDTORespAnalise> pedidos;
 
   public static PedidoDTORespPagina paraDTO(Page<Pedido> pagina) {
