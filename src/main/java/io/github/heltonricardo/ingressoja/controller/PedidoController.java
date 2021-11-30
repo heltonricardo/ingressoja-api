@@ -2,19 +2,24 @@ package io.github.heltonricardo.ingressoja.controller;
 
 import io.github.heltonricardo.ingressoja.dto_in.PedidoDTO;
 import io.github.heltonricardo.ingressoja.dto_out.PedidoDTOResp;
-import io.github.heltonricardo.ingressoja.dto_out.PedidoDTORespAnalise;
+import io.github.heltonricardo.ingressoja.dto_out.PedidoDTORespFiltro;
 import io.github.heltonricardo.ingressoja.dto_out.PedidoDTORespPagina;
 import io.github.heltonricardo.ingressoja.model.Pedido;
 import io.github.heltonricardo.ingressoja.service.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("pedido")
@@ -36,6 +41,29 @@ public class PedidoController {
     Page<Pedido> pagina = pedidoService.obterTodos(numeroPagina);
 
     PedidoDTORespPagina resp = PedidoDTORespPagina.paraDTO(pagina);
+
+    return new ResponseEntity<>(resp, HttpStatus.OK);
+  }
+
+  /**************************** OBTER ENTRE DATAS *****************************/
+
+  @GetMapping("/filtrar/{inicio}/{termino}")
+  public ResponseEntity<PedidoDTORespFiltro> obterEntreDatas(
+      @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") String inicio,
+      @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") String termino) {
+
+    LocalDate inicioL = LocalDate.parse(inicio);
+    LocalDate terminoL = LocalDate.parse(termino).plusDays(1);
+
+    Date inicioD = Date.from(inicioL.atStartOfDay()
+            .atZone(ZoneId.systemDefault()).toInstant());
+
+    Date terminoD = Date.from(terminoL.atStartOfDay()
+            .atZone(ZoneId.systemDefault()).toInstant());
+
+    Iterable<Pedido> pedidos = pedidoService.obterEntreDatas(inicioD, terminoD);
+
+    PedidoDTORespFiltro resp = PedidoDTORespFiltro.paraDTO(pedidos);
 
     return new ResponseEntity<>(resp, HttpStatus.OK);
   }

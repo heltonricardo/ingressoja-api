@@ -84,6 +84,15 @@ public class PedidoService {
     return pedidoRepository.findAllByStatusPedido("Processado", pagina);
   }
 
+  /**************************** OBTER ENTRE DATAS *****************************/
+
+  public Iterable<Pedido> obterEntreDatas(Date inicio, Date termino) {
+
+    pedidoRepository.findAll().forEach(this::atualizarStatus);
+
+    return pedidoRepository.findByDataHoraBetween(inicio, termino);
+  }
+
   /******************************* OBTER POR ID *******************************/
 
   public Optional<Pedido> obterPorId(Long id) {
