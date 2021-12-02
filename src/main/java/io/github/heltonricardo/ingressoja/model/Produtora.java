@@ -56,4 +56,20 @@ public class Produtora {
 
     return !this.getEventos().stream().allMatch(Evento::jaAcabou);
   }
+
+  /************************** CALCULAR TOTAL VENDIDO **************************/
+
+  public Double calcularTotalVendido() {
+
+    return this.eventos.stream().flatMap(e -> e.getPedidos().stream())
+        .map(Pedido::calcularTotal).reduce(0.0, Double::sum);
+  }
+
+  /*************************** CALCULAR TOTAL TAXA ****************************/
+
+  public Double calcularTotalTaxa() {
+
+    return this.eventos.stream().flatMap(e -> e.getPedidos().stream())
+        .map(Pedido::calcularTaxaPlataforma).reduce(0.0, Double::sum);
+  }
 }

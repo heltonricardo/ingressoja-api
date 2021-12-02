@@ -7,6 +7,10 @@ import io.github.heltonricardo.ingressoja.utils.StatusPedido;
 import io.github.heltonricardo.ingressoja.utils.StatusPgto;
 import io.github.heltonricardo.ingressoja.utils.UsarFiltro;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
@@ -70,11 +74,23 @@ public class PedidoService {
 
   /******************************* OBTER TODOS ********************************/
 
-  public Iterable<Pedido> obterTodos() {
+  public Page<Pedido> obterTodos(Integer numeroPagina) {
 
-    Iterable<Pedido> resp = pedidoRepository.findAll();
-    resp.forEach(this::atualizarStatus);
-    return resp;
+    pedidoRepository.findAll().forEach(this::atualizarStatus);
+
+    Pageable pagina =
+        PageRequest.of(Math.max(0, numeroPagina), 10, Sort.by("id"));
+
+    return pedidoRepository.findAllByStatusPedido("Processado", pagina);
+  }
+
+  /**************************** OBTER ENTRE DATAS *****************************/
+
+  public Iterable<Pedido> obterEntreDatas(Date inicio, Date termino) {
+
+    pedidoRepository.findAll().forEach(this::atualizarStatus);
+
+    return pedidoRepository.findByDataHoraBetween(inicio, termino);
   }
 
   /******************************* OBTER POR ID *******************************/

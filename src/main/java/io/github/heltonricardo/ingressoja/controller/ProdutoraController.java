@@ -4,6 +4,7 @@ import io.github.heltonricardo.ingressoja.dto_in.ProdutoraDTO;
 import io.github.heltonricardo.ingressoja.dto_out.EventoDTORespProdutora;
 import io.github.heltonricardo.ingressoja.dto_out.ProdutoraDTOResp;
 import io.github.heltonricardo.ingressoja.dto_out.ProdutoraDTORespAnalise;
+import io.github.heltonricardo.ingressoja.dto_out.ProdutoraDTORespAnaliseAdmin;
 import io.github.heltonricardo.ingressoja.model.Evento;
 import io.github.heltonricardo.ingressoja.model.Produtora;
 import io.github.heltonricardo.ingressoja.service.ProdutoraService;
@@ -70,6 +71,20 @@ public class ProdutoraController {
       return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
     ProdutoraDTORespAnalise resp = ProdutoraDTORespAnalise.paraDTO(pesq.get());
+
+    return new ResponseEntity<>(resp, HttpStatus.OK);
+  }
+
+  /************************ ANÁLISE PARA ADMINISTRADOR ************************/
+
+  @GetMapping("/analise-admin")
+  public ResponseEntity<List<ProdutoraDTORespAnaliseAdmin>> analiseAdmin() {
+
+    List<ProdutoraDTORespAnaliseAdmin> resp = new ArrayList<>();
+
+    Iterable<Produtora> produtoras = produtoraService.obterTodas();
+
+    produtoras.forEach(p -> resp.add(ProdutoraDTORespAnaliseAdmin.paraDTO(p)));
 
     return new ResponseEntity<>(resp, HttpStatus.OK);
   }
