@@ -1,6 +1,7 @@
 package io.github.heltonricardo.ingressoja.service;
 
 import io.github.heltonricardo.ingressoja.model.Usuario;
+import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,13 @@ public class AutenticacaoService {
     this.usuarioService = usuarioService;
   }
 
+  private boolean senhaCorreta(String senha, Usuario usuario) {
+
+    StrongPasswordEncryptor cript = new StrongPasswordEncryptor();
+
+    return cript.checkPassword(senha, usuario.getSenha());
+  }
+
   public Map<String, Long> logar(String email, String senha) {
 
     Map<String, Long> resposta = new HashMap<>();
@@ -28,7 +36,7 @@ public class AutenticacaoService {
 
       Usuario usuario = usuarioPesq.get();
 
-      if (usuario.getSenha().equals(senha)) {
+      if (senhaCorreta(senha, usuario)) {
 
         if (usuario.getComprador() != null
             && usuario.getComprador().getAtivo()) {
