@@ -3,6 +3,7 @@ package io.github.heltonricardo.ingressoja.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.jasypt.util.password.StrongPasswordEncryptor;
 
 import javax.persistence.*;
 
@@ -32,7 +33,9 @@ public class Usuario {
   private Produtora produtora;
 
   public Usuario(String email, String senha) {
+    StrongPasswordEncryptor encriptador = new StrongPasswordEncryptor();
+
     this.email = email;
-    this.senha = senha;
+    this.senha = encriptador.encryptPassword(senha);
   }
 }
