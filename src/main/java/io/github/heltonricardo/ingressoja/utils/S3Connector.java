@@ -18,8 +18,8 @@ public class S3Connector {
       "https://ingresso-ja.s3.us-east-2.amazonaws.com/";
 
   private static final AWSCredentials credentials = new BasicAWSCredentials(
-      "AKIAQ3HRRU3JBMMEWI4I",
-      "mnmV0aKMxHY883bzeV6FH4GsEDFsCan8trI1wWDt"
+      "AWS_ACCESS_KEY_ID",
+      "AWS_SECRET_ACCESS_KEY"
   );
 
   private static final AmazonS3 s3client = AmazonS3ClientBuilder
